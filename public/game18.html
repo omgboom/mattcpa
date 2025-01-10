@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SaaS Simulator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 5px;
+      font-weight: normal;
+      color: #666;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .left-column {
+      width: 220px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+    }
+
+    .result-block {
+      margin-bottom: 15px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .result-item {
+      margin: 4px 0;
+    }
+
+    .middle-column {
+      flex: 1;
+      text-align: center;
+      box-sizing: border-box;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding-left: 30px;
+      padding-right: 30px;
+      margin: 0 20px;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 20px auto;
+      position: relative;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .right-column {
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      margin-bottom: 20px;
+    }
+
+    .buttons button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    #goButton {
+      background-color: #2196F3;
+    }
+    #goButton:hover {
+      background-color: #1976D2;
+    }
+
+    #resetButton {
+      background-color: #f44336;
+    }
+    #resetButton:hover {
+      background-color: #e53935;
+    }
+
+    .category-buttons button {
+      width: 45px;
+      margin: 2px;
+      padding: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      background-color: #2196F3;
+      transition: background-color 0.3s ease;
+    }
+    .category-buttons button:hover {
+      background-color: #1976D2;
+    }
+
+    .coin-area {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .coin-container {
+      position: relative;
+      width: 80px;
+      height: 40px;
+      margin: 5px 0;
+    }
+
+    .coin {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: gold;
+      border: 1px solid #ccc;
+      position: absolute;
+    }
+
+    .coin:nth-child(1)  { top: 0;  left: 0;  }
+    .coin:nth-child(2)  { top: 0;  left: 10px;}
+    .coin:nth-child(3)  { top: 0;  left: 20px;}
+    .coin:nth-child(4)  { top: 0;  left: 30px;}
+    .coin:nth-child(5)  { top: 0;  left: 40px;}
+    .coin:nth-child(6)  { top: 20px; left: 0;  }
+    .coin:nth-child(7)  { top: 20px; left: 10px;}
+    .coin:nth-child(8)  { top: 20px; left: 20px;}
+    .coin:nth-child(9)  { top: 20px; left: 30px;}
+    .coin:nth-child(10) { top: 20px; left: 40px;}
+
+    .category-row {
+      width: 100%;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .category-row label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .category-buttons {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .left-column, .middle-column, .right-column {
+        width: 100%;
+        margin-bottom: 20px;
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+      .middle-column {
+        border: none;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>SaaS Simulator</h1>
+  <center><p id="descriptionLabel">This simulator was built in collaboration with AI to demonstrate how AI can be used to enhance skillsets and create beyond limits.</p></center>
+  <h2 id="roundLabel">Round 1 of 2</h2>
+
+  <div class="container">
+    <!-- LEFT COLUMN: Instructions/Results -->
+    <div class="left-column">
+      <div class="result-block">
+        <h3 id="resultsHeader">How the Game Works</h3>
+        <p id="explanation">
+            Simulate your very own SaaS company with the SaaS Simulator!<br><br>
+            Across two rounds, you will allocate 9 investment tokens into acquisition, retention, and expansion. 
+            Press simulate and watch the ARR accumulate.<br><br>
+            <strong>Can your SaaS business reach for the stars and secure that sweet Series A investment?</strong>  
+        </p>
+      </div>
+
+      <div id="interimResults" class="result-block" style="display: none;">
+        <h4>Interim Results</h4>
+        <div class="result-item">
+          <strong>Cumulative ARR:</strong> <span id="interimCumulativeArr">-</span>
+        </div>
+      </div>
+
+      <div id="finalResults" class="result-block" style="display: none;">
+        <h4>Final Results</h4>
+        <div class="result-item">
+          <strong>Cumulative ARR:</strong> <span id="finalCumulativeArr">-</span><br>
+          <strong>Final Score:</strong> <span id="finalScore">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE COLUMN: CHARTS -->
+    <div class="middle-column">
+      <div class="chart-container" style="height: 300px;">
+        <canvas id="arrChart1"></canvas>
+      </div>
+      <div class="chart-container" style="height: 300px;">
+        <canvas id="arrChart2"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Buttons & Tokens -->
+    <div class="right-column">
+      <div class="buttons">
+        <button id="goButton">Simulate</button>
+        <button id="resetButton">Reset</button>
+      </div>
+
+      <div class="coin-area">
+        <label><strong>Total Tokens:</strong></label>
+        <div id="totalCoinContainer" class="coin-container"></div>
+      </div>
+
+      <div class="category-row">
+        <label>Acquisition:</label>
+        <div class="coin-area">
+          <div id="acquisitionCoins" class="coin-container"></div>
+        </div>
+        <div class="category-buttons">
+          <button id="acqAdd" class="plus">+</button>
+          <button id="acqRemove" class="minus">-</button>
+        </div>
+      </div>
+
+      <div class="category-row">
+        <label>Retention:</label>
+        <div class="coin-area">
+          <div id="retentionCoins" class="coin-container"></div>
+        </div>
+        <div class="category-buttons">
+          <button id="retAdd" class="plus">+</button>
+          <button id="retRemove" class="minus">-</button>
+        </div>
+      </div>
+
+      <div class="category-row">
+        <label>Expansion:</label>
+        <div class="coin-area">
+          <div id="expansionCoins" class="coin-container"></div>
+        </div>
+        <div class="category-buttons">
+          <button id="expAdd" class="plus">+</button>
+          <button id="expRemove" class="minus">-</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ------------------------------------------------
+    // CONFIGURATION & GLOBALS
+    // ------------------------------------------------
+    let round = 1;      // 1 or 2
+    let tokens = 5;     // Start Round 1 with 5 tokens
+    let allocations = { acquisition: 0, retention: 0, expansion: 0 };
+
+    let startClicks = 0;
+
+    // We track leftover ARR from Round 1:
+    let leftoverAcq  = 0;
+    let leftoverExp  = 0;
+    let leftoverChurnRate = 0;
+
+    // We'll track the total cumulative ARR across months
+    let cumulativeARR = 0;
+
+    // For each month, we store ARR for acquisition, churn, expansion, plus the running total
+    let monthlyAcq        = new Array(12).fill(0);
+    let monthlyChurn      = new Array(12).fill(0);
+    let monthlyExp        = new Array(12).fill(0);
+    let monthlyCumulative = new Array(12).fill(0);
+
+    // DECAYS
+    const ACQUISITION_DECAY = 0.90; 
+    const CHURN_DECAY       = 0.95;
+    const EXPANSION_DECAY   = 0.80; 
+    const TOKEN_DECAY       = 0.9; 
+
+    // BASE CONSTANTS (used only for Round 1's initial formula)
+    const ACQUISITION_ORGANIC_ARR = 1000000; // 1M
+    const EXPANSION_ORGANIC_ARR   = 0.05;  
+    const CHURN_BASE              = 0.10;    // 10% churn
+
+    // Per-token multipliers
+    const ACQUISITION_BASE        = 400000;  // 400k per token
+    const EXPANSION_BASE          = 0.03;    // +3% of existing ARR per token
+    const CHURN_IMPROVEMENT_BASE  = 0.02;    // reduce churn 2% per token
+
+    // HTML references
+    const goButton              = document.getElementById("goButton");
+    const resetButton           = document.getElementById("resetButton");
+    const totalCoinContainer    = document.getElementById("totalCoinContainer");
+
+    const acquisitionCoins      = document.getElementById("acquisitionCoins");
+    const retentionCoins        = document.getElementById("retentionCoins");
+    const expansionCoins        = document.getElementById("expansionCoins");
+
+    const acqAdd                = document.getElementById("acqAdd");
+    const acqRemove             = document.getElementById("acqRemove");
+    const retAdd                = document.getElementById("retAdd");
+    const retRemove             = document.getElementById("retRemove");
+    const expAdd                = document.getElementById("expAdd");
+    const expRemove             = document.getElementById("expRemove");
+
+    const roundLabel            = document.getElementById("roundLabel");
+    const explanation           = document.getElementById("explanation");
+    const interimResults        = document.getElementById("interimResults");
+    const finalResults          = document.getElementById("finalResults");
+    const interimCumulativeArr  = document.getElementById("interimCumulativeArr");
+    const finalCumulativeArr    = document.getElementById("finalCumulativeArr");
+    const finalScore            = document.getElementById("finalScore");
+
+    // ------------------------------------------------
+    // COIN RENDERING
+    // ------------------------------------------------
+    function createCoin() {
+      const coin = document.createElement("div");
+      coin.classList.add("coin");
+      return coin;
+    }
+
+    function drawCoins(container, count) {
+      container.innerHTML = "";
+      for (let i = 0; i < count; i++) {
+        container.appendChild(createCoin());
+      }
+    }
+
+    function refreshCoins() {
+      drawCoins(totalCoinContainer, tokens);
+      drawCoins(acquisitionCoins, allocations.acquisition);
+      drawCoins(retentionCoins, allocations.retention);
+      drawCoins(expansionCoins, allocations.expansion);
+    }
+
+    // ------------------------------------------------
+    // CHARTS
+    // ------------------------------------------------
+    const arrChart1 = new Chart(document.getElementById("arrChart1"), {
+      type: "line",
+      data: {
+        labels: [1,2,3,4,5,6,7,8,9,10,11,12],
+        datasets: [
+          {
+            label: "Acquisition ARR",
+            data: [],
+            borderColor: "blue",
+            fill: false
+          },
+          {
+            label: "Churn ARR",
+            data: [],
+            borderColor: "red",
+            fill: false
+          },
+          {
+            label: "Expansion ARR",
+            data: [],
+            borderColor: "orange",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              usePointStyle: false,
+              boxWidth: 30,
+              boxHeight: 2
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: function(value) {
+                const kValue = (value / 1000).toFixed(0);
+                return '$' + kValue + 'K';
+              }
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
+        }
+      }
+    });
+
+    const arrChart2 = new Chart(document.getElementById("arrChart2"), {
+      type: "line",
+      data: {
+        labels: [1,2,3,4,5,6,7,8,9,10,11,12],
+        datasets: [
+          {
+            label: "Cumulative ARR",
+            data: [],
+            borderColor: "purple",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              usePointStyle: false,
+              boxWidth: 30,
+              boxHeight: 2
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: function(value) {
+                return '$' + (value / 1e6).toFixed(1) + 'M';
+              }
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
+        }
+      }
+    });
+
+    // ------------------------------------------------
+    // INIT
+    // ------------------------------------------------
+    refreshCoins();
+
+    // ------------------------------------------------
+    // TOKEN ALLOCATION LISTENERS
+    // ------------------------------------------------
+    acqAdd.addEventListener("click", () => {
+      if (tokens > 0) {
+        allocations.acquisition++;
+        tokens--;
+        refreshCoins();
+      }
+    });
+    acqRemove.addEventListener("click", () => {
+      if (allocations.acquisition > 0) {
+        allocations.acquisition--;
+        tokens++;
+        refreshCoins();
+      }
+    });
+
+    retAdd.addEventListener("click", () => {
+      if (tokens > 0) {
+        allocations.retention++;
+        tokens--;
+        refreshCoins();
+      }
+    });
+    retRemove.addEventListener("click", () => {
+      if (allocations.retention > 0) {
+        allocations.retention--;
+        tokens++;
+        refreshCoins();
+      }
+    });
+
+    expAdd.addEventListener("click", () => {
+      if (tokens > 0) {
+        allocations.expansion++;
+        tokens--;
+        refreshCoins();
+      }
+    });
+    expRemove.addEventListener("click", () => {
+      if (allocations.expansion > 0) {
+        allocations.expansion--;
+        tokens++;
+        refreshCoins();
+      }
+    });
+
+    // ------------------------------------------------
+    // DISABLE / ENABLE BUTTONS
+    // ------------------------------------------------
+    function disableAllButtons() {
+      goButton.disabled = true;
+      resetButton.disabled = true;
+      acqAdd.disabled = true;
+      acqRemove.disabled = true;
+      retAdd.disabled = true;
+      retRemove.disabled = true;
+      expAdd.disabled = true;
+      expRemove.disabled = true;
+    }
+
+    function enableAllButtons() {
+      goButton.disabled = false;
+      resetButton.disabled = false;
+      acqAdd.disabled = false;
+      acqRemove.disabled = false;
+      retAdd.disabled = false;
+      retRemove.disabled = false;
+      expAdd.disabled = false;
+      expRemove.disabled = false;
+    }
+
+    function disableAllButtonsExceptReset() {
+      goButton.disabled = true;
+      acqAdd.disabled = true;
+      acqRemove.disabled = true;
+      retAdd.disabled = true;
+      retRemove.disabled = true;
+      expAdd.disabled = true;
+      expRemove.disabled = true;
+      // Keep only reset enabled:
+      resetButton.disabled = false;
+    }
+
+    // ------------------------------------------------
+    // RESET
+    // ------------------------------------------------
+    resetButton.addEventListener("click", resetGame);
+    function resetGame() {
+      round = 1;
+      tokens = 5;
+      allocations = { acquisition: 0, retention: 0, expansion: 0 };
+
+      leftoverAcq = 0;
+      leftoverExp = 0;
+      leftoverChurnRate = 0;
+
+      cumulativeARR = 0;
+
+      monthlyAcq.fill(0);
+      monthlyChurn.fill(0);
+      monthlyExp.fill(0);
+      monthlyCumulative.fill(0);
+
+      arrChart1.data.datasets.forEach(ds => ds.data = []);
+      arrChart1.update();
+      arrChart2.data.datasets[0].data = [];
+      arrChart2.update();
+
+      explanation.style.display = "block";
+      interimResults.style.display = "none";
+      finalResults.style.display = "none";
+      interimCumulativeArr.textContent = "-";
+      finalCumulativeArr.textContent = "-";
+      finalScore.textContent = "-";
+
+      roundLabel.textContent = "Round 1 of 2";
+      startClicks = 0;
+
+      refreshCoins();
+      enableAllButtons();
+    }
+
+    // ------------------------------------------------
+    // BUTTON HANDLER
+    // ------------------------------------------------
+    goButton.addEventListener("click", () => {
+      startClicks++;
+      if (startClicks === 1) {
+        // User is kicking off Round 1
+        explanation.style.display = "block";
+        interimResults.style.display = "none";
+        finalResults.style.display = "none";
+        roundLabel.textContent = "Round 2 of 2";
+        simulateRound1(); // progressive from month 0..5
+      }
+      else if (startClicks === 2) {
+        // User is kicking off Round 2
+        roundLabel.textContent = "Play Again?";
+        simulateRound2(); // progressive from month 6..11
+      }
+      else {
+        // Start over
+        resetGame();
+        startClicks = 1;
+        roundLabel.textContent = "Round 2 of 2";
+        simulateRound1();
+      }
+    });
+
+    // ------------------------------------------------
+    // ROUND 1 (Months 0..5)
+    // ------------------------------------------------
+    function simulateRound1() {
+      // Disable all buttons while animating
+      disableAllButtons();
+
+      // We'll calculate the base monthlyAcquisition/Expansion from Round 1 tokens
+      let monthlyAcquisition = ACQUISITION_ORGANIC_ARR
+        + allocations.acquisition * ACQUISITION_BASE
+          * Math.pow(ACQUISITION_DECAY, Math.max(allocations.acquisition - 1, 0));
+
+      let monthlyExpansion = EXPANSION_ORGANIC_ARR
+        + allocations.expansion * EXPANSION_BASE
+          * Math.pow(EXPANSION_DECAY, Math.max(allocations.expansion - 1, 0));
+
+      let monthlyRetention = CHURN_BASE
+        - allocations.retention * CHURN_IMPROVEMENT_BASE
+          * Math.pow(CHURN_DECAY, Math.max(allocations.retention - 1, 0));
+      if (monthlyRetention < 0) monthlyRetention = 0;
+
+      // Animate months 0..5 progressively
+      progressiveRound(0, 5, monthlyAcquisition, monthlyExpansion, monthlyRetention, () => {
+        // Once done, store leftover for Round 2
+        leftoverAcq       = monthlyAcq[5]; 
+        leftoverExp       = monthlyExp[5];
+        leftoverChurnRate = monthlyRetention;
+
+        // show interim results
+        interimResults.style.display = "block";
+        interimCumulativeArr.textContent = "$" + Math.round(cumulativeARR).toLocaleString();
+
+        // Move to Round 2
+        round = 2;
+        tokens += 4; // Add 4 tokens for Round 2
+        refreshCoins();
+
+        // Re-enable buttons so user can adjust for Round 2
+        enableAllButtons();
+      });
+    }
+
+    // ------------------------------------------------
+    // ROUND 2 (Months 6..11)
+    // ------------------------------------------------
+    function simulateRound2() {
+      // Disable all buttons while animating
+      disableAllButtons();
+
+      // Same formula logic, continuing for Round 2
+      let monthlyAcquisition = ACQUISITION_ORGANIC_ARR
+        + allocations.acquisition * ACQUISITION_BASE
+          * Math.pow(ACQUISITION_DECAY, Math.max(allocations.acquisition - 1, 0));
+
+      let monthlyExpansion = EXPANSION_ORGANIC_ARR
+        + allocations.expansion * EXPANSION_BASE
+          * Math.pow(EXPANSION_DECAY, Math.max(allocations.expansion - 1, 0));
+
+      let monthlyRetention = CHURN_BASE
+        - allocations.retention * CHURN_IMPROVEMENT_BASE
+          * Math.pow(CHURN_DECAY, Math.max(allocations.retention - 1, 0));
+      if (monthlyRetention < 0) monthlyRetention = 0;
+
+      progressiveRound(6, 11, monthlyAcquisition, monthlyExpansion, monthlyRetention, () => {
+        // Show final results
+        finalResults.style.display = "block";
+        finalCumulativeArr.textContent = "$" + Math.round(cumulativeARR).toLocaleString();
+        updateFinalScore();
+
+        // After final animation, disable everything except Reset
+        disableAllButtonsExceptReset();
+      });
+    }
+
+    function updateFinalScore() {
+      const cumulativeArrValue = cumulativeARR; 
+      const divisor = 19588130; // Adjust as needed
+      const score = Math.floor((cumulativeArrValue / divisor) * 100);
+      finalScore.textContent = `${score} / 100`;
+    }
+
+    // ------------------------------------------------
+    // PROGRESSIVE REVEAL for a given month range
+    // ------------------------------------------------
+    function progressiveRound(startMonth, endMonth, monthlyAcqVal, monthlyExpVal, monthlyRetVal, onComplete) {
+      if (startMonth > endMonth) {
+        if (onComplete) onComplete();
+        return;
+      }
+      simulateOneMonth(startMonth, monthlyAcqVal, monthlyExpVal, monthlyRetVal);
+
+      arrChart1.data.datasets[0].data.push(monthlyAcq[startMonth]);
+      arrChart1.data.datasets[1].data.push(monthlyChurn[startMonth]);
+      arrChart1.data.datasets[2].data.push(monthlyExp[startMonth]);
+      arrChart2.data.datasets[0].data.push(monthlyCumulative[startMonth]);
+
+      arrChart1.update();
+      arrChart2.update();
+
+      // Animate each month's reveal with 400ms delay
+      setTimeout(() => {
+        progressiveRound(startMonth + 1, endMonth, monthlyAcqVal, monthlyExpVal, monthlyRetVal, onComplete);
+      }, 400);
+    }
+
+    // ------------------------------------------------
+    // SIMULATE A SINGLE MONTH
+    // ------------------------------------------------
+    function simulateOneMonth(m, monthlyAcqVal, monthlyExpVal, monthlyRetVal) {
+      // For simplicity, treat offset as m (Round 1 is 0..5, Round 2 is 6..11).
+      // But we decouple it from month indexing since we use the same approach for both rounds.
+      let offset = (round === 1) ? m : m; 
+      if (offset < 0) offset = 0;
+
+      let acquired = monthlyAcqVal * Math.pow(TOKEN_DECAY, offset);
+      let prevMonthCumulative = (m === 0) ? 0 : monthlyCumulative[m - 1];
+
+      let expanded   = monthlyExpVal * prevMonthCumulative;
+      let churnedAmt = monthlyRetVal * prevMonthCumulative;
+
+      let currentMonthARR = acquired + expanded - churnedAmt;
+      cumulativeARR += currentMonthARR;
+
+      monthlyAcq[m]        = acquired;
+      monthlyExp[m]        = expanded;
+      monthlyChurn[m]      = -churnedAmt;
+      monthlyCumulative[m] = cumulativeARR;
+    }
+  </script>
+</body>
+</html>
