@@ -58,9 +58,9 @@ const companies: Record<CompanyKey, Company> = {
 };
 
 const companyLogos: Record<CompanyKey, string> = {
-  pinnacle: "/pinnacle-logo.png",
-  vidyard: "/vidyard-logo.png",
-  freshbooks: "/freshbooks-logo.png",
+  pinnacle: "pinnacle-logo.png",
+  vidyard: "vidyard-logo.png",
+  freshbooks: "freshbooks-logo.png",
 };
 
 const Website = () => {
