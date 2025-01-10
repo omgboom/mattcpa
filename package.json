@@ -2,7 +2,7 @@
   "name": "mattcpa",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mattcpa.ca",
+  "homepage": "https://omgboom.github.io/mattcpa",
   "dependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
