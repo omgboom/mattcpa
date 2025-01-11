@@ -205,10 +205,10 @@ const Website = () => {
             </div>
 
             {/* Company Content */}
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-left px-4 md:px-0">
               {companies[selectedCompany].content.map((point, index) => (
-                <li key={index} className="flex items-center text-gray-700">
-                  <span className="flex items-center justify-center w-5 h-5 bg-black text-white rounded-full flex-shrink-0 mr-6 ml-6">
+                <li key={index} className="flex items-start text-gray-700">
+                  <span className="flex items-center justify-center w-5 h-5 bg-black text-white rounded-full flex-shrink-0 mr-4">
                     ✓
                   </span>
                   <p className="leading-normal">{point}</p>
