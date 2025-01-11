@@ -1,12 +1,9 @@
 // Website.tsx
-// Changes Summary:
-// 1) "Hi, I'm Matt" => "Hi, my name is Matt."
-// 2) On small screens, hero section is centered (both text + layout).
-// 3) On small screens, "I SUPERCHARGE FP&A." is split into two lines 
-//    and uses smaller font. On desktop, it remains on one line with larger font.
-// 4) Replaced logos with new icon files (pinnacle-icon.png, vidyard-icon.png, freshbooks-icon.png)
-//    and ensured they appear side-by-side by default (including on mobile).
-//    Note: Adjusted image sizes to better fit side by side.
+// Summary of Changes:
+// 1) "I SUPERCHARGE FP&A." => Extra bold on mobile, remains one line on desktop.
+// 2) On small screens, we load "pinnacle-icon.png", "vidyard-icon.png", "freshbooks-icon.png" via <picture>.
+//    On md+ screens, we load the original "-logo" versions. 
+// 3) Icons are larger on mobile (h-16).
 
 import React, { useState } from 'react';
 import { Mail, Linkedin } from 'lucide-react';
@@ -23,7 +20,7 @@ type CompanyKey = 'pinnacle' | 'vidyard' | 'freshbooks';
 const companies: Record<CompanyKey, Company> = {
   pinnacle: {
     name: "Pinnacle",
-    content:[
+    content: [
       "Led the company’s budget process with a strong focus on cost control, contributing to a 15% reduction in operating expenses and raising operating profit by 50% compared to fiscal 2023.",
       "Collaborated with the Director of Payments to identify overcharges from a payment provider, successfully recovering $0.5M and achieving lower fees for additional savings of $1.5M.",
       "Led the FP&A team, with one direct report, in building automated processes for budgeting, forecasting, and reporting, providing strategic financial insights and partnering with business leaders to drive data-driven decision-making.",
@@ -60,8 +57,15 @@ const companies: Record<CompanyKey, Company> = {
   },
 };
 
-// Replaced with new icon file names
+// Original "-logo" versions for larger screens
 const companyLogos: Record<CompanyKey, string> = {
+  pinnacle: "pinnacle-logo.png",
+  vidyard: "vidyard-logo.png",
+  freshbooks: "freshbooks-logo.png",
+};
+
+// New "-icon" versions for smaller screens
+const companyIcons: Record<CompanyKey, string> = {
   pinnacle: "pinnacle-icon.png",
   vidyard: "vidyard-icon.png",
   freshbooks: "freshbooks-icon.png",
@@ -96,34 +100,35 @@ const Website = () => {
       </header>
 
       {/* Hero Section */}
-      {/* 
-        1) "Hi, my name is Matt."
-        2) On mobile, hero is centered, text included.
-        3) "I SUPERCHARGE FP&A." -> 
-           2 lines on small screens with smaller font. 
-           On desktop, it's a single line with larger font. 
-        4) Photo hidden below md, shown on md+ as before.
-      */}
-      <section className="
-        flex flex-col md:flex-row items-center justify-center 
-        md:h-[65vh] min-h-[65vh] 
-        bg-gradient-to-b from-blue-50 to-white 
-        pt-36 px-6
-        text-center md:text-left   /* text-center by default, left-aligned on md+ */
-      ">
+      <section
+        className="
+          flex flex-col md:flex-row items-center justify-center
+          md:h-[65vh] min-h-[65vh]
+          bg-gradient-to-b from-blue-50 to-white
+          pt-36 px-6
+          text-center md:text-left
+        "
+      >
         {/* Text Column */}
-        <div className="max-w-xl mx-auto"> 
-          {/* mx-auto ensures centering on mobile */}
+        <div className="max-w-xl mx-auto">
           <p className="text-xl md:text-2xl font-light mb-2">Hi, my name is Matt.</p>
-          {/* On mobile: separate lines, smaller font. On desktop: single line, bigger font. */}
-          <h2 className="
-            font-extrabold mb-4 leading-tight 
-            text-4xl md:text-7xl
-          ">
-            {/* Mobile two-line split */}
+
+          {/* 
+            On mobile: extra bold (font-black), 
+            smaller font size (text-4xl), split into two lines. 
+            On desktop: original style (font-extrabold, text-7xl).
+          */}
+          <h2
+            className="
+              mb-4 leading-tight
+              text-4xl font-black 
+              md:text-7xl md:font-extrabold
+            "
+          >
             <span className="block md:inline">I SUPERCHARGE</span>{' '}
             <span className="block md:inline">FP&A.</span>
           </h2>
+
           <p className="text-xl md:text-2xl font-light mb-4">
             I&#39;m an FP&A leader who can build a high-performance function with my unique blend of leadership,
             technical skills, collaboration, and AI*.
@@ -153,12 +158,10 @@ const Website = () => {
           <h3 className="text-3xl font-extrabold text-center mb-8">MY PROFESSIONAL JOURNEY</h3>
 
           {/* 
-            Tab Navigation 
-            4) We replaced logos with new icon files 
-               (vidyard-icon.png, freshbooks-icon.png, pinnacle-icon.png)
-            We want them side by side by side, even on mobile.
-            Using flex + flex-wrap + justify-center ensures they line up 
-            as many as possible in a row, then wrap if needed. 
+            Tab Navigation
+            - Using <picture> to load "icon" files on screens <= 768px
+              and "logo" files on larger screens.
+            - className ensures side-by-side with wrapping if needed.
           */}
           <div className="flex flex-row flex-wrap items-center justify-center gap-4 mb-6">
             {Object.keys(companies).map((company) => {
@@ -173,11 +176,17 @@ const Website = () => {
                     transition-all
                   `}
                 >
-                  <img
-                    src={companyLogos[company as CompanyKey]}
-                    alt={`${companies[company as CompanyKey].name} logo`}
-                    className="h-8 w-auto md:h-12 object-contain"
-                  />
+                  <picture>
+                    <source
+                      srcSet={companyIcons[company as CompanyKey]}
+                      media="(max-width: 768px)"
+                    />
+                    <img
+                      src={companyLogos[company as CompanyKey]}
+                      alt={`${companies[company as CompanyKey].name} logo`}
+                      className="h-16 w-auto object-contain"
+                    />
+                  </picture>
                 </button>
               );
             })}
@@ -198,10 +207,7 @@ const Website = () => {
             {/* Company Content */}
             <ul className="space-y-2">
               {companies[selectedCompany].content.map((point, index) => (
-                <li
-                  key={index}
-                  className="flex items-center text-gray-700"
-                >
+                <li key={index} className="flex items-center text-gray-700">
                   <span className="flex items-center justify-center w-5 h-5 bg-black text-white rounded-full flex-shrink-0 mr-6 ml-6">
                     ✓
                   </span>
