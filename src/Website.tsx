@@ -1,9 +1,8 @@
 // Website.tsx
 // Brief change summary:
-// 1) Hero Section keeps the multi-gradient photo flare (from previous revision).
-// 2) Simulator iframe: Removed scrolling, restored overflow: hidden.
-// 3) Added responsive min-height with Tailwind classes (800px default, 1200px on sm screens)
-//    so it fully displays vertical content on smaller widths without a scrollbar.
+// 1) Hero Section now hides Matt's photo on mobile screens (disappears below md breakpoint).
+// 2) The “SUPERCHARGE” text breaks to a second line on smaller screens.
+// 3) Maintained desktop appearance (unchanged).
 
 import React, { useState } from 'react';
 import { Mail, Linkedin } from 'lucide-react';
@@ -91,35 +90,46 @@ const Website = () => {
         </div>
       </header>
 
-       {/* Hero Section */}
-       <section className="flex flex-col md:flex-row items-center justify-center h-[65vh] bg-gradient-to-b from-blue-50 to-white text-left pt-36 px-6">
+      {/* Hero Section */}
+      {/* 
+        - On mobile: photo is hidden, "SUPERCHARGE" breaks onto two lines, 
+          hero content auto-sizes vertically.
+        - On desktop (md+): photo appears, "SUPERCHARGE" is on the same line,
+          hero content has a fixed 65vh height for that perfect look.
+      */}
+      <section className="flex flex-col md:flex-row items-center justify-center md:h-[65vh] min-h-[65vh] bg-gradient-to-b from-blue-50 to-white text-left pt-36 px-6">
         {/* Text Column */}
         <div className="max-w-xl">
-          <p className="text-2xl font-light mb-2">Hi, I&#39;m Matt</p>
-          <h2 className="text-7xl font-extrabold mb-4">I SUPERCHARGE FP&A.</h2>
-          <p className="text-2xl font-light mb-4">
+          <p className="text-xl md:text-2xl font-light mb-2">Hi, I&#39;m Matt</p>
+          {/* 
+            On small screens, we force a line break for SUPERCHARGE to avoid overflow. 
+            On md+ screens, the break tag is hidden, ensuring it stays on one line. 
+          */}
+          <h2 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">
+            I SUPERCHARGE
+            <br className="block md:hidden" /> FP&A.
+          </h2>
+          <p className="text-xl md:text-2xl font-light mb-4">
             I&#39;m an FP&A leader who can build a high-performance function with my unique blend of leadership,
             technical skills, collaboration, and AI*.
           </p>
-          <p className="text-l font-extralight italic">
+          <p className="text-sm md:text-l font-extralight italic">
             *This entire website was created by Matt in collaboration with AI.
           </p>
         </div>
 
-        {/* Photo Column */}
-<div className="relative mt-8 md:mt-0 md:ml-12 flex-shrink-0">
-  {/* Floating glow effect */}
-  <div className="relative w-64 h-64 rounded-full overflow-hidden border-[6px] border-black shadow-solid-black animate-float">
-    <div className="absolute -z-10 inset-0 w-full h-full bg-gradient-to-r from-blue-300 via-blue-100 to-blue-300 rounded-full blur-2xl opacity-75 animate-pulse" />
-    <img
-      src="matt-photo.jpg"
-      alt="Matt Photo"
-      className="w-full h-full object-cover rounded-full"
-    />
-  </div>
-</div>
-
-
+        {/* Photo Column - Hidden on screens smaller than md */}
+        <div className="relative mt-8 md:mt-0 md:ml-12 flex-shrink-0 hidden md:block">
+          {/* Floating glow effect */}
+          <div className="relative w-64 h-64 rounded-full overflow-hidden border-[6px] border-black shadow-solid-black animate-float">
+            <div className="absolute -z-10 inset-0 w-full h-full bg-gradient-to-r from-blue-300 via-blue-100 to-blue-300 rounded-full blur-2xl opacity-75 animate-pulse" />
+            <img
+              src="matt-photo.jpg"
+              alt="Matt Photo"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+        </div>
       </section>
 
       {/* Experience Section */}
@@ -161,21 +171,21 @@ const Website = () => {
               ))}
             </div>
 
-          {/* Company Content */}
-          <ul className="space-y-2">
-          {companies[selectedCompany].content.map((point, index) => (
-            <li
-            key={index}
-            className="flex items-center text-gray-700" // Changed from items-start to items-center
-          >
-            <span className="flex items-center justify-center w-5 h-5 bg-black text-white rounded-full flex-shrink-0 mr-6 ml-6">
-              ✓
-            </span>
-            <p className="leading-normal">{point}</p>
-          </li>
-          ))}
-        </ul>
-        </div>
+            {/* Company Content */}
+            <ul className="space-y-2">
+              {companies[selectedCompany].content.map((point, index) => (
+                <li
+                  key={index}
+                  className="flex items-center text-gray-700"
+                >
+                  <span className="flex items-center justify-center w-5 h-5 bg-black text-white rounded-full flex-shrink-0 mr-6 ml-6">
+                    ✓
+                  </span>
+                  <p className="leading-normal">{point}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -227,7 +237,6 @@ const Website = () => {
               // Tailwind: 800px min-height by default, 1200px on sm screens
               "border-0 rounded-lg shadow-lg w-full overflow-hidden min-h-[800px] sm:min-h-[1200px]"
             }
-            
             title="SaaS Simulator"
           />
         </div>
@@ -245,8 +254,3 @@ const Website = () => {
 };
 
 export default Website;
-
-
-
-
-
