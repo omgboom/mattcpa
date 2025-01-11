@@ -139,7 +139,7 @@ const Website = () => {
         </div>
 
         {/* Photo Column - Hidden on screens smaller than md */}
-        <div className="relative mt-8 md:mt-0 md:ml-12 flex-shrink-0">
+        <div className="relative mt-8 md:mt-0 md:ml-12 flex-shrink-0 hidden md:block">
           {/* Floating glow effect */}
           <div className="relative w-64 h-64 rounded-full overflow-hidden border-[6px] border-black shadow-solid-black animate-float">
             <div className="absolute -z-10 inset-0 w-full h-full bg-gradient-to-r from-blue-300 via-blue-100 to-blue-300 rounded-full blur-2xl opacity-75 animate-pulse" />
