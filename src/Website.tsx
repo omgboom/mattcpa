@@ -4,6 +4,7 @@
 // 2) On small screens, we load "pinnacle-icon.png", "vidyard-icon.png", "freshbooks-icon.png" via <picture>.
 //    On md+ screens, we load the original "-logo" versions. 
 // 3) Icons are larger on mobile (h-16).
+// 4) Hero section updated so that matt-photo.jpg is on the right of the hero text.
 
 import React, { useState } from 'react';
 import { Mail, Linkedin } from 'lucide-react';
@@ -100,63 +101,62 @@ const Website = () => {
       </header>
 
       {/* Hero Section */}
-<section
-  className="
-    flex flex-col md:flex-row items-center justify-between
-    md:h-[65vh] min-h-[65vh]
-    bg-gradient-to-b from-blue-50 to-white
-    pt-36 px-6
-    text-center md:text-left
-  "
->
-  {/* Text Column */}
-  <div className="max-w-xl mx-auto">
-    <p className="text-xl md:text-2xl font-light mb-2">Hi, my name is Matt.</p>
+      <section
+        className="
+          flex flex-col md:flex-row
+          md:h-[65vh] min-h-[65vh]
+          bg-gradient-to-b from-blue-50 to-white
+          pt-36 px-6
+        "
+      >
+        {/* Text Column */}
+        <div className="max-w-xl md:mr-12 text-center md:text-left">
+          <p className="text-xl md:text-2xl font-light mb-2">Hi, my name is Matt.</p>
 
-    {/* 
-      On mobile: extra bold (font-black), 
-      smaller font size (text-4xl), split into two lines. 
-      On desktop: original style (font-extrabold, text-7xl).
-    */}
-    <h2
-      className="
-        mb-4 leading-tight
-        text-4xl font-extrabold 
-        md:text-7xl md:font-extrabold
-      "
-    >
-      <span className="block md:inline">I SUPERCHARGE</span>{' '}
-      <span className="block md:inline">FP&A.</span>
-    </h2>
+          {/* 
+            On mobile: extra bold (font-black), 
+            smaller font size (text-4xl), split into two lines. 
+            On desktop: original style (font-extrabold, text-7xl).
+          */}
+          <h2
+            className="
+              mb-4 leading-tight
+              text-4xl font-extrabold 
+              md:text-7xl md:font-extrabold
+            "
+          >
+            <span className="block md:inline">I SUPERCHARGE</span>{' '}
+            <span className="block md:inline">FP&A.</span>
+          </h2>
 
-    <p className="text-xl md:text-2xl font-light mb-4">
-      I&#39;m an FP&A leader who can build a high-performance function with my unique blend of leadership,
-      technical skills, collaboration, and AI*.
-    </p>
-    <p className="text-sm md:text-l font-extralight italic">
-      *This entire website was created by Matt in collaboration with AI.
-    </p>
-  </div>
+          <p className="text-xl md:text-2xl font-light mb-4">
+            I&#39;m an FP&A leader who can build a high-performance function with my unique blend of leadership,
+            technical skills, collaboration, and AI*.
+          </p>
+          <p className="text-sm md:text-l font-extralight italic">
+            *This entire website was created by Matt in collaboration with AI.
+          </p>
+        </div>
 
-  {/* Photo Column - Hidden on screens smaller than md */}
-  <div className="relative mt-8 md:mt-0 md:ml-12 flex-shrink-0 hidden md:block">
-    {/* Floating glow effect */}
-    <div
-      className="
-        relative w-64 h-64 rounded-full overflow-hidden 
-        border-[6px] border-black shadow-solid-black animate-float 
-        flex items-center justify-center
-      "
-    >
-      <div className="absolute -z-10 inset-0 w-full h-full bg-gradient-to-r from-blue-300 via-blue-100 to-blue-300 rounded-full blur-2xl opacity-75 animate-pulse" />
-      <img
-        src="matt-photo.jpg"
-        alt="Matt Photo"
-        className="w-full h-full object-cover rounded-full"
-      />
-    </div>
-  </div>
-</section>
+        {/* Photo Column */}
+        <div className="relative mt-8 md:mt-0 flex-shrink-0 hidden md:block">
+          {/* Floating glow effect */}
+          <div
+            className="
+              relative w-64 h-64 rounded-full overflow-hidden 
+              border-[6px] border-black shadow-solid-black animate-float 
+              flex items-center justify-center
+            "
+          >
+            <div className="absolute -z-10 inset-0 w-full h-full bg-gradient-to-r from-blue-300 via-blue-100 to-blue-300 rounded-full blur-2xl opacity-75 animate-pulse" />
+            <img
+              src="matt-photo.jpg"
+              alt="Matt Photo"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Experience Section */}
       <section id="experience" className="py-20 bg-blue-50">
@@ -287,3 +287,5 @@ const Website = () => {
 };
 
 export default Website;
+
+
