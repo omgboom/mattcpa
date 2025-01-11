@@ -121,7 +121,7 @@ const Website = () => {
           <h2
             className="
               mb-4 leading-tight
-              text-4xl font-black 
+              text-4xl font-extrabold 
               md:text-7xl md:font-extrabold
             "
           >
@@ -184,7 +184,7 @@ const Website = () => {
                     <img
                       src={companyLogos[company as CompanyKey]}
                       alt={`${companies[company as CompanyKey].name} logo`}
-                      className="h-16 w-auto object-contain"
+                      className="h-[72px] w-[72px] object-contain"
                     />
                   </picture>
                 </button>
