@@ -121,7 +121,7 @@ const Website = () => {
           <h2
             className="
               mb-4 leading-tight
-              text-4xl font-extrabold 
+              text-5xl font-extrabold 
               md:text-7xl md:font-extrabold
             "
           >
