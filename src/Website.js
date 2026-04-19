@@ -1,256 +1,345 @@
-import React, { useEffect, useRef } from 'react';
-import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 
-const servicePillars = [
+const stageMeta = [
+  { id: 'thesis', navLabel: 'Thesis', step: '01' },
+  { id: 'leverage', navLabel: 'Leverage', step: '02' },
+  { id: 'signals', navLabel: 'Signals', step: '03' },
+  { id: 'fit', navLabel: 'Fit', step: '04' },
+];
+
+const leverageAreas = [
   {
     id: '01',
-    title: 'Strategic Finance',
-    body: 'Planning, forecasting, pricing, and executive decision support built for companies navigating growth and complexity.',
+    title: 'Strategic finance leadership',
+    body: 'Planning, forecasting, and executive partnership that turn ambiguity into a sharper operating cadence.',
   },
   {
     id: '02',
-    title: 'Analytics Systems',
-    body: 'Models, reporting flows, and operating metrics designed to surface signal quickly and keep teams aligned on what matters.',
+    title: 'Performance systems',
+    body: 'Models, reporting logic, and business instrumentation that make the numbers easier to trust and act on.',
   },
   {
     id: '03',
-    title: 'Applied AI',
-    body: 'Practical AI workflows that reduce friction, accelerate analysis, and help finance teams solve harder business problems.',
+    title: 'AI-native execution',
+    body: 'Practical AI woven into workflow design, analysis, and team leverage without losing judgment or accountability.',
   },
 ];
 
-const outcomeSignals = [
+const impactSignals = [
   {
-    value: '15%',
+    value: '-15%',
     label: 'Reduced operating expenses through disciplined budgeting and cost control.',
   },
   {
-    value: '50%',
-    label: 'Lifted operating profit versus the prior fiscal year with sharper financial stewardship.',
+    value: '+50%',
+    label: 'Lifted operating profit versus the prior fiscal year with stronger financial stewardship.',
   },
   {
-    value: '$2M+',
+    value: '>$2M',
     label: 'Recovered and negotiated payment-provider savings through analytical problem-solving.',
   },
   {
     value: '$1M/mo',
-    label: 'Cut marketing spend with limited revenue disruption during a changing market.',
-  },
-  {
-    value: '$1M ARR',
-    label: 'Unblocked an enterprise opportunity by identifying and clarifying the commercial case.',
-  },
-  {
-    value: '3x',
-    label: 'One operating lens across strategy, analytics, and AI instead of disconnected point solutions.',
+    label: 'Cut marketing spend in a changing market without materially disrupting revenue.',
   },
 ];
 
-const operatingModel = [
+const operatingSteps = [
   {
-    title: 'Find the friction',
-    body: 'We isolate where planning, reporting, or decision-making is slowing the business down.',
+    id: '01',
+    title: 'See the pattern',
+    body: 'Map where planning, reporting, or decision quality is breaking down before prescribing solutions.',
   },
   {
-    title: 'Build the system',
-    body: 'We design a finance and analytics layer that gives leaders cleaner visibility and faster response time.',
+    id: '02',
+    title: 'Build the mechanism',
+    body: 'Create systems, models, and operating rhythm that reduce noise and make better action easier.',
   },
   {
-    title: 'Embed AI where it matters',
-    body: 'We apply AI to workflows that create leverage, not noise, so the operating system keeps improving after launch.',
+    id: '03',
+    title: 'Make leverage durable',
+    body: 'Use AI, process design, and team enablement so the gain compounds after the first win.',
   },
 ];
 
 const contactEmail = 'matthew.chrzaszcz@gmail.com';
 const linkedinUrl = 'https://www.linkedin.com/in/chrzaszcz/';
-const portraitUrl = `${process.env.PUBLIC_URL}/matt-photo.jpg`;
+
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 const Website = () => {
-  const heroStageRef = useRef(null);
+  const [activeStage, setActiveStage] = useState(0);
+  const activeStageRef = useRef(0);
+  const navigationLockRef = useRef(0);
+  const touchStartRef = useRef(null);
+  const lastStageIndex = stageMeta.length - 1;
 
-  useEffect(() => {
-    const stage = heroStageRef.current;
+  const setStageIndex = (nextIndex, lockNavigation = false) => {
+    const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
 
-    if (!stage) {
-      return undefined;
+    if (lockNavigation) {
+      navigationLockRef.current = Date.now();
     }
 
-    let rafId = 0;
-    let pointerX = 56;
-    let pointerY = 42;
+    activeStageRef.current = clampedIndex;
+    setActiveStage(clampedIndex);
+  };
 
-    const commitPointer = () => {
-      stage.style.setProperty('--pointer-x', pointerX.toString());
-      stage.style.setProperty('--pointer-y', pointerY.toString());
-      rafId = 0;
+  const stepStage = (direction, lockNavigation = false) => {
+    setStageIndex(activeStageRef.current + direction, lockNavigation);
+  };
+
+  useEffect(() => {
+    activeStageRef.current = activeStage;
+  }, [activeStage]);
+
+  useEffect(() => {
+    const canNavigate = () => Date.now() - navigationLockRef.current > 760;
+    const goToStage = (nextIndex) => {
+      const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
+      navigationLockRef.current = Date.now();
+      activeStageRef.current = clampedIndex;
+      setActiveStage(clampedIndex);
     };
 
-    const scheduleCommit = () => {
-      if (!rafId) {
-        rafId = window.requestAnimationFrame(commitPointer);
+    const isFormField = (target) => {
+      if (!(target instanceof HTMLElement)) {
+        return false;
+      }
+
+      const tagName = target.tagName;
+      return target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(tagName);
+    };
+
+    const handleKeyDown = (event) => {
+      if (isFormField(event.target)) {
+        return;
+      }
+
+      if (event.key === 'Home') {
+        event.preventDefault();
+        goToStage(0);
+        return;
+      }
+
+      if (event.key === 'End') {
+        event.preventDefault();
+        goToStage(lastStageIndex);
+        return;
+      }
+
+      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
+        event.preventDefault();
+
+        if (canNavigate()) {
+          goToStage(activeStageRef.current + 1);
+        }
+
+        return;
+      }
+
+      if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
+        event.preventDefault();
+
+        if (canNavigate()) {
+          goToStage(activeStageRef.current - 1);
+        }
       }
     };
 
-    const handlePointerMove = (event) => {
-      const rect = stage.getBoundingClientRect();
-      pointerX = ((event.clientX - rect.left) / rect.width) * 100;
-      pointerY = ((event.clientY - rect.top) / rect.height) * 100;
-      scheduleCommit();
+    const handleWheel = (event) => {
+      event.preventDefault();
+
+      if (!canNavigate() || Math.abs(event.deltaY) < 36) {
+        return;
+      }
+
+      goToStage(activeStageRef.current + (event.deltaY > 0 ? 1 : -1));
     };
 
-    const resetPointer = () => {
-      pointerX = 56;
-      pointerY = 42;
-      scheduleCommit();
+    const handleTouchStart = (event) => {
+      touchStartRef.current = event.touches[0]?.clientY ?? null;
     };
 
-    stage.addEventListener('pointermove', handlePointerMove);
-    stage.addEventListener('pointerleave', resetPointer);
+    const handleTouchEnd = (event) => {
+      if (!canNavigate() || touchStartRef.current === null) {
+        return;
+      }
+
+      const touchEndY = event.changedTouches[0]?.clientY;
+
+      if (typeof touchEndY !== 'number') {
+        touchStartRef.current = null;
+        return;
+      }
+
+      const delta = touchStartRef.current - touchEndY;
+      touchStartRef.current = null;
+
+      if (Math.abs(delta) < 56) {
+        return;
+      }
+
+      goToStage(activeStageRef.current + (delta > 0 ? 1 : -1));
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
-      if (rafId) {
-        window.cancelAnimationFrame(rafId);
-      }
-
-      stage.removeEventListener('pointermove', handlePointerMove);
-      stage.removeEventListener('pointerleave', resetPointer);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, []);
+  }, [lastStageIndex]);
 
-  return (
-    <div className="site-shell">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <a className="topbar-brand" href="#top">
-            MATT CHRZASZCZ
-          </a>
-          <nav className="topbar-nav" aria-label="Primary">
-            <a href="#services">Services</a>
-            <a href="#proof">Proof</a>
-            <a href="#approach">Approach</a>
-            <a href="#contact">Contact</a>
-          </nav>
+  const renderStage = (stageId) => {
+    if (stageId === 'thesis') {
+      return (
+        <div className="stage-grid hero-layout">
+          <div className="stage-copy">
+            <p className="stage-kicker">Strategic finance leadership</p>
+            <h1 className="stage-title">
+              Some roles are a fit on paper. The right one creates momentum.
+            </h1>
+            <p className="stage-summary">
+              I lead where FP&amp;A, systems thinking, and AI-native execution converge, helping
+              teams make better decisions earlier.
+            </p>
+            <p className="stage-note">
+              I&apos;m focused on full-time opportunities where finance is expected to shape the
+              business, not simply report on it.
+            </p>
+            <div className="stage-actions">
+              <a className="button-primary" href={`mailto:${contactEmail}`}>
+                Start a conversation
+                <ArrowUpRight size={18} strokeWidth={2} />
+              </a>
+              <button
+                type="button"
+                className="button-secondary"
+                onClick={() => setStageIndex(1, true)}
+              >
+                See how I lead
+              </button>
+            </div>
+          </div>
+
+          <div className="atlas-shell" aria-hidden="true">
+            <div className="atlas-halo atlas-halo-a" />
+            <div className="atlas-halo atlas-halo-b" />
+            <svg className="atlas-map" viewBox="0 0 720 720" role="presentation">
+              <path
+                className="atlas-path atlas-path-a"
+                d="M94 188C173 161 244 162 309 208C370 251 442 273 545 266C602 262 653 248 682 235"
+              />
+              <path
+                className="atlas-path atlas-path-b"
+                d="M128 575C216 507 282 462 334 400C385 339 433 294 547 236"
+              />
+              <path
+                className="atlas-path atlas-path-c"
+                d="M178 93C232 148 271 214 326 313C374 400 453 476 611 552"
+              />
+              <path
+                className="atlas-path atlas-path-d"
+                d="M94 440C182 422 263 406 346 360C434 312 510 301 628 331"
+              />
+
+              <circle className="atlas-node atlas-node-a" cx="128" cy="188" r="10" />
+              <circle className="atlas-node atlas-node-b" cx="184" cy="582" r="8" />
+              <circle className="atlas-node atlas-node-c" cx="186" cy="102" r="7" />
+              <circle className="atlas-node atlas-node-d" cx="329" cy="359" r="12" />
+              <circle className="atlas-node atlas-node-e" cx="548" cy="236" r="11" />
+              <circle className="atlas-node atlas-node-f" cx="625" cy="334" r="7" />
+              <circle className="atlas-node atlas-node-g" cx="611" cy="552" r="9" />
+            </svg>
+
+            <div className="atlas-fragment atlas-fragment-a">
+              <span>Signal</span>
+              <strong>Clearer visibility</strong>
+            </div>
+            <div className="atlas-fragment atlas-fragment-b">
+              <span>Structure</span>
+              <strong>Better operating rhythm</strong>
+            </div>
+            <div className="atlas-fragment atlas-fragment-c">
+              <span>Timing</span>
+              <strong>Faster strategic response</strong>
+            </div>
+            <div className="atlas-center">
+              <span>Convergence</span>
+              <strong>Decision quality that compounds</strong>
+            </div>
+          </div>
         </div>
-      </header>
+      );
+    }
 
-      <main>
-        <section className="hero" id="top">
-          <div className="hero-inner">
-            <div className="hero-copy">
-              <p className="hero-brand">MATT CHRZASZCZ</p>
-              <p className="hero-context">Strategic Finance / Analytics / Applied AI</p>
-              <h1 className="hero-title">Finance that moves at the speed of the business.</h1>
-              <p className="hero-summary">
-                I help leadership teams turn finance, analytics, and AI into a sharper operating
-                system for growth.
-              </p>
-              <div className="hero-actions">
-                <a className="button-primary" href={`mailto:${contactEmail}`}>
-                  Start a Conversation
-                  <ArrowUpRight size={18} strokeWidth={2} />
-                </a>
-                <a className="button-secondary" href="#proof">
-                  View Outcomes
-                </a>
-              </div>
-              <ul className="hero-tags" aria-label="Core focus areas">
-                <li>Scenario Planning</li>
-                <li>Performance Analytics</li>
-                <li>AI Workflow Design</li>
-              </ul>
-            </div>
-
-            <div className="hero-stage" ref={heroStageRef}>
-              <div className="hero-orbit hero-orbit-a" aria-hidden="true" />
-              <div className="hero-orbit hero-orbit-b" aria-hidden="true" />
-              <div className="hero-orbit hero-orbit-c" aria-hidden="true" />
-
-              <div className="portrait-frame">
-                <div className="portrait-grid" aria-hidden="true" />
-                <div className="portrait-glow" aria-hidden="true" />
-                <img
-                  src={portraitUrl}
-                  alt="Portrait of Matt Chrzaszcz"
-                  className="portrait-image"
-                />
-                <div className="portrait-scrim" aria-hidden="true" />
-                <div className="portrait-caption">CPA / FP&amp;A / AI Systems</div>
-
-                <div className="signal-panel signal-panel-top">
-                  <span>Focus</span>
-                  <strong>Strategic finance design</strong>
-                  <p>Planning, pricing, and operating decisions with executive-level clarity.</p>
-                </div>
-
-                <div className="signal-panel signal-panel-right">
-                  <span>Interface</span>
-                  <strong>Analytics that surface signal</strong>
-                  <p>Models and reporting layers built to cut through operational noise.</p>
-                </div>
-
-                <div className="signal-panel signal-panel-bottom">
-                  <span>Leverage</span>
-                  <strong>AI with business context</strong>
-                  <p>Systems that save time, sharpen analysis, and stay useful after the demo.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="content-section services-section" id="services">
-          <div className="section-intro">
-            <p className="section-label">Core Services</p>
-            <h2>Three disciplines. One premium decision engine.</h2>
-          </div>
-
-          <div className="experience-line" aria-label="Selected experience">
-            <span>Pinnacle</span>
-            <span>Vidyard</span>
-            <span>FreshBooks</span>
-          </div>
-
-          <div className="service-list">
-            {servicePillars.map((pillar) => (
-              <article className="service-row" key={pillar.id}>
-                <p className="service-id">{pillar.id}</p>
-                <h3>{pillar.title}</h3>
-                <p>{pillar.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="content-section proof-section" id="proof">
-          <div className="section-intro proof-intro">
-            <p className="section-label">Selected Outcomes</p>
-            <h2>When the model gets sharper, the business moves differently.</h2>
-            <p className="section-copy">
-              My work sits where strategic finance, analytics, and execution meet, turning insight
-              into measurable movement.
+    if (stageId === 'leverage') {
+      return (
+        <div className="stage-grid leverage-layout">
+          <div className="stage-copy compact-copy">
+            <p className="stage-kicker">How I lead</p>
+            <h2 className="stage-title">I build finance functions people can actually move with.</h2>
+            <p className="stage-summary">
+              The value is not advisory theatre. It is better rhythm, cleaner signal, and sharper
+              choices inside the business.
             </p>
           </div>
 
-          <div className="signal-grid">
-            {outcomeSignals.map((signal) => (
+          <div className="stage-list">
+            {leverageAreas.map((area) => (
+              <article className="stage-row" key={area.id}>
+                <p className="stage-row-id">{area.id}</p>
+                <h3>{area.title}</h3>
+                <p>{area.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (stageId === 'signals') {
+      return (
+        <div className="stage-grid signals-layout">
+          <div className="stage-copy compact-copy">
+            <p className="stage-kicker">Signals of impact</p>
+            <h2 className="stage-title">Better models matter when they alter real decisions.</h2>
+            <p className="stage-summary">
+              Results earned across SaaS and operating businesses, with equal attention to cost
+              discipline, commercial unlocks, and execution quality.
+            </p>
+          </div>
+
+          <div className="signal-stack">
+            {impactSignals.map((signal) => (
               <article className="signal-row" key={`${signal.value}-${signal.label}`}>
                 <p className="signal-value">{signal.value}</p>
                 <p className="signal-copy">{signal.label}</p>
               </article>
             ))}
           </div>
-        </section>
+        </div>
+      );
+    }
 
-        <section className="content-section approach-section" id="approach">
-          <div className="section-intro">
-            <p className="section-label">Operating Style</p>
-            <h2>Simple, direct, and built to create leverage.</h2>
-          </div>
-
-          <div className="approach-grid">
-            {operatingModel.map((step, index) => (
-              <article className="approach-step" key={step.title}>
-                <p className="approach-index">0{index + 1}</p>
+    return (
+      <div className="stage-grid fit-layout">
+        <div className="stage-copy compact-copy">
+          <p className="stage-kicker">Working together</p>
+          <h2 className="stage-title">
+            The strongest fit is a team ready to treat finance as an operating partner.
+          </h2>
+          <div className="operating-list">
+            {operatingSteps.map((step) => (
+              <article className="operating-row" key={step.id}>
+                <p className="stage-row-id">{step.id}</p>
                 <div>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
@@ -258,21 +347,22 @@ const Website = () => {
               </article>
             ))}
           </div>
-        </section>
+        </div>
 
-        <section className="content-section cta-section" id="contact">
-          <p className="section-label">Contact</p>
-          <h2>Bring me in when the business needs better answers, faster.</h2>
-          <p className="cta-copy">
-            For strategic finance leadership, sharper analytics, or AI-enabled operating leverage.
+        <aside className="contact-slab">
+          <p className="contact-kicker">Open to full-time opportunities</p>
+          <h3>Bring me in when strategy, systems, and timing need to align.</h3>
+          <p className="contact-copy">
+            I&apos;m looking for an in-house role where I can own the cadence, improve decision
+            quality, and help a business move with more intent.
           </p>
-          <div className="cta-actions">
-            <a className="button-primary" href={`mailto:${contactEmail}`}>
+          <div className="stage-actions contact-actions">
+            <a className="button-primary contact-primary" href={`mailto:${contactEmail}`}>
               <Mail size={18} strokeWidth={2} />
-              {contactEmail}
+              Email
             </a>
             <a
-              className="button-secondary"
+              className="button-secondary contact-secondary"
               href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -281,13 +371,131 @@ const Website = () => {
               LinkedIn
             </a>
           </div>
-        </section>
-      </main>
+          <p className="contact-meta">Email or LinkedIn are the fastest paths in.</p>
+        </aside>
+      </div>
+    );
+  };
 
-      <footer className="footer">
-        <p>Matt Chrzaszcz, CPA</p>
-        <p>Strategic finance, analytics, and applied AI.</p>
-      </footer>
+  return (
+    <div className="site-shell" data-stage={activeStage}>
+      <header className="topbar">
+        <div className="topbar-inner">
+          <a className="topbar-brand" href="#top">
+            MATT CHRZASZCZ
+          </a>
+
+          <nav className="topbar-nav" aria-label="Stage navigation">
+            {stageMeta.map((stage, index) => (
+              <button
+                key={stage.id}
+                type="button"
+                className={`topbar-nav-link ${index === activeStage ? 'is-active' : ''}`}
+                onClick={() => setStageIndex(index, true)}
+              >
+                {stage.navLabel}
+              </button>
+            ))}
+          </nav>
+
+          <div className="topbar-actions">
+            <a className="topbar-icon" href={`mailto:${contactEmail}`} aria-label="Email Matt">
+              <Mail size={18} strokeWidth={2} />
+            </a>
+            <a
+              className="topbar-icon"
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit LinkedIn profile"
+            >
+              <Linkedin size={18} strokeWidth={2} />
+            </a>
+            <p className="topbar-status">
+              {stageMeta[activeStage].step} / {stageMeta.length}
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main className="viewport-shell" id="top">
+        <div className="ambient-field" aria-hidden="true">
+          <div className="ambient-glow ambient-glow-a" />
+          <div className="ambient-glow ambient-glow-b" />
+          <div className="ambient-thread ambient-thread-a" />
+          <div className="ambient-thread ambient-thread-b" />
+        </div>
+
+        <aside className="stage-rail" aria-label="Stage progress">
+          {stageMeta.map((stage, index) => (
+            <button
+              key={stage.id}
+              type="button"
+              className={`stage-rail-link ${index === activeStage ? 'is-active' : ''}`}
+              onClick={() => setStageIndex(index, true)}
+            >
+              <span>{stage.step}</span>
+              <strong>{stage.navLabel}</strong>
+            </button>
+          ))}
+        </aside>
+
+        <div className="stage-controls" aria-label="Next or previous screen">
+          <button
+            type="button"
+            className="stage-arrow"
+            onClick={() => stepStage(-1, true)}
+            disabled={activeStage === 0}
+            aria-label="Previous screen"
+          >
+            <ArrowLeft size={18} strokeWidth={2} />
+          </button>
+          <button
+            type="button"
+            className="stage-arrow"
+            onClick={() => stepStage(1, true)}
+            disabled={activeStage === stageMeta.length - 1}
+            aria-label="Next screen"
+          >
+            <ArrowRight size={18} strokeWidth={2} />
+          </button>
+        </div>
+
+        <p className="stage-announcer" aria-live="polite">
+          Showing {stageMeta[activeStage].navLabel}
+        </p>
+
+        <div className="stage-deck">
+          {stageMeta.map((stage, index) => {
+            let stageState = 'is-after';
+
+            if (index === activeStage) {
+              stageState = 'is-active';
+            } else if (index < activeStage) {
+              stageState = 'is-before';
+            }
+
+            return (
+              <section
+                key={stage.id}
+                className={`stage-panel ${stageState}`}
+                aria-hidden={index !== activeStage}
+              >
+                {renderStage(stage.id)}
+              </section>
+            );
+          })}
+        </div>
+
+        <div className="stage-footer">
+          <p className="stage-instruction">Use wheel, swipe, or arrow keys to move through the site.</p>
+          <div className="stage-dots" aria-hidden="true">
+            {stageMeta.map((stage, index) => (
+              <span key={stage.id} className={index === activeStage ? 'is-active' : ''} />
+            ))}
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
