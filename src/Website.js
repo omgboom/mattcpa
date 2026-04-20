@@ -63,6 +63,25 @@ const operatingSteps = [
   },
 ];
 
+const thesisPoints = [
+  {
+    label: 'Automation',
+    text: 'n8n flows and orchestration shipped into real operating work.',
+  },
+  {
+    label: 'BI',
+    text: 'Metabase, datamarts, and SQL infrastructure that teams can actually use.',
+  },
+  {
+    label: 'AI systems',
+    text: 'Lumina AI, Silver CRM tool calls, scheduled tasks, and AI in workflow.',
+  },
+  {
+    label: 'Strategy',
+    text: 'Approved recommendations that changed incentives, pricing, org design, and economics.',
+  },
+];
+
 const contactEmail = 'matthew.chrzaszcz@gmail.com';
 const linkedinUrl = 'https://www.linkedin.com/in/chrzaszcz/';
 
@@ -222,82 +241,47 @@ const Website = () => {
   const renderStage = (stageId) => {
     if (stageId === 'thesis') {
       return (
-        <div className="stage-grid hero-layout">
-          <div className="stage-copy">
-            <p className="stage-kicker">Finance, systems, and applied AI</p>
-            <h1 className="stage-title">
-              I build the systems that help a business see clearly and move earlier.
-            </h1>
-            <p className="stage-summary">
-              In the last 12 months I have launched infrastructure, automation, BI, internal AI
-              tools, and strategic operating changes that made it into the business.
-            </p>
-            <p className="stage-note">
-              I&apos;m looking for full-time roles where finance is expected to shape decisions,
-              challenge assumptions, and help the company build better systems.
-            </p>
-            <div className="stage-actions">
-              <a className="button-primary" href={`mailto:${contactEmail}`}>
-                Start a conversation
-                <ArrowUpRight size={18} strokeWidth={2} />
-              </a>
-              <button
-                type="button"
-                className="button-secondary"
-                onClick={() =>
-                  navigateToStage(1, { lockNavigation: true, markNavigated: true })
-                }
-              >
-                See the stack
-              </button>
+        <div className="story-card">
+          <div className="story-grid">
+            <div className="story-lead">
+              <p className="stage-kicker">Finance, systems, and applied AI</p>
+              <h1 className="stage-title">
+                I build the systems that help a business see clearly and move earlier.
+              </h1>
+              <p className="stage-summary">
+                In the last 12 months I have launched infrastructure, automation, BI, internal AI
+                tools, and strategic operating changes that made it into the business.
+              </p>
+              <p className="stage-note">
+                I&apos;m looking for full-time roles where finance is expected to shape decisions,
+                challenge assumptions, and help the company build better systems.
+              </p>
+              <div className="stage-actions">
+                <a className="button-primary" href={`mailto:${contactEmail}`}>
+                  Start a conversation
+                  <ArrowUpRight size={18} strokeWidth={2} />
+                </a>
+                <button
+                  type="button"
+                  className="button-secondary"
+                  onClick={() =>
+                    navigateToStage(1, { lockNavigation: true, markNavigated: true })
+                  }
+                >
+                  See the stack
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="atlas-shell" aria-hidden="true">
-            <div className="atlas-veil atlas-veil-a" />
-            <div className="atlas-veil atlas-veil-b" />
-            <svg className="atlas-map" viewBox="0 0 720 720" role="presentation">
-              <path
-                className="atlas-path atlas-path-a"
-                d="M84 196C177 170 255 176 332 230C403 279 474 296 562 290C621 286 669 272 690 260"
-              />
-              <path
-                className="atlas-path atlas-path-b"
-                d="M118 586C208 522 272 474 338 400C398 332 458 282 580 219"
-              />
-              <path
-                className="atlas-path atlas-path-c"
-                d="M180 90C238 152 274 211 332 314C386 410 468 487 618 551"
-              />
-              <path
-                className="atlas-path atlas-path-d"
-                d="M84 438C180 424 260 404 350 360C454 309 548 302 638 322"
-              />
-
-              <circle className="atlas-node atlas-node-a" cx="122" cy="196" r="9" />
-              <circle className="atlas-node atlas-node-b" cx="190" cy="586" r="8" />
-              <circle className="atlas-node atlas-node-c" cx="188" cy="96" r="7" />
-              <circle className="atlas-node atlas-node-d" cx="350" cy="360" r="12" />
-              <circle className="atlas-node atlas-node-e" cx="580" cy="219" r="10" />
-              <circle className="atlas-node atlas-node-f" cx="638" cy="322" r="7" />
-              <circle className="atlas-node atlas-node-g" cx="618" cy="551" r="8" />
-            </svg>
-
-            <div className="atlas-fragment atlas-fragment-a">
-              <span>Automation</span>
-              <strong>n8n and orchestration in production</strong>
-            </div>
-            <div className="atlas-fragment atlas-fragment-b">
-              <span>Intelligence</span>
-              <strong>Datamarts, BI, and AI tools with business context</strong>
-            </div>
-            <div className="atlas-fragment atlas-fragment-c">
-              <span>Strategy</span>
-              <strong>Recommendations that changed how the company operates</strong>
-            </div>
-            <div className="atlas-center">
-              <span>Convergence</span>
-              <strong>Systems, economics, and judgment aligned in one operator</strong>
+            <div className="story-detail">
+              <div className="bubble-grid">
+                {thesisPoints.map((point) => (
+                  <article className="bubble-point" key={point.label}>
+                    <span>{point.label}</span>
+                    <strong>{point.text}</strong>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -306,24 +290,32 @@ const Website = () => {
 
     if (stageId === 'stack') {
       return (
-        <div className="stage-grid leverage-layout">
-          <div className="stage-copy compact-copy">
-            <p className="stage-kicker">What I actually built</p>
-            <h2 className="stage-title">This is not AI enthusiasm. It is shipped operating infrastructure.</h2>
-            <p className="stage-summary">
-              I didn&apos;t stop at prompting. I put infrastructure, orchestration, BI, AI tooling,
-              and workflow into the hands of the teams using them.
-            </p>
-          </div>
+        <div className="story-card">
+          <div className="story-grid">
+            <div className="story-lead">
+              <p className="stage-kicker">What I actually built</p>
+              <h2 className="stage-title">
+                This is not AI enthusiasm. It is shipped operating infrastructure.
+              </h2>
+              <p className="stage-summary">
+                I didn&apos;t stop at prompting. I put infrastructure, orchestration, BI, AI
+                tooling, and workflow into the hands of the teams using them.
+              </p>
+            </div>
 
-          <div className="stage-list">
-            {leverageAreas.map((area) => (
-              <article className="stage-row" key={area.id}>
-                <p className="stage-row-id">{area.id}</p>
-                <h3>{area.title}</h3>
-                <p>{area.body}</p>
-              </article>
-            ))}
+            <div className="story-detail">
+              <div className="detail-stack">
+                {leverageAreas.map((area) => (
+                  <article className="detail-item" key={area.id}>
+                    <p className="detail-id">{area.id}</p>
+                    <div>
+                      <h3>{area.title}</h3>
+                      <p>{area.body}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -331,72 +323,78 @@ const Website = () => {
 
     if (stageId === 'proof') {
       return (
-        <div className="stage-grid signals-layout">
-          <div className="stage-copy compact-copy">
-            <p className="stage-kicker">Proof of range</p>
-            <h2 className="stage-title">The pattern is simple: build the system, then improve the business through it.</h2>
-            <p className="stage-summary">
-              The work spans technical delivery and commercial judgment, because the bottleneck is
-              rarely confined to one function.
-            </p>
-          </div>
+        <div className="story-card">
+          <div className="story-grid">
+            <div className="story-lead">
+              <p className="stage-kicker">Proof of range</p>
+              <h2 className="stage-title">
+                The pattern is simple: build the system, then improve the business through it.
+              </h2>
+              <p className="stage-summary">
+                The work spans technical delivery and commercial judgment, because the bottleneck is
+                rarely confined to one function.
+              </p>
+            </div>
 
-          <div className="signal-stack">
-            {impactSignals.map((signal) => (
-              <article className="signal-row" key={`${signal.value}-${signal.label}`}>
-                <p className="signal-value">{signal.value}</p>
-                <p className="signal-copy">{signal.label}</p>
-              </article>
-            ))}
+            <div className="story-detail">
+              <div className="detail-stack">
+                {impactSignals.map((signal) => (
+                  <article className="detail-item detail-item-signal" key={`${signal.value}-${signal.label}`}>
+                    <p className="detail-value">{signal.value}</p>
+                    <p>{signal.label}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       );
     }
 
     return (
-      <div className="stage-grid fit-layout">
-        <div className="stage-copy compact-copy">
-          <p className="stage-kicker">How I operate</p>
-          <h2 className="stage-title">
-            The best fit is a company that wants one person who can build and challenge.
-          </h2>
-          <div className="operating-list">
-            {operatingSteps.map((step) => (
-              <article className="operating-row" key={step.id}>
-                <p className="stage-row-id">{step.id}</p>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </article>
-            ))}
+      <div className="story-card">
+        <div className="story-grid">
+          <div className="story-lead">
+            <p className="stage-kicker">How I operate</p>
+            <h2 className="stage-title">
+              The best fit is a company that wants one person who can build and challenge.
+            </h2>
+            <p className="stage-summary">
+              I&apos;m looking for an in-house role where I can keep building systems, influence the
+              operating model, and raise the quality of decisions across the business.
+            </p>
+            <p className="stage-note">Open to full-time opportunities.</p>
+            <div className="stage-actions">
+              <a className="button-primary" href={`mailto:${contactEmail}`}>
+                <Mail size={18} strokeWidth={2} />
+                Email
+              </a>
+              <a
+                className="button-secondary"
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin size={18} strokeWidth={2} />
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <div className="story-detail">
+            <div className="detail-stack">
+              {operatingSteps.map((step) => (
+                <article className="detail-item" key={step.id}>
+                  <p className="detail-id">{step.id}</p>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
-
-        <aside className="contact-slab">
-          <p className="contact-kicker">Open to full-time opportunities</p>
-          <h3>Bring me in where AI, data, finance, and commercial judgment need one owner.</h3>
-          <p className="contact-copy">
-            I&apos;m looking for an in-house role where I can keep building systems, influence the
-            operating model, and raise the quality of decisions across the business.
-          </p>
-          <div className="stage-actions contact-actions">
-            <a className="button-primary contact-primary" href={`mailto:${contactEmail}`}>
-              <Mail size={18} strokeWidth={2} />
-              Email
-            </a>
-            <a
-              className="button-secondary contact-secondary"
-              href={linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Linkedin size={18} strokeWidth={2} />
-              LinkedIn
-            </a>
-          </div>
-          <p className="contact-meta">Email or LinkedIn are still the fastest paths in.</p>
-        </aside>
       </div>
     );
   };
@@ -438,9 +436,6 @@ const Website = () => {
             >
               <Linkedin size={18} strokeWidth={2} />
             </a>
-            <p className="topbar-status">
-              {stageMeta[activeStage].step} / {stageMeta.length}
-            </p>
           </div>
         </div>
       </header>

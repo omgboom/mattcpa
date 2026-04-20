@@ -6,7 +6,7 @@ This document captures the current website's content, information architecture, 
 
 ## Core Creative Thesis
 
-**Current direction:** Convergence Atlas, refined
+**Current direction:** Convergence Atlas, simplified into a consistent stage-card system
 
 **Concept summary:**
 The site interprets `缘分 (Yuánfèn)` through convergence, timing, and meaningful alignment rather than literal symbolism.
@@ -61,6 +61,8 @@ appears at first load, but disappears permanently for that session after the fir
 - Arrow icon controls were removed.
 - The content is positioned for full-time employment, not consultancy.
 - The content now reflects real current AI, infrastructure, BI, and strategic operating work from the last 12 months.
+- All 4 stages now use the same card shell and left/right content structure.
+- The first stage no longer uses a special atlas/image-like visual treatment; it uses concise point bubbles instead.
 
 ## Global Layout
 
@@ -123,27 +125,27 @@ Introduce the professional identity and establish that the value proposition is 
 - `Start a conversation`
 - `See the stack`
 
-### Atlas / visual fragments
+### Point bubbles
 
-**Fragment A**
+**Point A**
 
 - label: `Automation`
-- text: `n8n and orchestration in production`
+- text: `n8n flows and orchestration shipped into real operating work.`
 
-**Fragment B**
+**Point B**
 
-- label: `Intelligence`
-- text: `Datamarts, BI, and AI tools with business context`
+- label: `BI`
+- text: `Metabase, datamarts, and SQL infrastructure that teams can actually use.`
 
-**Fragment C**
+**Point C**
+
+- label: `AI systems`
+- text: `Lumina AI, Silver CRM tool calls, scheduled tasks, and AI in workflow.`
+
+**Point D**
 
 - label: `Strategy`
-- text: `Recommendations that changed how the company operates`
-
-**Center**
-
-- label: `Convergence`
-- text: `Systems, economics, and judgment aligned in one operator`
+- text: `Approved recommendations that changed incentives, pricing, org design, and economics.`
 
 ---
 
@@ -247,17 +249,13 @@ Clarify working style, ideal role context, and the closing contact position.
 
 `If incentives, fee structures, affiliate deals, or team design are wrong, I will say it and help redesign them around real outcomes.`
 
-### Contact slab kicker
-
-`Open to full-time opportunities`
-
-### Contact slab headline
-
-`Bring me in where AI, data, finance, and commercial judgment need one owner.`
-
-### Contact slab body
+### Supporting summary
 
 `I'm looking for an in-house role where I can keep building systems, influence the operating model, and raise the quality of decisions across the business.`
+
+### Supporting note
+
+`Open to full-time opportunities.`
 
 ### Contact actions
 
@@ -281,6 +279,14 @@ Clarify working style, ideal role context, and the closing contact position.
 
 - editorial serif for primary headlines
 - modern sans-serif for navigation, supporting copy, and interface text
+
+### Layout direction
+
+Each screen uses the same centered card structure:
+
+- left side: large headline, short supporting copy, and optional actions
+- right side: structured proof, operating rows, or point bubbles
+- stacked layouts let the left headline area take the full width, preserving the large editorial impact
 
 ### Background direction
 
@@ -314,6 +320,8 @@ The site currently positions Matt as:
 - repeated use of Matt's name in the body
 - left rail stage navigation
 - arrow button controls
+- special-case first-stage visual
+- bright beige contact card
 - consultancy-forward framing
 - generic AI/finance copy
 - background treatment that felt too random or janky
