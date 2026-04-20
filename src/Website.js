@@ -1,65 +1,65 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 
 const stageMeta = [
   { id: 'thesis', navLabel: 'Thesis', step: '01' },
-  { id: 'leverage', navLabel: 'Leverage', step: '02' },
-  { id: 'signals', navLabel: 'Signals', step: '03' },
+  { id: 'stack', navLabel: 'Stack', step: '02' },
+  { id: 'proof', navLabel: 'Proof', step: '03' },
   { id: 'fit', navLabel: 'Fit', step: '04' },
 ];
 
 const leverageAreas = [
   {
     id: '01',
-    title: 'Strategic finance leadership',
-    body: 'Planning, forecasting, and executive partnership that turn ambiguity into a sharper operating cadence.',
+    title: 'Built the operating stack',
+    body: 'Launched my own server and stood up n8n, Metabase, Airflow, dbt, and the SQL infrastructure behind datamarts used for analysis, applications, BI, data science, and marketing.',
   },
   {
     id: '02',
-    title: 'Performance systems',
-    body: 'Models, reporting logic, and business instrumentation that make the numbers easier to trust and act on.',
+    title: 'Shipped internal AI systems',
+    body: 'Built Lumina AI and an AI-in-the-loop data science application, then connected workflow, permissions, scheduled tasks, and tool calls into Silver CRM for real operating use.',
   },
   {
     id: '03',
-    title: 'AI-native execution',
-    body: 'Practical AI woven into workflow design, analysis, and team leverage without losing judgment or accountability.',
+    title: 'Pushed business decisions that matter',
+    body: 'Recommended and won approval for changes across incentives, performance reviews, customer support structure, product leadership, pricing logic, and affiliate economics.',
   },
 ];
 
 const impactSignals = [
   {
-    value: '-15%',
-    label: 'Reduced operating expenses through disciplined budgeting and cost control.',
+    value: '12 months',
+    label: 'Built infrastructure, automation, BI, orchestration, and AI tooling instead of stopping at slideware.',
   },
   {
-    value: '+50%',
-    label: 'Lifted operating profit versus the prior fiscal year with stronger financial stewardship.',
+    value: 'Own stack',
+    label: 'Server, n8n, Metabase, Airflow, dbt, SQL datamarts, and the connective layer between them.',
   },
   {
-    value: '>$2M',
-    label: 'Recovered and negotiated payment-provider savings through analytical problem-solving.',
+    value: 'AI in workflow',
+    label: 'Lumina AI, Silver CRM integrations, scheduled tasks, and an auto data science loop placed directly inside real operations.',
   },
   {
-    value: '$1M/mo',
-    label: 'Cut marketing spend in a changing market without materially disrupting revenue.',
+    value: 'Approved',
+    label: 'Strategic recommendations on org design, incentives, pricing, customer support, product leadership, and acquisition economics were adopted.',
   },
 ];
 
 const operatingSteps = [
   {
     id: '01',
-    title: 'See the pattern',
-    body: 'Map where planning, reporting, or decision quality is breaking down before prescribing solutions.',
+    title: 'Build where the business is actually constrained',
+    body: 'I focus on the operational bottleneck first, whether that lives in data infrastructure, workflow design, org shape, or commercial logic.',
   },
   {
     id: '02',
-    title: 'Build the mechanism',
-    body: 'Create systems, models, and operating rhythm that reduce noise and make better action easier.',
+    title: 'Connect systems to decisions',
+    body: 'The point is not tools in isolation. It is a tighter loop between information, judgment, and action for the people running the business.',
   },
   {
     id: '03',
-    title: 'Make leverage durable',
-    body: 'Use AI, process design, and team enablement so the gain compounds after the first win.',
+    title: 'Challenge the economics when needed',
+    body: 'If incentives, fee structures, affiliate deals, or team design are wrong, I will say it and help redesign them around real outcomes.',
   },
 ];
 
@@ -70,24 +70,26 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 const Website = () => {
   const [activeStage, setActiveStage] = useState(0);
+  const [hasNavigated, setHasNavigated] = useState(false);
   const activeStageRef = useRef(0);
   const navigationLockRef = useRef(0);
   const touchStartRef = useRef(null);
   const lastStageIndex = stageMeta.length - 1;
 
-  const setStageIndex = (nextIndex, lockNavigation = false) => {
+  const navigateToStage = (nextIndex, options = {}) => {
+    const { lockNavigation = false, markNavigated = false } = options;
     const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
 
     if (lockNavigation) {
       navigationLockRef.current = Date.now();
     }
 
+    if (markNavigated) {
+      setHasNavigated(true);
+    }
+
     activeStageRef.current = clampedIndex;
     setActiveStage(clampedIndex);
-  };
-
-  const stepStage = (direction, lockNavigation = false) => {
-    setStageIndex(activeStageRef.current + direction, lockNavigation);
   };
 
   useEffect(() => {
@@ -96,9 +98,15 @@ const Website = () => {
 
   useEffect(() => {
     const canNavigate = () => Date.now() - navigationLockRef.current > 760;
-    const goToStage = (nextIndex) => {
+    const goToStage = (nextIndex, markNavigated = false) => {
       const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
+
       navigationLockRef.current = Date.now();
+
+      if (markNavigated) {
+        setHasNavigated(true);
+      }
+
       activeStageRef.current = clampedIndex;
       setActiveStage(clampedIndex);
     };
@@ -119,18 +127,19 @@ const Website = () => {
 
       if (event.key === 'Home') {
         event.preventDefault();
-        goToStage(0);
+        goToStage(0, true);
         return;
       }
 
       if (event.key === 'End') {
         event.preventDefault();
-        goToStage(lastStageIndex);
+        goToStage(lastStageIndex, true);
         return;
       }
 
       if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
         event.preventDefault();
+        setHasNavigated(true);
 
         if (canNavigate()) {
           goToStage(activeStageRef.current + 1);
@@ -141,6 +150,7 @@ const Website = () => {
 
       if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
         event.preventDefault();
+        setHasNavigated(true);
 
         if (canNavigate()) {
           goToStage(activeStageRef.current - 1);
@@ -151,7 +161,13 @@ const Website = () => {
     const handleWheel = (event) => {
       event.preventDefault();
 
-      if (!canNavigate() || Math.abs(event.deltaY) < 36) {
+      if (Math.abs(event.deltaY) < 36) {
+        return;
+      }
+
+      setHasNavigated(true);
+
+      if (!canNavigate()) {
         return;
       }
 
@@ -163,7 +179,7 @@ const Website = () => {
     };
 
     const handleTouchEnd = (event) => {
-      if (!canNavigate() || touchStartRef.current === null) {
+      if (touchStartRef.current === null) {
         return;
       }
 
@@ -178,6 +194,12 @@ const Website = () => {
       touchStartRef.current = null;
 
       if (Math.abs(delta) < 56) {
+        return;
+      }
+
+      setHasNavigated(true);
+
+      if (!canNavigate()) {
         return;
       }
 
@@ -202,17 +224,17 @@ const Website = () => {
       return (
         <div className="stage-grid hero-layout">
           <div className="stage-copy">
-            <p className="stage-kicker">Strategic finance leadership</p>
+            <p className="stage-kicker">Finance, systems, and applied AI</p>
             <h1 className="stage-title">
-              Some roles are a fit on paper. The right one creates momentum.
+              I build the systems that help a business see clearly and move earlier.
             </h1>
             <p className="stage-summary">
-              I lead where FP&amp;A, systems thinking, and AI-native execution converge, helping
-              teams make better decisions earlier.
+              In the last 12 months I have launched infrastructure, automation, BI, internal AI
+              tools, and strategic operating changes that made it into the business.
             </p>
             <p className="stage-note">
-              I&apos;m focused on full-time opportunities where finance is expected to shape the
-              business, not simply report on it.
+              I&apos;m looking for full-time roles where finance is expected to shape decisions,
+              challenge assumptions, and help the company build better systems.
             </p>
             <div className="stage-actions">
               <a className="button-primary" href={`mailto:${contactEmail}`}>
@@ -222,73 +244,75 @@ const Website = () => {
               <button
                 type="button"
                 className="button-secondary"
-                onClick={() => setStageIndex(1, true)}
+                onClick={() =>
+                  navigateToStage(1, { lockNavigation: true, markNavigated: true })
+                }
               >
-                See how I lead
+                See the stack
               </button>
             </div>
           </div>
 
           <div className="atlas-shell" aria-hidden="true">
-            <div className="atlas-halo atlas-halo-a" />
-            <div className="atlas-halo atlas-halo-b" />
+            <div className="atlas-veil atlas-veil-a" />
+            <div className="atlas-veil atlas-veil-b" />
             <svg className="atlas-map" viewBox="0 0 720 720" role="presentation">
               <path
                 className="atlas-path atlas-path-a"
-                d="M94 188C173 161 244 162 309 208C370 251 442 273 545 266C602 262 653 248 682 235"
+                d="M84 196C177 170 255 176 332 230C403 279 474 296 562 290C621 286 669 272 690 260"
               />
               <path
                 className="atlas-path atlas-path-b"
-                d="M128 575C216 507 282 462 334 400C385 339 433 294 547 236"
+                d="M118 586C208 522 272 474 338 400C398 332 458 282 580 219"
               />
               <path
                 className="atlas-path atlas-path-c"
-                d="M178 93C232 148 271 214 326 313C374 400 453 476 611 552"
+                d="M180 90C238 152 274 211 332 314C386 410 468 487 618 551"
               />
               <path
                 className="atlas-path atlas-path-d"
-                d="M94 440C182 422 263 406 346 360C434 312 510 301 628 331"
+                d="M84 438C180 424 260 404 350 360C454 309 548 302 638 322"
               />
 
-              <circle className="atlas-node atlas-node-a" cx="128" cy="188" r="10" />
-              <circle className="atlas-node atlas-node-b" cx="184" cy="582" r="8" />
-              <circle className="atlas-node atlas-node-c" cx="186" cy="102" r="7" />
-              <circle className="atlas-node atlas-node-d" cx="329" cy="359" r="12" />
-              <circle className="atlas-node atlas-node-e" cx="548" cy="236" r="11" />
-              <circle className="atlas-node atlas-node-f" cx="625" cy="334" r="7" />
-              <circle className="atlas-node atlas-node-g" cx="611" cy="552" r="9" />
+              <circle className="atlas-node atlas-node-a" cx="122" cy="196" r="9" />
+              <circle className="atlas-node atlas-node-b" cx="190" cy="586" r="8" />
+              <circle className="atlas-node atlas-node-c" cx="188" cy="96" r="7" />
+              <circle className="atlas-node atlas-node-d" cx="350" cy="360" r="12" />
+              <circle className="atlas-node atlas-node-e" cx="580" cy="219" r="10" />
+              <circle className="atlas-node atlas-node-f" cx="638" cy="322" r="7" />
+              <circle className="atlas-node atlas-node-g" cx="618" cy="551" r="8" />
             </svg>
 
             <div className="atlas-fragment atlas-fragment-a">
-              <span>Signal</span>
-              <strong>Clearer visibility</strong>
+              <span>Automation</span>
+              <strong>n8n and orchestration in production</strong>
             </div>
             <div className="atlas-fragment atlas-fragment-b">
-              <span>Structure</span>
-              <strong>Better operating rhythm</strong>
+              <span>Intelligence</span>
+              <strong>Datamarts, BI, and AI tools with business context</strong>
             </div>
             <div className="atlas-fragment atlas-fragment-c">
-              <span>Timing</span>
-              <strong>Faster strategic response</strong>
+              <span>Strategy</span>
+              <strong>Recommendations that changed how the company operates</strong>
             </div>
             <div className="atlas-center">
               <span>Convergence</span>
-              <strong>Decision quality that compounds</strong>
+              <strong>Systems, economics, and judgment aligned in one operator</strong>
             </div>
           </div>
         </div>
       );
     }
 
-    if (stageId === 'leverage') {
+    if (stageId === 'stack') {
       return (
         <div className="stage-grid leverage-layout">
           <div className="stage-copy compact-copy">
-            <p className="stage-kicker">How I lead</p>
-            <h2 className="stage-title">I build finance functions people can actually move with.</h2>
+            <p className="stage-kicker">What I actually built</p>
+            <h2 className="stage-title">This is not AI enthusiasm. It is shipped operating infrastructure.</h2>
             <p className="stage-summary">
-              The value is not advisory theatre. It is better rhythm, cleaner signal, and sharper
-              choices inside the business.
+              I didn&apos;t stop at prompting. I put infrastructure, orchestration, BI, AI tooling,
+              and workflow into the hands of the teams using them.
             </p>
           </div>
 
@@ -305,15 +329,15 @@ const Website = () => {
       );
     }
 
-    if (stageId === 'signals') {
+    if (stageId === 'proof') {
       return (
         <div className="stage-grid signals-layout">
           <div className="stage-copy compact-copy">
-            <p className="stage-kicker">Signals of impact</p>
-            <h2 className="stage-title">Better models matter when they alter real decisions.</h2>
+            <p className="stage-kicker">Proof of range</p>
+            <h2 className="stage-title">The pattern is simple: build the system, then improve the business through it.</h2>
             <p className="stage-summary">
-              Results earned across SaaS and operating businesses, with equal attention to cost
-              discipline, commercial unlocks, and execution quality.
+              The work spans technical delivery and commercial judgment, because the bottleneck is
+              rarely confined to one function.
             </p>
           </div>
 
@@ -332,9 +356,9 @@ const Website = () => {
     return (
       <div className="stage-grid fit-layout">
         <div className="stage-copy compact-copy">
-          <p className="stage-kicker">Working together</p>
+          <p className="stage-kicker">How I operate</p>
           <h2 className="stage-title">
-            The strongest fit is a team ready to treat finance as an operating partner.
+            The best fit is a company that wants one person who can build and challenge.
           </h2>
           <div className="operating-list">
             {operatingSteps.map((step) => (
@@ -351,10 +375,10 @@ const Website = () => {
 
         <aside className="contact-slab">
           <p className="contact-kicker">Open to full-time opportunities</p>
-          <h3>Bring me in when strategy, systems, and timing need to align.</h3>
+          <h3>Bring me in where AI, data, finance, and commercial judgment need one owner.</h3>
           <p className="contact-copy">
-            I&apos;m looking for an in-house role where I can own the cadence, improve decision
-            quality, and help a business move with more intent.
+            I&apos;m looking for an in-house role where I can keep building systems, influence the
+            operating model, and raise the quality of decisions across the business.
           </p>
           <div className="stage-actions contact-actions">
             <a className="button-primary contact-primary" href={`mailto:${contactEmail}`}>
@@ -371,14 +395,14 @@ const Website = () => {
               LinkedIn
             </a>
           </div>
-          <p className="contact-meta">Email or LinkedIn are the fastest paths in.</p>
+          <p className="contact-meta">Email or LinkedIn are still the fastest paths in.</p>
         </aside>
       </div>
     );
   };
 
   return (
-    <div className="site-shell" data-stage={activeStage}>
+    <div className="site-shell" data-stage={activeStage} data-has-navigated={hasNavigated}>
       <header className="topbar">
         <div className="topbar-inner">
           <a className="topbar-brand" href="#top">
@@ -391,9 +415,12 @@ const Website = () => {
                 key={stage.id}
                 type="button"
                 className={`topbar-nav-link ${index === activeStage ? 'is-active' : ''}`}
-                onClick={() => setStageIndex(index, true)}
+                onClick={() =>
+                  navigateToStage(index, { lockNavigation: true, markNavigated: true })
+                }
               >
-                {stage.navLabel}
+                <span className="topbar-nav-step">{stage.step}</span>
+                <span className="topbar-nav-label">{stage.navLabel}</span>
               </button>
             ))}
           </nav>
@@ -419,48 +446,6 @@ const Website = () => {
       </header>
 
       <main className="viewport-shell" id="top">
-        <div className="ambient-field" aria-hidden="true">
-          <div className="ambient-glow ambient-glow-a" />
-          <div className="ambient-glow ambient-glow-b" />
-          <div className="ambient-thread ambient-thread-a" />
-          <div className="ambient-thread ambient-thread-b" />
-        </div>
-
-        <aside className="stage-rail" aria-label="Stage progress">
-          {stageMeta.map((stage, index) => (
-            <button
-              key={stage.id}
-              type="button"
-              className={`stage-rail-link ${index === activeStage ? 'is-active' : ''}`}
-              onClick={() => setStageIndex(index, true)}
-            >
-              <span>{stage.step}</span>
-              <strong>{stage.navLabel}</strong>
-            </button>
-          ))}
-        </aside>
-
-        <div className="stage-controls" aria-label="Next or previous screen">
-          <button
-            type="button"
-            className="stage-arrow"
-            onClick={() => stepStage(-1, true)}
-            disabled={activeStage === 0}
-            aria-label="Previous screen"
-          >
-            <ArrowLeft size={18} strokeWidth={2} />
-          </button>
-          <button
-            type="button"
-            className="stage-arrow"
-            onClick={() => stepStage(1, true)}
-            disabled={activeStage === stageMeta.length - 1}
-            aria-label="Next screen"
-          >
-            <ArrowRight size={18} strokeWidth={2} />
-          </button>
-        </div>
-
         <p className="stage-announcer" aria-live="polite">
           Showing {stageMeta[activeStage].navLabel}
         </p>
@@ -488,10 +473,21 @@ const Website = () => {
         </div>
 
         <div className="stage-footer">
-          <p className="stage-instruction">Use wheel, swipe, or arrow keys to move through the site.</p>
-          <div className="stage-dots" aria-hidden="true">
+          {!hasNavigated && (
+            <p className="stage-instruction">Use wheel, swipe, or arrow keys to move through the site.</p>
+          )}
+          <div className="stage-dots" aria-label="Jump to a screen">
             {stageMeta.map((stage, index) => (
-              <span key={stage.id} className={index === activeStage ? 'is-active' : ''} />
+              <button
+                key={stage.id}
+                type="button"
+                className={`stage-dot ${index === activeStage ? 'is-active' : ''}`}
+                onClick={() =>
+                  navigateToStage(index, { lockNavigation: true, markNavigated: true })
+                }
+                aria-label={`Go to ${stage.navLabel}`}
+                aria-pressed={index === activeStage}
+              />
             ))}
           </div>
         </div>

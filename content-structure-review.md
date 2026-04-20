@@ -2,63 +2,67 @@
 
 ## Purpose
 
-This document captures the current live website's content, information architecture, interaction model, and creative direction so it can be reviewed by another LLM without reading the codebase.
+This document captures the current website's content, information architecture, interaction model, and creative direction so it can be reviewed by another LLM without reading the codebase.
 
 ## Core Creative Thesis
 
-**Chosen direction:** Convergence Atlas
+**Current direction:** Convergence Atlas, refined
 
 **Concept summary:**
-The site is designed around a refined interpretation of `缘分 (Yuánfèn)`:
+The site interprets `缘分 (Yuánfèn)` through convergence, timing, and meaningful alignment rather than literal symbolism.
 
-- fate
-- convergence
-- meaningful alignment
-- timing becoming pattern
-- separate signals resolving into one coherent direction
+The intended brand feeling is:
 
-The tone is intended to feel:
+- strategic
+- authored
+- premium
+- operationally credible
+- emotionally restrained
+- recruiter-friendly without feeling templated
 
-- poetic but precise
-- premium but restrained
-- strategic and credible
-- authored rather than templated
-- recruiter-friendly while still distinctive
+## Experience Model
 
-## High-Level Experience Model
+This is not a traditional scrolling page.
 
-This is **not** a long scrolling website.
-
-It is a **single-screen responsive stage deck** with 4 content states:
+It is a **single-screen responsive stage deck** with 4 states:
 
 1. Thesis
-2. Leverage
-3. Signals
+2. Stack
+3. Proof
 4. Fit
 
-The user stays on one screen while the content changes.
+The user remains on one screen while content transitions between stages.
 
-Progression methods:
+### Supported interactions
 
 - mouse wheel
 - touch swipe
 - keyboard arrow keys
 - keyboard page up/page down
 - keyboard home/end
-- on-screen arrow controls
-- clicking stage labels in the top nav or side rail
+- clicking top navigation
+- clicking bottom dots
 
-## Key Structural Constraints
+### Helper footer behavior
+
+The helper line:
+
+`Use wheel, swipe, or arrow keys to move through the site.`
+
+appears at first load, but disappears permanently for that session after the first navigation interaction. It does not return when the user comes back to the first stage.
+
+## Key Structural Decisions
 
 - Matt's name appears only in the top bar.
-- The headshot/image has been removed.
-- The site is positioned for **full-time employment**, not consultancy.
-- The old company strip (`Pinnacle / Vidyard / FreshBooks`) has been removed.
-- The old "Core Services" framing has been replaced with a more employment-oriented narrative.
-- "Selected Outcomes" has been renamed to **Signals of impact**.
-- The proof section has been reduced from 6 items to 4.
+- The portrait/headshot has been removed.
+- Left-side stage navigation has been removed to reduce clash with the main composition.
+- The top nav now carries the numbered stage language.
+- Bottom dots are clickable and act as the main secondary navigation.
+- Arrow icon controls were removed.
+- The content is positioned for full-time employment, not consultancy.
+- The content now reflects real current AI, infrastructure, BI, and strategic operating work from the last 12 months.
 
-## Global Information Architecture
+## Global Layout
 
 ### Top Bar
 
@@ -66,33 +70,27 @@ Progression methods:
 
 `MATT CHRZASZCZ`
 
-**Top navigation labels:**
+**Navigation items:**
 
-- Thesis
-- Leverage
-- Signals
-- Fit
+- `01 Thesis`
+- `02 Stack`
+- `03 Proof`
+- `04 Fit`
 
-**Top bar utility actions:**
+**Utility actions:**
 
 - Email icon
 - LinkedIn icon
-- current step indicator (`01 / 04`, etc.)
+- current stage counter (`01 / 04`, etc.)
 
-### Side Rail
+### Footer Area
 
-Desktop-only stage progress rail:
+The footer region always reserves space for navigation.
 
-- 01 Thesis
-- 02 Leverage
-- 03 Signals
-- 04 Fit
+It contains:
 
-### Footer Guidance
-
-Instructional text shown on the page:
-
-`Use wheel, swipe, or arrow keys to move through the site.`
+- the interaction hint on first load only
+- 4 clickable dots for stage navigation
 
 ## Content Structure by Stage
 
@@ -100,164 +98,154 @@ Instructional text shown on the page:
 
 ## Stage 1: Thesis
 
-### Role of this stage
+### Role
 
-Establish brand positioning, emotional tone, and the central idea of convergence.
+Introduce the professional identity and establish that the value proposition is not generic AI enthusiasm, but real operating leverage.
 
 ### Kicker
 
-`Strategic finance leadership`
+`Finance, systems, and applied AI`
 
 ### Main headline
 
-`Some roles are a fit on paper. The right one creates momentum.`
+`I build the systems that help a business see clearly and move earlier.`
 
 ### Supporting summary
 
-`I lead where FP&A, systems thinking, and AI-native execution converge, helping teams make better decisions earlier.`
+`In the last 12 months I have launched infrastructure, automation, BI, internal AI tools, and strategic operating changes that made it into the business.`
 
 ### Supporting note
 
-`I'm focused on full-time opportunities where finance is expected to shape the business, not simply report on it.`
+`I'm looking for full-time roles where finance is expected to shape decisions, challenge assumptions, and help the company build better systems.`
 
 ### Primary actions
 
 - `Start a conversation`
-- `See how I lead`
+- `See the stack`
 
-### Visual system in this stage
-
-The visual centerpiece is an abstract "atlas" composition:
-
-- thread-like paths
-- nodes
-- subtle convergence map
-- atmospheric glow
-- fragments labeled around a central point
-
-### Supporting visual labels in the atlas
+### Atlas / visual fragments
 
 **Fragment A**
 
-- label: `Signal`
-- text: `Clearer visibility`
+- label: `Automation`
+- text: `n8n and orchestration in production`
 
 **Fragment B**
 
-- label: `Structure`
-- text: `Better operating rhythm`
+- label: `Intelligence`
+- text: `Datamarts, BI, and AI tools with business context`
 
 **Fragment C**
 
-- label: `Timing`
-- text: `Faster strategic response`
+- label: `Strategy`
+- text: `Recommendations that changed how the company operates`
 
 **Center**
 
 - label: `Convergence`
-- text: `Decision quality that compounds`
+- text: `Systems, economics, and judgment aligned in one operator`
 
 ---
 
-## Stage 2: Leverage
+## Stage 2: Stack
 
-### Role of this stage
+### Role
 
-Explain what Matt actually brings to a team in practical terms, without sounding like a consultant selling services.
+Show the real stack and scope of execution in a concrete, non-hand-wavy way.
 
 ### Kicker
 
-`How I lead`
+`What I actually built`
 
 ### Main headline
 
-`I build finance functions people can actually move with.`
+`This is not AI enthusiasm. It is shipped operating infrastructure.`
 
 ### Supporting summary
 
-`The value is not advisory theatre. It is better rhythm, cleaner signal, and sharper choices inside the business.`
+`I didn't stop at prompting. I put infrastructure, orchestration, BI, AI tooling, and workflow into the hands of the teams using them.`
 
-### Structured content rows
+### Structured rows
 
-**01 Strategic finance leadership**
+**01 Built the operating stack**
 
-`Planning, forecasting, and executive partnership that turn ambiguity into a sharper operating cadence.`
+`Launched my own server and stood up n8n, Metabase, Airflow, dbt, and the SQL infrastructure behind datamarts used for analysis, applications, BI, data science, and marketing.`
 
-**02 Performance systems**
+**02 Shipped internal AI systems**
 
-`Models, reporting logic, and business instrumentation that make the numbers easier to trust and act on.`
+`Built Lumina AI and an AI-in-the-loop data science application, then connected workflow, permissions, scheduled tasks, and tool calls into Silver CRM for real operating use.`
 
-**03 AI-native execution**
+**03 Pushed business decisions that matter**
 
-`Practical AI woven into workflow design, analysis, and team leverage without losing judgment or accountability.`
+`Recommended and won approval for changes across incentives, performance reviews, customer support structure, product leadership, pricing logic, and affiliate economics.`
 
 ---
 
-## Stage 3: Signals
+## Stage 3: Proof
 
-### Role of this stage
+### Role
 
-Provide proof through concise, recruiter-readable business outcomes.
+Demonstrate range and credibility through compact proof signals instead of generic metrics.
 
 ### Kicker
 
-`Signals of impact`
+`Proof of range`
 
 ### Main headline
 
-`Better models matter when they alter real decisions.`
+`The pattern is simple: build the system, then improve the business through it.`
 
 ### Supporting summary
 
-`Results earned across SaaS and operating businesses, with equal attention to cost discipline, commercial unlocks, and execution quality.`
+`The work spans technical delivery and commercial judgment, because the bottleneck is rarely confined to one function.`
 
-### Outcome signals
+### Proof signals
 
-**-15%**
+**12 months**
 
-`Reduced operating expenses through disciplined budgeting and cost control.`
+`Built infrastructure, automation, BI, orchestration, and AI tooling instead of stopping at slideware.`
 
-**+50%**
+**Own stack**
 
-`Lifted operating profit versus the prior fiscal year with stronger financial stewardship.`
+`Server, n8n, Metabase, Airflow, dbt, SQL datamarts, and the connective layer between them.`
 
-**>$2M**
+**AI in workflow**
 
-`Recovered and negotiated payment-provider savings through analytical problem-solving.`
+`Lumina AI, Silver CRM integrations, scheduled tasks, and an auto data science loop placed directly inside real operations.`
 
-**$1M/mo**
+**Approved**
 
-`Cut marketing spend in a changing market without materially disrupting revenue.`
+`Strategic recommendations on org design, incentives, pricing, customer support, product leadership, and acquisition economics were adopted.`
 
 ---
 
 ## Stage 4: Fit
 
-### Role of this stage
+### Role
 
-Clarify working style, define the ideal role context, and create a contact close that feels intentional.
+Clarify working style, ideal role context, and the closing contact position.
 
 ### Main content kicker
 
-`Working together`
+`How I operate`
 
 ### Main headline
 
-`The strongest fit is a team ready to treat finance as an operating partner.`
+`The best fit is a company that wants one person who can build and challenge.`
 
-### Operating approach rows
+### Operating rows
 
-**01 See the pattern**
+**01 Build where the business is actually constrained**
 
-`Map where planning, reporting, or decision quality is breaking down before prescribing solutions.`
+`I focus on the operational bottleneck first, whether that lives in data infrastructure, workflow design, org shape, or commercial logic.`
 
-**02 Build the mechanism**
+**02 Connect systems to decisions**
 
-`Create systems, models, and operating rhythm that reduce noise and make better action easier.`
+`The point is not tools in isolation. It is a tighter loop between information, judgment, and action for the people running the business.`
 
-**03 Make leverage durable**
+**03 Challenge the economics when needed**
 
-`Use AI, process design, and team enablement so the gain compounds after the first win.`
+`If incentives, fee structures, affiliate deals, or team design are wrong, I will say it and help redesign them around real outcomes.`
 
 ### Contact slab kicker
 
@@ -265,11 +253,11 @@ Clarify working style, define the ideal role context, and create a contact close
 
 ### Contact slab headline
 
-`Bring me in when strategy, systems, and timing need to align.`
+`Bring me in where AI, data, finance, and commercial judgment need one owner.`
 
 ### Contact slab body
 
-`I'm looking for an in-house role where I can own the cadence, improve decision quality, and help a business move with more intent.`
+`I'm looking for an in-house role where I can keep building systems, influence the operating model, and raise the quality of decisions across the business.`
 
 ### Contact actions
 
@@ -278,60 +266,66 @@ Clarify working style, define the ideal role context, and create a contact close
 
 ### Contact note
 
-`Email or LinkedIn are the fastest paths in.`
+`Email or LinkedIn are still the fastest paths in.`
 
-## Current Visual System
+## Visual System
 
-### Palette direction
+### Palette
 
 - deep charcoal / near-black base
-- warm bone / parchment highlight
-- smoke and stone neutrals
+- warm bone / parchment highlights
 - muted copper accent
-- restrained thread-red undertone
+- restrained clay / oxblood undertones
 
-### Typography direction
+### Typography
 
-- editorial serif for hero and major stage headlines
-- modern sans-serif for navigation, interface, and body text
+- editorial serif for primary headlines
+- modern sans-serif for navigation, supporting copy, and interface text
+
+### Background direction
+
+The background is now more controlled and less atmospheric-random:
+
+- dark editorial field
+- subtle line/grid texture
+- faint topographic / path-like contours
+- restrained warm tonal blooms
 
 ### Motion direction
 
-- quiet panel transitions
-- content fading and shifting between stages
-- subtle atmospheric movement in the background
-- gentle alignment/convergence feel rather than flashy animation
+- quiet stage transitions
+- subtle depth and fade between screens
+- restrained navigation feedback
+- no floating “random light” effects
 
 ## Current Brand Positioning Summary
 
-The site currently presents Matt as:
+The site currently positions Matt as:
 
 - a strategic finance leader
-- someone who works at the intersection of FP&A, systems thinking, and AI
-- a high-agency operator rather than a generic finance professional
-- a candidate for full-time in-house leadership roles
-- someone with taste, clarity, and an authored point of view
+- a systems builder
+- an operator who has actually shipped AI infrastructure and internal tools
+- someone comfortable moving between technical architecture and business judgment
+- a candidate for full-time roles with broad leverage and high agency
 
 ## Explicitly Removed From the Previous Version
 
-- hero portrait / headshot
+- portrait/headshot
 - repeated use of Matt's name in the body
-- long-scroll page structure
+- left rail stage navigation
+- arrow button controls
 - consultancy-forward framing
-- company-name strip in the services section
-- the label `Core Services`
-- the label `Selected Outcomes`
-- the larger 6-item proof list
+- generic AI/finance copy
+- background treatment that felt too random or janky
 
 ## Reviewer Prompt Suggestions
 
-If another LLM is reviewing this, useful questions include:
+Useful questions for another LLM:
 
-- Does the tone feel distinctive without becoming vague?
-- Does the single-screen stage model improve or hurt usability?
+- Does the new content feel materially more credible and current?
 - Is the full-time-employment positioning clear enough?
-- Are the headlines too poetic, or is the balance right?
-- Which copy lines feel strongest, and which feel overwritten?
-- Does the Yuánfèn concept come through subtly enough?
-- Is the proof section credible and specific enough for recruiters?
-- Does the final contact stage close with enough clarity and confidence?
+- Does the stage deck format support the story or get in its way?
+- Which proof signals feel strongest, and which need more specificity?
+- Is the balance right between technical range and executive credibility?
+- Does the Yuánfèn / convergence concept still come through subtly enough?
+- Does the site now feel more personal without losing restraint?
