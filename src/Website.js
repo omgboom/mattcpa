@@ -117,10 +117,45 @@ const Website = () => {
 
   useEffect(() => {
     activeStageRef.current = activeStage;
+    window.requestAnimationFrame(() => {
+      document.querySelector('.stage-panel.is-active')?.scrollTo({ top: 0 });
+    });
   }, [activeStage]);
 
   useEffect(() => {
     const canNavigate = () => Date.now() - navigationLockRef.current > 760;
+    const getActivePanel = () => document.querySelector('.stage-panel.is-active');
+    const canScrollActivePanel = (direction) => {
+      const panel = getActivePanel();
+
+      if (!panel) {
+        return false;
+      }
+
+      const overflowY = window.getComputedStyle(panel).overflowY;
+
+      if (!['auto', 'scroll'].includes(overflowY)) {
+        return false;
+      }
+
+      if (direction > 0) {
+        return panel.scrollTop + panel.clientHeight < panel.scrollHeight - 8;
+      }
+
+      return panel.scrollTop > 8;
+    };
+    const scrollActivePanel = (direction) => {
+      const panel = getActivePanel();
+
+      if (!panel) {
+        return;
+      }
+
+      panel.scrollBy({
+        top: direction * Math.min(220, Math.max(120, panel.clientHeight * 0.32)),
+        behavior: 'smooth',
+      });
+    };
     const goToStage = (nextIndex, markNavigated = false) => {
       const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
 
@@ -160,7 +195,23 @@ const Website = () => {
         return;
       }
 
-      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
+      if (['ArrowDown', 'PageDown', ' '].includes(event.key)) {
+        event.preventDefault();
+        setHasNavigated(true);
+
+        if (canScrollActivePanel(1)) {
+          scrollActivePanel(1);
+          return;
+        }
+
+        if (canNavigate()) {
+          goToStage(activeStageRef.current + 1);
+        }
+
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
         event.preventDefault();
         setHasNavigated(true);
 
@@ -171,7 +222,23 @@ const Website = () => {
         return;
       }
 
-      if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
+      if (['ArrowUp', 'PageUp'].includes(event.key)) {
+        event.preventDefault();
+        setHasNavigated(true);
+
+        if (canScrollActivePanel(-1)) {
+          scrollActivePanel(-1);
+          return;
+        }
+
+        if (canNavigate()) {
+          goToStage(activeStageRef.current - 1);
+        }
+
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
         event.preventDefault();
         setHasNavigated(true);
 
@@ -182,13 +249,17 @@ const Website = () => {
     };
 
     const handleWheel = (event) => {
-      event.preventDefault();
-
       if (Math.abs(event.deltaY) < 36) {
         return;
       }
 
       setHasNavigated(true);
+
+      if (canScrollActivePanel(event.deltaY)) {
+        return;
+      }
+
+      event.preventDefault();
 
       if (!canNavigate()) {
         return;
@@ -221,6 +292,10 @@ const Website = () => {
       }
 
       setHasNavigated(true);
+
+      if (canScrollActivePanel(delta)) {
+        return;
+      }
 
       if (!canNavigate()) {
         return;
