@@ -4,7 +4,7 @@ import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 const stageMeta = [
   { id: 'thesis', navLabel: 'Thesis', step: '01' },
   { id: 'stack', navLabel: 'Stack', step: '02' },
-  { id: 'proof', navLabel: 'Proof', step: '03' },
+  { id: 'proof', navLabel: 'Outcomes', step: '03' },
   { id: 'fit', navLabel: 'Fit', step: '04' },
 ];
 
@@ -28,20 +28,20 @@ const leverageAreas = [
 
 const impactSignals = [
   {
-    value: '12 months',
-    label: 'Built infrastructure, automation, BI, orchestration, and AI tooling instead of stopping at slideware.',
+    value: '01',
+    label: 'Built a CRM-connected AI workflow for the VIP team, which manages roughly 40% of revenue through the top 10% of customers, reducing friction and surfacing retention opportunities.',
   },
   {
-    value: 'Own stack',
-    label: 'Server, n8n, Metabase, Airflow, dbt, SQL datamarts, and the connective layer between them.',
+    value: '02',
+    label: 'Developed predictive models, datamarts, and production BI that improved acquisition and retention marketing by enabling earlier action on customer behavior and campaign performance.',
   },
   {
-    value: 'AI in workflow',
-    label: 'Lumina AI, Silver CRM integrations, scheduled tasks, and an auto data science loop placed directly inside real operations.',
+    value: '03',
+    label: 'Led budgeting and cost control with disciplined financial management, contributing to a 15% reduction in operating expenses and a 50% increase in operating profit versus fiscal 2023.',
   },
   {
-    value: 'Approved',
-    label: 'Strategic recommendations on org design, incentives, pricing, customer support, product leadership, and acquisition economics were adopted.',
+    value: '04',
+    label: 'Found and corrected payment-provider overcharges, recovering $0.5M and securing another $1.5M in savings through lower ongoing fees.',
   },
 ];
 
@@ -65,20 +65,20 @@ const operatingSteps = [
 
 const thesisPoints = [
   {
-    label: 'Automation',
-    text: 'n8n flows and orchestration shipped into real operating work.',
-  },
-  {
-    label: 'BI',
-    text: 'Metabase, datamarts, and SQL infrastructure that teams can actually use.',
+    label: 'Strategy',
+    text: 'Recommendations adopted across incentives, pricing, org design, and operating economics.',
   },
   {
     label: 'AI systems',
-    text: 'Lumina AI, Silver CRM tool calls, scheduled tasks, and AI in workflow.',
+    text: 'Secure data-connected LLM workflows, AI-assisted operations, and an AI-in-the-loop auto data scientist.',
   },
   {
-    label: 'Strategy',
-    text: 'Approved recommendations that changed incentives, pricing, org design, and economics.',
+    label: 'Predictive BI',
+    text: 'Datamarts, Metabase, and production-grade predictive models that improve visibility and action.',
+  },
+  {
+    label: 'Automation',
+    text: 'n8n orchestration and workflow automation shipped into real operating use.',
   },
 ];
 
@@ -244,17 +244,17 @@ const Website = () => {
         <div className="story-card">
           <div className="story-grid">
             <div className="story-lead">
-              <p className="stage-kicker">Finance, systems, and applied AI</p>
+              <p className="stage-kicker">Strategy, systems, and applied AI</p>
               <h1 className="stage-title">
-                I build the systems that help a business see clearly and move earlier.
+                I help businesses see clearly, move earlier, and build leverage that sticks.
               </h1>
               <p className="stage-summary">
-                In the last 12 months I have launched infrastructure, automation, BI, internal AI
-                tools, and strategic operating changes that made it into the business.
+                In the last 12 months, I&apos;ve launched infrastructure, AI systems, predictive
+                models, and strategic operating changes that were adopted inside the business.
               </p>
               <p className="stage-note">
-                I&apos;m looking for full-time roles where finance is expected to shape decisions,
-                challenge assumptions, and help the company build better systems.
+                I&apos;m looking for full-time roles where I can improve decision quality, build
+                practical leverage, and help the business act sooner on what matters.
               </p>
               <div className="stage-actions">
                 <a className="button-primary" href={`mailto:${contactEmail}`}>
@@ -326,13 +326,13 @@ const Website = () => {
         <div className="story-card">
           <div className="story-grid">
             <div className="story-lead">
-              <p className="stage-kicker">Proof of range</p>
+              <p className="stage-kicker">Selected outcomes</p>
               <h2 className="stage-title">
-                The pattern is simple: build the system, then improve the business through it.
+                The work matters when it changes how the business operates.
               </h2>
               <p className="stage-summary">
-                The work spans technical delivery and commercial judgment, because the bottleneck is
-                rarely confined to one function.
+                The pattern is consistent: find the bottleneck, design the mechanism, and improve
+                the outcome.
               </p>
             </div>
 
@@ -360,10 +360,13 @@ const Website = () => {
               The best fit is a company that wants one person who can build and challenge.
             </h2>
             <p className="stage-summary">
+              My work tends to follow the same pattern: find the bottleneck, design the mechanism,
+              improve decision quality, and create leverage that sticks.
+            </p>
+            <p className="stage-note">
               I&apos;m looking for an in-house role where I can keep building systems, influence the
               operating model, and raise the quality of decisions across the business.
             </p>
-            <p className="stage-note">Open to full-time opportunities.</p>
             <div className="stage-actions">
               <a className="button-primary" href={`mailto:${contactEmail}`}>
                 <Mail size={18} strokeWidth={2} />

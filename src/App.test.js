@@ -4,6 +4,6 @@ import App from './App';
 test('renders the current stage-based hero headline', () => {
   render(<App />);
   expect(
-    screen.getByText(/i build the systems that help a business see clearly and move earlier\./i)
+    screen.getByText(/i help businesses see clearly, move earlier, and build leverage that sticks\./i)
   ).toBeInTheDocument();
 });

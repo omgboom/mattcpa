@@ -2,38 +2,33 @@
 
 ## Purpose
 
-This document captures the current website's content, information architecture, interaction model, and creative direction so it can be reviewed by another LLM without reading the codebase.
+This document captures the current website's content, information architecture, interaction model, and creative direction so it can be reviewed without reading the codebase.
 
-## Core Creative Thesis
+## Core Story
 
-**Current direction:** Convergence Atlas, simplified into a consistent stage-card system
+The deck now follows this sequence:
 
-**Concept summary:**
-The site interprets `缘分 (Yuánfèn)` through convergence, timing, and meaningful alignment rather than literal symbolism.
+1. Identity: I see clearly and help businesses move earlier through strategy, AI systems, and operating leverage.
+2. Credibility: here is the stack of what I have actually built and changed.
+3. Outcomes: here are the business results those capabilities created.
+4. Fit: here is how I operate and where I fit best.
 
-The intended brand feeling is:
+In shorthand:
 
-- strategic
-- authored
-- premium
-- operationally credible
-- emotionally restrained
-- recruiter-friendly without feeling templated
+`identity -> credibility -> outcomes -> fit`
 
 ## Experience Model
 
-This is not a traditional scrolling page.
-
-It is a **single-screen responsive stage deck** with 4 states:
+This is a single-screen responsive stage deck with 4 states:
 
 1. Thesis
 2. Stack
-3. Proof
+3. Outcomes
 4. Fit
 
-The user remains on one screen while content transitions between stages.
+The user stays on one screen while content transitions between stages.
 
-### Supported interactions
+Supported interactions:
 
 - mouse wheel
 - touch swipe
@@ -43,82 +38,54 @@ The user remains on one screen while content transitions between stages.
 - clicking top navigation
 - clicking bottom dots
 
-### Helper footer behavior
-
-The helper line:
+The helper line appears at first load, then disappears permanently for that session after the first navigation interaction:
 
 `Use wheel, swipe, or arrow keys to move through the site.`
 
-appears at first load, but disappears permanently for that session after the first navigation interaction. It does not return when the user comes back to the first stage.
-
-## Key Structural Decisions
-
-- Matt's name appears only in the top bar.
-- The portrait/headshot has been removed.
-- Left-side stage navigation has been removed to reduce clash with the main composition.
-- The top nav now carries the numbered stage language.
-- Bottom dots are clickable and act as the main secondary navigation.
-- Arrow icon controls were removed.
-- The content is positioned for full-time employment, not consultancy.
-- The content now reflects real current AI, infrastructure, BI, and strategic operating work from the last 12 months.
-- All 4 stages now use the same card shell and left/right content structure.
-- The first stage no longer uses a special atlas/image-like visual treatment; it uses concise point bubbles instead.
-
 ## Global Layout
 
-### Top Bar
+Top bar:
 
-**Brand text:**
-
-`MATT CHRZASZCZ`
-
-**Navigation items:**
-
+- `MATT CHRZASZCZ`
 - `01 Thesis`
 - `02 Stack`
-- `03 Proof`
+- `03 Outcomes`
 - `04 Fit`
-
-**Utility actions:**
-
 - Email icon
 - LinkedIn icon
-- current stage counter (`01 / 04`, etc.)
 
-### Footer Area
+Footer:
 
-The footer region always reserves space for navigation.
+- first-load helper instruction
+- 4 clickable stage dots
 
-It contains:
+Each stage uses the same centered card shell:
 
-- the interaction hint on first load only
-- 4 clickable dots for stage navigation
-
-## Content Structure by Stage
-
----
+- left side: large editorial headline, short supporting copy, optional actions
+- right side: structured detail, point bubbles, or numbered outcomes
+- stacked layouts let the left headline area take the full width
 
 ## Stage 1: Thesis
 
 ### Role
 
-Introduce the professional identity and establish that the value proposition is not generic AI enthusiasm, but real operating leverage.
+Establish the category and identity: strategic operator who combines judgment, systems, and applied AI.
 
 ### Kicker
 
-`Finance, systems, and applied AI`
+`Strategy, systems, and applied AI`
 
 ### Main headline
 
-`I build the systems that help a business see clearly and move earlier.`
+`I help businesses see clearly, move earlier, and build leverage that sticks.`
 
 ### Supporting summary
 
-`In the last 12 months I have launched infrastructure, automation, BI, internal AI tools, and strategic operating changes that made it into the business.`
+`In the last 12 months, I've launched infrastructure, AI systems, predictive models, and strategic operating changes that were adopted inside the business.`
 
 ### Supporting note
 
-`I'm looking for full-time roles where finance is expected to shape decisions, challenge assumptions, and help the company build better systems.`
+`I'm looking for full-time roles where I can improve decision quality, build practical leverage, and help the business act sooner on what matters.`
 
 ### Primary actions
 
@@ -127,33 +94,27 @@ Introduce the professional identity and establish that the value proposition is 
 
 ### Point bubbles
 
-**Point A**
+**Strategy**
 
-- label: `Automation`
-- text: `n8n flows and orchestration shipped into real operating work.`
+`Recommendations adopted across incentives, pricing, org design, and operating economics.`
 
-**Point B**
+**AI systems**
 
-- label: `BI`
-- text: `Metabase, datamarts, and SQL infrastructure that teams can actually use.`
+`Secure data-connected LLM workflows, AI-assisted operations, and an AI-in-the-loop auto data scientist.`
 
-**Point C**
+**Predictive BI**
 
-- label: `AI systems`
-- text: `Lumina AI, Silver CRM tool calls, scheduled tasks, and AI in workflow.`
+`Datamarts, Metabase, and production-grade predictive models that improve visibility and action.`
 
-**Point D**
+**Automation**
 
-- label: `Strategy`
-- text: `Approved recommendations that changed incentives, pricing, org design, and economics.`
-
----
+`n8n orchestration and workflow automation shipped into real operating use.`
 
 ## Stage 2: Stack
 
 ### Role
 
-Show the real stack and scope of execution in a concrete, non-hand-wavy way.
+Prove range of capability through concrete work shipped into the business.
 
 ### Kicker
 
@@ -181,59 +142,63 @@ Show the real stack and scope of execution in a concrete, non-hand-wavy way.
 
 `Recommended and won approval for changes across incentives, performance reviews, customer support structure, product leadership, pricing logic, and affiliate economics.`
 
----
-
-## Stage 3: Proof
+## Stage 3: Outcomes
 
 ### Role
 
-Demonstrate range and credibility through compact proof signals instead of generic metrics.
+Prove business impact through concise numbered outcomes.
 
 ### Kicker
 
-`Proof of range`
+`Selected outcomes`
 
 ### Main headline
 
-`The pattern is simple: build the system, then improve the business through it.`
+`The work matters when it changes how the business operates.`
 
 ### Supporting summary
 
-`The work spans technical delivery and commercial judgment, because the bottleneck is rarely confined to one function.`
+`The pattern is consistent: find the bottleneck, design the mechanism, and improve the outcome.`
 
-### Proof signals
+### Outcome cards
 
-**12 months**
+**01**
 
-`Built infrastructure, automation, BI, orchestration, and AI tooling instead of stopping at slideware.`
+`Built a CRM-connected AI workflow for the VIP team, which manages roughly 40% of revenue through the top 10% of customers, reducing friction and surfacing retention opportunities.`
 
-**Own stack**
+**02**
 
-`Server, n8n, Metabase, Airflow, dbt, SQL datamarts, and the connective layer between them.`
+`Developed predictive models, datamarts, and production BI that improved acquisition and retention marketing by enabling earlier action on customer behavior and campaign performance.`
 
-**AI in workflow**
+**03**
 
-`Lumina AI, Silver CRM integrations, scheduled tasks, and an auto data science loop placed directly inside real operations.`
+`Led budgeting and cost control with disciplined financial management, contributing to a 15% reduction in operating expenses and a 50% increase in operating profit versus fiscal 2023.`
 
-**Approved**
+**04**
 
-`Strategic recommendations on org design, incentives, pricing, customer support, product leadership, and acquisition economics were adopted.`
-
----
+`Found and corrected payment-provider overcharges, recovering $0.5M and securing another $1.5M in savings through lower ongoing fees.`
 
 ## Stage 4: Fit
 
 ### Role
 
-Clarify working style, ideal role context, and the closing contact position.
+Show how Matt thinks and where he fits best.
 
-### Main content kicker
+### Kicker
 
 `How I operate`
 
 ### Main headline
 
 `The best fit is a company that wants one person who can build and challenge.`
+
+### Supporting summary
+
+`My work tends to follow the same pattern: find the bottleneck, design the mechanism, improve decision quality, and create leverage that sticks.`
+
+### Supporting note
+
+`I'm looking for an in-house role where I can keep building systems, influence the operating model, and raise the quality of decisions across the business.`
 
 ### Operating rows
 
@@ -249,91 +214,42 @@ Clarify working style, ideal role context, and the closing contact position.
 
 `If incentives, fee structures, affiliate deals, or team design are wrong, I will say it and help redesign them around real outcomes.`
 
-### Supporting summary
-
-`I'm looking for an in-house role where I can keep building systems, influence the operating model, and raise the quality of decisions across the business.`
-
-### Supporting note
-
-`Open to full-time opportunities.`
-
 ### Contact actions
 
 - `Email`
 - `LinkedIn`
 
-### Contact note
-
-`Email or LinkedIn are still the fastest paths in.`
-
 ## Visual System
 
-### Palette
+Palette:
 
 - deep charcoal / near-black base
 - warm bone / parchment highlights
 - muted copper accent
 - restrained clay / oxblood undertones
 
-### Typography
+Typography:
 
 - editorial serif for primary headlines
 - modern sans-serif for navigation, supporting copy, and interface text
 
-### Layout direction
+Layout:
 
-Each screen uses the same centered card structure:
+- consistent centered card structure across all 4 stages
+- strong left-side headline composition
+- right-side evidence or details
+- responsive stacked layout where the headline gets full width
 
-- left side: large headline, short supporting copy, and optional actions
-- right side: structured proof, operating rows, or point bubbles
-- stacked layouts let the left headline area take the full width, preserving the large editorial impact
-
-### Background direction
-
-The background is now more controlled and less atmospheric-random:
-
-- dark editorial field
-- subtle line/grid texture
-- faint topographic / path-like contours
-- restrained warm tonal blooms
-
-### Motion direction
+Motion:
 
 - quiet stage transitions
 - subtle depth and fade between screens
 - restrained navigation feedback
-- no floating “random light” effects
 
-## Current Brand Positioning Summary
+## Reviewer Questions
 
-The site currently positions Matt as:
-
-- a strategic finance leader
-- a systems builder
-- an operator who has actually shipped AI infrastructure and internal tools
-- someone comfortable moving between technical architecture and business judgment
-- a candidate for full-time roles with broad leverage and high agency
-
-## Explicitly Removed From the Previous Version
-
-- portrait/headshot
-- repeated use of Matt's name in the body
-- left rail stage navigation
-- arrow button controls
-- special-case first-stage visual
-- bright beige contact card
-- consultancy-forward framing
-- generic AI/finance copy
-- background treatment that felt too random or janky
-
-## Reviewer Prompt Suggestions
-
-Useful questions for another LLM:
-
-- Does the new content feel materially more credible and current?
-- Is the full-time-employment positioning clear enough?
-- Does the stage deck format support the story or get in its way?
-- Which proof signals feel strongest, and which need more specificity?
-- Is the balance right between technical range and executive credibility?
-- Does the Yuánfèn / convergence concept still come through subtly enough?
-- Does the site now feel more personal without losing restraint?
+- Does Slide 1 now establish category before capability?
+- Does Slide 2 prove range without feeling like a tool list?
+- Does Slide 3 now prove business impact rather than scope?
+- Does Slide 4 clearly explain how Matt thinks and where he fits?
+- Is the sequence `identity -> credibility -> outcomes -> fit` clear?
