@@ -81,32 +81,28 @@ Establish the category and identity: strategic operator who combines judgment, s
 
 ### Supporting summary
 
-`In the last 12 months, I've launched infrastructure, AI systems, predictive models, and strategic operating changes that were adopted inside the business.`
-
-### Supporting note
-
-`I'm looking for full-time roles where I can improve decision quality, build practical leverage, and help the business act sooner on what matters.`
+`I combine strategic judgment with practical AI systems, predictive BI, and automation that make better action easier.`
 
 ### Primary actions
 
 - `Start a conversation`
 - `See the stack`
 
-### Point bubbles
+### Structured rows
 
-**Strategy**
+**01 Strategy**
 
 `Recommendations adopted across incentives, pricing, org design, and operating economics.`
 
-**AI systems**
+**02 AI systems**
 
 `Secure data-connected LLM workflows, AI-assisted operations, and an AI-in-the-loop auto data scientist.`
 
-**Predictive BI**
+**03 Predictive BI**
 
 `Datamarts, Metabase, and production-grade predictive models that improve visibility and action.`
 
-**Automation**
+**04 Automation**
 
 `n8n orchestration and workflow automation shipped into real operating use.`
 
@@ -136,7 +132,7 @@ Prove range of capability through concrete work shipped into the business.
 
 **02 Shipped internal AI systems**
 
-`Built Lumina AI and an AI-in-the-loop data science application, then connected workflow, permissions, scheduled tasks, and tool calls into Silver CRM for real operating use.`
+`Built a secure data-connected LLM workflow and an AI-in-the-loop data science application, then connected permissions, scheduled tasks, and tool calls into CRM workflows for real operating use.`
 
 **03 Pushed business decisions that matter**
 
@@ -193,10 +189,6 @@ Show how Matt thinks and where he fits best.
 `The best fit is a company that wants one person who can build and challenge.`
 
 ### Supporting summary
-
-`My work tends to follow the same pattern: find the bottleneck, design the mechanism, improve decision quality, and create leverage that sticks.`
-
-### Supporting note
 
 `I'm looking for an in-house role where I can keep building systems, influence the operating model, and raise the quality of decisions across the business.`
 

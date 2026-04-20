@@ -17,7 +17,7 @@ const leverageAreas = [
   {
     id: '02',
     title: 'Shipped internal AI systems',
-    body: 'Built Lumina AI and an AI-in-the-loop data science application, then connected workflow, permissions, scheduled tasks, and tool calls into Silver CRM for real operating use.',
+    body: 'Built a secure data-connected LLM workflow and an AI-in-the-loop data science application, then connected permissions, scheduled tasks, and tool calls into CRM workflows for real operating use.',
   },
   {
     id: '03',
@@ -65,18 +65,22 @@ const operatingSteps = [
 
 const thesisPoints = [
   {
+    id: '01',
     label: 'Strategy',
     text: 'Recommendations adopted across incentives, pricing, org design, and operating economics.',
   },
   {
+    id: '02',
     label: 'AI systems',
     text: 'Secure data-connected LLM workflows, AI-assisted operations, and an AI-in-the-loop auto data scientist.',
   },
   {
+    id: '03',
     label: 'Predictive BI',
     text: 'Datamarts, Metabase, and production-grade predictive models that improve visibility and action.',
   },
   {
+    id: '04',
     label: 'Automation',
     text: 'n8n orchestration and workflow automation shipped into real operating use.',
   },
@@ -249,12 +253,8 @@ const Website = () => {
                 I help businesses see clearly, move earlier, and build leverage that sticks.
               </h1>
               <p className="stage-summary">
-                In the last 12 months, I&apos;ve launched infrastructure, AI systems, predictive
-                models, and strategic operating changes that were adopted inside the business.
-              </p>
-              <p className="stage-note">
-                I&apos;m looking for full-time roles where I can improve decision quality, build
-                practical leverage, and help the business act sooner on what matters.
+                I combine strategic judgment with practical AI systems, predictive BI, and
+                automation that make better action easier.
               </p>
               <div className="stage-actions">
                 <a className="button-primary" href={`mailto:${contactEmail}`}>
@@ -274,11 +274,14 @@ const Website = () => {
             </div>
 
             <div className="story-detail">
-              <div className="bubble-grid">
+              <div className="detail-stack">
                 {thesisPoints.map((point) => (
-                  <article className="bubble-point" key={point.label}>
-                    <span>{point.label}</span>
-                    <strong>{point.text}</strong>
+                  <article className="detail-item" key={point.label}>
+                    <p className="detail-id">{point.id}</p>
+                    <div>
+                      <h3>{point.label}</h3>
+                      <p>{point.text}</p>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -339,8 +342,8 @@ const Website = () => {
             <div className="story-detail">
               <div className="detail-stack">
                 {impactSignals.map((signal) => (
-                  <article className="detail-item detail-item-signal" key={`${signal.value}-${signal.label}`}>
-                    <p className="detail-value">{signal.value}</p>
+                  <article className="detail-item" key={`${signal.value}-${signal.label}`}>
+                    <p className="detail-id">{signal.value}</p>
                     <p>{signal.label}</p>
                   </article>
                 ))}
@@ -360,10 +363,6 @@ const Website = () => {
               The best fit is a company that wants one person who can build and challenge.
             </h2>
             <p className="stage-summary">
-              My work tends to follow the same pattern: find the bottleneck, design the mechanism,
-              improve decision quality, and create leverage that sticks.
-            </p>
-            <p className="stage-note">
               I&apos;m looking for an in-house role where I can keep building systems, influence the
               operating model, and raise the quality of decisions across the business.
             </p>
