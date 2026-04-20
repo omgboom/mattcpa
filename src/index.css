@@ -6,6 +6,8 @@
 
 :root {
   --topbar-height: 5.3rem;
+  --footer-safe: 4.6rem;
+  --stage-gutter: clamp(0.75rem, 1.6vh, 1.35rem);
   --max-width: 1240px;
   --bg: #12100f;
   --bg-deep: #0c0a09;
@@ -217,7 +219,7 @@ select {
 
 .viewport-shell {
   position: relative;
-  min-height: 100svh;
+  height: 100svh;
   padding-top: var(--topbar-height);
   isolation: isolate;
 }
@@ -258,7 +260,7 @@ select {
 .stage-deck {
   position: relative;
   width: min(calc(100% - 4rem), var(--max-width));
-  min-height: calc(100svh - var(--topbar-height));
+  height: calc(100svh - var(--topbar-height));
   margin: 0 auto;
 }
 
@@ -268,7 +270,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.35rem 0 5rem;
+  padding: var(--stage-gutter) 0 calc(var(--footer-safe) + var(--stage-gutter));
   overflow-x: hidden;
   overflow-y: hidden;
   overscroll-behavior: contain;
@@ -311,8 +313,14 @@ select {
 
 .story-card {
   width: 100%;
-  min-height: clamp(430px, 68vh, 640px);
-  padding: clamp(1.6rem, 3vw, 2.8rem);
+  min-height: min(580px, calc(100svh - var(--topbar-height) - var(--footer-safe) - (var(--stage-gutter) * 2)));
+  max-height: calc(100svh - var(--topbar-height) - var(--footer-safe) - (var(--stage-gutter) * 2));
+  padding: clamp(1.35rem, 2.4vw, 2.45rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(233, 222, 203, 0.22) transparent;
   border-radius: 2rem;
   border: 1px solid var(--line-strong);
   background:
@@ -321,6 +329,19 @@ select {
   box-shadow: var(--shadow-deep);
   display: flex;
   align-items: center;
+}
+
+.story-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.story-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.story-card::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(233, 222, 203, 0.18);
 }
 
 .story-grid {
@@ -350,11 +371,11 @@ select {
   margin: 0;
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(3.15rem, 7vw, 6.4rem);
+  font-size: clamp(2.9rem, 6vw, 5.65rem);
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-wrap: balance;
-  max-width: 10ch;
+  max-width: 12ch;
 }
 
 .stage-summary,
@@ -540,7 +561,7 @@ select {
   }
 
   .story-card {
-    min-height: auto;
+    min-height: min(580px, calc(100svh - var(--topbar-height) - var(--footer-safe) - (var(--stage-gutter) * 2)));
     align-items: flex-start;
   }
 
@@ -590,9 +611,47 @@ select {
   }
 }
 
-@media (max-height: 760px) {
-  .stage-panel {
+@media (max-height: 860px) {
+  :root {
+    --footer-safe: 4.25rem;
+    --stage-gutter: 0.8rem;
+  }
+
+  .story-card {
     align-items: flex-start;
+    padding: clamp(1.1rem, 2vw, 2rem);
+  }
+
+  .story-grid {
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .stage-title {
+    max-width: 13ch;
+    font-size: clamp(2.55rem, 5.4vw, 4.85rem);
+  }
+
+  .stage-summary {
+    margin-top: 0.95rem;
+  }
+
+  .stage-actions {
+    margin-top: 1.5rem;
+  }
+
+  .detail-item {
+    padding: 0.88rem 0;
+  }
+}
+
+@media (max-height: 760px) {
+  :root {
+    --footer-safe: 4.25rem;
+    --stage-gutter: 0.7rem;
+  }
+
+  .stage-panel {
+    align-items: center;
     overflow-y: auto;
     scrollbar-width: thin;
   }
@@ -607,6 +666,23 @@ select {
 
   .story-card {
     min-height: auto;
+  }
+
+  .stage-title {
+    max-width: 14ch;
+    font-size: clamp(2.35rem, 5.2vw, 4.35rem);
+  }
+
+  .stage-summary {
+    margin-top: 0.9rem;
+  }
+
+  .stage-actions {
+    margin-top: 1.35rem;
+  }
+
+  .detail-item {
+    padding: 0.78rem 0;
   }
 }
 
@@ -691,7 +767,7 @@ select {
 
   .stage-panel {
     padding-top: 1rem;
-    padding-bottom: 5.25rem;
+    padding-bottom: calc(var(--footer-safe) + 1rem);
   }
 
   .stage-title {

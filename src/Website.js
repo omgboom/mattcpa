@@ -118,41 +118,58 @@ const Website = () => {
   useEffect(() => {
     activeStageRef.current = activeStage;
     window.requestAnimationFrame(() => {
-      document.querySelector('.stage-panel.is-active')?.scrollTo({ top: 0 });
+      const activePanel = document.querySelector('.stage-panel.is-active');
+      activePanel?.scrollTo({ top: 0 });
+      activePanel?.querySelector('.story-card')?.scrollTo({ top: 0 });
     });
   }, [activeStage]);
 
   useEffect(() => {
     const canNavigate = () => Date.now() - navigationLockRef.current > 760;
     const getActivePanel = () => document.querySelector('.stage-panel.is-active');
-    const canScrollActivePanel = (direction) => {
-      const panel = getActivePanel();
-
-      if (!panel) {
+    const canScrollElement = (element, direction) => {
+      if (!element) {
         return false;
       }
 
-      const overflowY = window.getComputedStyle(panel).overflowY;
+      const overflowY = window.getComputedStyle(element).overflowY;
 
       if (!['auto', 'scroll'].includes(overflowY)) {
         return false;
       }
 
       if (direction > 0) {
-        return panel.scrollTop + panel.clientHeight < panel.scrollHeight - 8;
+        return element.scrollTop + element.clientHeight < element.scrollHeight - 8;
       }
 
-      return panel.scrollTop > 8;
+      return element.scrollTop > 8;
+    };
+    const getActiveScrollContainer = (direction) => {
+      const panel = getActivePanel();
+      const card = panel?.querySelector('.story-card');
+
+      if (canScrollElement(card, direction)) {
+        return card;
+      }
+
+      if (canScrollElement(panel, direction)) {
+        return panel;
+      }
+
+      return null;
+    };
+    const canScrollActivePanel = (direction) => {
+      return Boolean(getActiveScrollContainer(direction));
     };
     const scrollActivePanel = (direction) => {
-      const panel = getActivePanel();
+      const scrollContainer = getActiveScrollContainer(direction);
 
-      if (!panel) {
+      if (!scrollContainer) {
         return;
       }
 
-      panel.scrollBy({
-        top: direction * Math.min(220, Math.max(120, panel.clientHeight * 0.32)),
+      scrollContainer.scrollBy({
+        top: direction * Math.min(220, Math.max(120, scrollContainer.clientHeight * 0.32)),
         behavior: 'smooth',
       });
     };
