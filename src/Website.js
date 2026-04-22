@@ -1,114 +1,231 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 
-const stageMeta = [
-  { id: 'thesis', navLabel: 'Thesis', step: '01' },
-  { id: 'stack', navLabel: 'Stack', step: '02' },
-  { id: 'proof', navLabel: 'Outcomes', step: '03' },
-  { id: 'fit', navLabel: 'Fit', step: '04' },
-];
-
-const leverageAreas = [
-  {
-    id: '01',
-    title: 'Built the operating stack',
-    body: 'Launched my own server and stood up n8n, Metabase, Airflow, dbt, and the SQL infrastructure behind datamarts used for analysis, applications, BI, data science, and marketing.',
-  },
-  {
-    id: '02',
-    title: 'Shipped internal AI systems',
-    body: 'Built a secure data-connected LLM workflow and an AI-in-the-loop data science application, then connected permissions, scheduled tasks, and tool calls into CRM workflows for real operating use.',
-  },
-  {
-    id: '03',
-    title: 'Pushed business decisions that matter',
-    body: 'Recommended and won approval for changes across incentives, performance reviews, customer support structure, product leadership, pricing logic, and affiliate economics.',
-  },
-];
-
-const impactSignals = [
-  {
-    value: '01',
-    label: 'Built a CRM-connected AI workflow for the VIP team, which manages roughly 40% of revenue through the top 10% of customers, reducing friction and surfacing retention opportunities.',
-  },
-  {
-    value: '02',
-    label: 'Developed predictive models, datamarts, and production BI that improved acquisition and retention marketing by enabling earlier action on customer behavior and campaign performance.',
-  },
-  {
-    value: '03',
-    label: 'Led budgeting and cost control with disciplined financial management, contributing to a 15% reduction in operating expenses and a 50% increase in operating profit versus fiscal 2023.',
-  },
-  {
-    value: '04',
-    label: 'Found and corrected payment-provider overcharges, recovering $0.5M and securing another $1.5M in savings through lower ongoing fees.',
-  },
-];
-
-const operatingSteps = [
-  {
-    id: '01',
-    title: 'Build where the business is actually constrained',
-    body: 'I focus on the operational bottleneck first, whether that lives in data infrastructure, workflow design, org shape, or commercial logic.',
-  },
-  {
-    id: '02',
-    title: 'Connect systems to decisions',
-    body: 'The point is not tools in isolation. It is a tighter loop between information, judgment, and action for the people running the business.',
-  },
-  {
-    id: '03',
-    title: 'Challenge the economics when needed',
-    body: 'If incentives, fee structures, affiliate deals, or team design are wrong, I will say it and help redesign them around real outcomes.',
-  },
-];
-
-const thesisPoints = [
-  {
-    id: '01',
-    label: 'Strategy',
-    text: 'Recommendations adopted across incentives, pricing, org design, and operating economics.',
-  },
-  {
-    id: '02',
-    label: 'AI systems',
-    text: 'Secure data-connected LLM workflows, AI-assisted operations, and an AI-in-the-loop auto data scientist.',
-  },
-  {
-    id: '03',
-    label: 'Predictive BI',
-    text: 'Datamarts, Metabase, and production-grade predictive models that improve visibility and action.',
-  },
-  {
-    id: '04',
-    label: 'Automation',
-    text: 'n8n orchestration and workflow automation shipped into real operating use.',
-  },
-];
-
 const contactEmail = 'matthew.chrzaszcz@gmail.com';
 const linkedinUrl = 'https://www.linkedin.com/in/chrzaszcz/';
 
+const stages = [
+  {
+    id: 'intro',
+    navLabel: 'Intro',
+    step: '01',
+    kicker: 'Intro',
+    title: (
+      <>
+        Where Strategy Meets Intelligence, Meaning <em>Emerges</em>.
+      </>
+    ),
+    summary:
+      'I partner with leaders to align capital, data, and technology, building systems that predict, adapt, and compound value.',
+    cta: "Let's create convergence",
+    points: [
+      {
+        id: '01',
+        label: 'Strategy',
+        text: 'Translate complexity into advantage. Align decisions with long-term value.',
+      },
+      {
+        id: '02',
+        label: 'AI Systems',
+        text: 'Design and operationalize applied AI that augments judgment and scale.',
+      },
+      {
+        id: '03',
+        label: 'Predictive BI',
+        text: 'Turn data into foresight. Anticipate, prioritize, and perform.',
+      },
+      {
+        id: '04',
+        label: 'Automation',
+        text: 'Build intelligent workflows that remove friction and unlock capacity.',
+      },
+    ],
+  },
+  {
+    id: 'approach',
+    navLabel: 'Approach',
+    step: '02',
+    kicker: 'Approach',
+    title: (
+      <>
+        Intelligence Becomes Useful When It Changes the <em>Loop</em>.
+      </>
+    ),
+    summary:
+      'The work is not more tools. It is a tighter relationship between signal, judgment, workflow, and business action.',
+    cta: 'See the proof',
+    points: [
+      {
+        id: '01',
+        label: 'Find constraints',
+        text: 'Start where the business is actually slowed by unclear economics, fragmented data, or manual work.',
+      },
+      {
+        id: '02',
+        label: 'Build mechanisms',
+        text: 'Connect infrastructure, models, permissions, and workflows into something teams can rely on.',
+      },
+      {
+        id: '03',
+        label: 'Move the decision',
+        text: 'Shorten the distance between what the business can know and what it is willing to do.',
+      },
+      {
+        id: '04',
+        label: 'Compound leverage',
+        text: 'Leave behind systems that keep improving capacity, clarity, and operating speed.',
+      },
+    ],
+  },
+  {
+    id: 'impact',
+    navLabel: 'Impact',
+    step: '03',
+    kicker: 'Impact',
+    title: (
+      <>
+        The Signal Is Proven By Business <em>Movement</em>.
+      </>
+    ),
+    summary:
+      'My best work changes how a company sees customers, controls cost, allocates attention, and acts before the obvious moment.',
+    cta: 'Discuss fit',
+    points: [
+      {
+        id: '01',
+        label: '40% revenue focus',
+        text: 'Built a CRM-connected AI workflow for the VIP team managing the top customer cohort.',
+      },
+      {
+        id: '02',
+        label: 'Earlier action',
+        text: 'Developed predictive models, datamarts, and production BI for acquisition and retention marketing.',
+      },
+      {
+        id: '03',
+        label: '50% profit lift',
+        text: 'Led budgeting and cost control that helped reduce operating expenses and improve profit.',
+      },
+      {
+        id: '04',
+        label: '$2M economics',
+        text: 'Found provider overcharges, recovered cash, and secured lower ongoing payment fees.',
+      },
+    ],
+  },
+  {
+    id: 'partner',
+    navLabel: 'Fit',
+    step: '04',
+    kicker: 'Fit',
+    title: (
+      <>
+        Builder, Challenger, Operator. One <em>Thread</em>.
+      </>
+    ),
+    summary:
+      'I am looking for an in-house role where practical systems, direct judgment, economic clarity, and high agency can compound.',
+    cta: 'Start a conversation',
+    points: [
+      {
+        id: '01',
+        label: 'Strategic finance',
+        text: 'Fluent in the economics, incentives, and tradeoffs that determine whether work matters.',
+      },
+      {
+        id: '02',
+        label: 'Applied AI',
+        text: 'Grounded in useful implementation: secure workflows, data-connected LLMs, and human-in-the-loop systems.',
+      },
+      {
+        id: '03',
+        label: 'Decision quality',
+        text: 'Comfortable challenging assumptions and redesigning operating patterns around real outcomes.',
+      },
+      {
+        id: '04',
+        label: 'Modern operator',
+        text: 'Able to move between strategy, infrastructure, analytics, automation, and executive communication.',
+      },
+    ],
+  },
+];
+
+const metrics = [
+  { value: '10+', label: 'Years', text: 'Strategic finance and business intelligence' },
+  { value: '0-1', label: 'Finance functions', text: 'Built startup finance foundations, models, reporting, and controls' },
+  { value: '$100M+', label: 'Spend visibility', text: 'Built budgets, reporting, and tools that help businesses excel' },
+];
+
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+const FieldGeometry = () => (
+  <svg className="field-geometry" viewBox="0 0 740 720" aria-hidden="true">
+    <defs>
+      <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#c6a987" stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#c6a987" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+    <circle className="geo-orbit" cx="250" cy="362" r="132" />
+    <circle className="geo-orbit geo-orbit-wide" cx="250" cy="362" r="246" />
+    {Array.from({ length: 18 }).map((_, index) => {
+      const angle = -62 + index * 7.2;
+      const radians = (angle * Math.PI) / 180;
+      const x = 250 + Math.cos(radians) * 360;
+      const y = 362 + Math.sin(radians) * 360;
+
+      return (
+        <line
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          className="geo-ray"
+          x1="250"
+          y1="362"
+          x2={x}
+          y2={y}
+        />
+      );
+    })}
+    <line className="geo-axis" x1="0" y1="362" x2="740" y2="362" />
+    <line className="geo-axis" x1="250" y1="0" x2="250" y2="720" />
+    <circle className="geo-center" cx="250" cy="362" r="6" />
+    {[0, 2, 4, 7, 10, 13, 16].map((index) => {
+      const angle = -62 + index * 7.2;
+      const radians = (angle * Math.PI) / 180;
+      const x = 250 + Math.cos(radians) * 245;
+      const y = 362 + Math.sin(radians) * 245;
+
+      return (
+        <circle
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          className="geo-node"
+          cx={x}
+          cy={y}
+          r={index === 10 ? 5 : 3.5}
+        />
+      );
+    })}
+    <circle className="geo-node geo-node-red" cx="270" cy="500" r="4" />
+    <circle className="geo-glow" cx="250" cy="362" r="58" />
+  </svg>
+);
 
 const Website = () => {
   const [activeStage, setActiveStage] = useState(0);
-  const [hasNavigated, setHasNavigated] = useState(false);
   const activeStageRef = useRef(0);
   const navigationLockRef = useRef(0);
   const touchStartRef = useRef(null);
-  const lastStageIndex = stageMeta.length - 1;
+  const lastStageIndex = stages.length - 1;
+  const active = stages[activeStage];
 
   const navigateToStage = (nextIndex, options = {}) => {
-    const { lockNavigation = false, markNavigated = false } = options;
+    const { lockNavigation = false } = options;
     const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
 
     if (lockNavigation) {
       navigationLockRef.current = Date.now();
-    }
-
-    if (markNavigated) {
-      setHasNavigated(true);
     }
 
     activeStageRef.current = clampedIndex;
@@ -118,70 +235,16 @@ const Website = () => {
   useEffect(() => {
     activeStageRef.current = activeStage;
     window.requestAnimationFrame(() => {
-      const activePanel = document.querySelector('.stage-panel.is-active');
-      activePanel?.scrollTo({ top: 0 });
-      activePanel?.querySelector('.story-card')?.scrollTo({ top: 0 });
+      document.querySelector('.stage-panel.is-active')?.scrollTo({ top: 0 });
     });
   }, [activeStage]);
 
   useEffect(() => {
     const canNavigate = () => Date.now() - navigationLockRef.current > 760;
-    const getActivePanel = () => document.querySelector('.stage-panel.is-active');
-    const canScrollElement = (element, direction) => {
-      if (!element) {
-        return false;
-      }
-
-      const overflowY = window.getComputedStyle(element).overflowY;
-
-      if (!['auto', 'scroll'].includes(overflowY)) {
-        return false;
-      }
-
-      if (direction > 0) {
-        return element.scrollTop + element.clientHeight < element.scrollHeight - 8;
-      }
-
-      return element.scrollTop > 8;
-    };
-    const getActiveScrollContainer = (direction) => {
-      const panel = getActivePanel();
-      const card = panel?.querySelector('.story-card');
-
-      if (canScrollElement(card, direction)) {
-        return card;
-      }
-
-      if (canScrollElement(panel, direction)) {
-        return panel;
-      }
-
-      return null;
-    };
-    const canScrollActivePanel = (direction) => {
-      return Boolean(getActiveScrollContainer(direction));
-    };
-    const scrollActivePanel = (direction) => {
-      const scrollContainer = getActiveScrollContainer(direction);
-
-      if (!scrollContainer) {
-        return;
-      }
-
-      scrollContainer.scrollBy({
-        top: direction * Math.min(220, Math.max(120, scrollContainer.clientHeight * 0.32)),
-        behavior: 'smooth',
-      });
-    };
-    const goToStage = (nextIndex, markNavigated = false) => {
+    const goToStage = (nextIndex) => {
       const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
 
       navigationLockRef.current = Date.now();
-
-      if (markNavigated) {
-        setHasNavigated(true);
-      }
-
       activeStageRef.current = clampedIndex;
       setActiveStage(clampedIndex);
     };
@@ -191,8 +254,7 @@ const Website = () => {
         return false;
       }
 
-      const tagName = target.tagName;
-      return target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(tagName);
+      return target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
     };
 
     const handleKeyDown = (event) => {
@@ -202,63 +264,26 @@ const Website = () => {
 
       if (event.key === 'Home') {
         event.preventDefault();
-        goToStage(0, true);
+        goToStage(0);
         return;
       }
 
       if (event.key === 'End') {
         event.preventDefault();
-        goToStage(lastStageIndex, true);
+        goToStage(lastStageIndex);
         return;
       }
 
-      if (['ArrowDown', 'PageDown', ' '].includes(event.key)) {
+      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
         event.preventDefault();
-        setHasNavigated(true);
-
-        if (canScrollActivePanel(1)) {
-          scrollActivePanel(1);
-          return;
-        }
-
         if (canNavigate()) {
           goToStage(activeStageRef.current + 1);
         }
-
         return;
       }
 
-      if (event.key === 'ArrowRight') {
+      if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
         event.preventDefault();
-        setHasNavigated(true);
-
-        if (canNavigate()) {
-          goToStage(activeStageRef.current + 1);
-        }
-
-        return;
-      }
-
-      if (['ArrowUp', 'PageUp'].includes(event.key)) {
-        event.preventDefault();
-        setHasNavigated(true);
-
-        if (canScrollActivePanel(-1)) {
-          scrollActivePanel(-1);
-          return;
-        }
-
-        if (canNavigate()) {
-          goToStage(activeStageRef.current - 1);
-        }
-
-        return;
-      }
-
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        setHasNavigated(true);
-
         if (canNavigate()) {
           goToStage(activeStageRef.current - 1);
         }
@@ -270,19 +295,11 @@ const Website = () => {
         return;
       }
 
-      setHasNavigated(true);
-
-      if (canScrollActivePanel(event.deltaY)) {
-        return;
-      }
-
       event.preventDefault();
 
-      if (!canNavigate()) {
-        return;
+      if (canNavigate()) {
+        goToStage(activeStageRef.current + (event.deltaY > 0 ? 1 : -1));
       }
-
-      goToStage(activeStageRef.current + (event.deltaY > 0 ? 1 : -1));
     };
 
     const handleTouchStart = (event) => {
@@ -295,26 +312,10 @@ const Website = () => {
       }
 
       const touchEndY = event.changedTouches[0]?.clientY;
-
-      if (typeof touchEndY !== 'number') {
-        touchStartRef.current = null;
-        return;
-      }
-
       const delta = touchStartRef.current - touchEndY;
       touchStartRef.current = null;
 
-      if (Math.abs(delta) < 56) {
-        return;
-      }
-
-      setHasNavigated(true);
-
-      if (canScrollActivePanel(delta)) {
-        return;
-      }
-
-      if (!canNavigate()) {
+      if (typeof touchEndY !== 'number' || Math.abs(delta) < 56 || !canNavigate()) {
         return;
       }
 
@@ -334,213 +335,84 @@ const Website = () => {
     };
   }, [lastStageIndex]);
 
-  const renderStage = (stageId) => {
-    if (stageId === 'thesis') {
-      return (
-        <div className="story-card">
-          <div className="story-grid">
-            <div className="story-lead">
-              <p className="stage-kicker">Strategy, systems, and applied AI</p>
-              <h1 className="stage-title">
-                I help businesses see clearly, move earlier, and build leverage that sticks.
-              </h1>
-              <p className="stage-summary">
-                I combine strategic judgment with practical AI systems, predictive BI, and
-                automation that make better action easier.
-              </p>
-              <div className="stage-actions">
-                <a className="button-primary" href={`mailto:${contactEmail}`}>
-                  Start a conversation
-                  <ArrowUpRight size={18} strokeWidth={2} />
-                </a>
-                <button
-                  type="button"
-                  className="button-secondary"
-                  onClick={() =>
-                    navigateToStage(1, { lockNavigation: true, markNavigated: true })
-                  }
-                >
-                  See the stack
-                </button>
-              </div>
-            </div>
+  return (
+    <div className="site-shell" data-stage={activeStage}>
+      <p className="stage-announcer" aria-live="polite">
+        Showing {active.navLabel}
+      </p>
 
-            <div className="story-detail">
-              <div className="detail-stack">
-                {thesisPoints.map((point) => (
-                  <article className="detail-item" key={point.label}>
-                    <p className="detail-id">{point.id}</p>
-                    <div>
-                      <h3>{point.label}</h3>
-                      <p>{point.text}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+      <aside className="side-rail" aria-label="Site navigation">
+        <a className="rail-logo" href="#top" aria-label="Matt Chrzaszcz home">
+          <img src={`${process.env.PUBLIC_URL}/refined-logo.png`} alt="" />
+        </a>
 
-    if (stageId === 'stack') {
-      return (
-        <div className="story-card">
-          <div className="story-grid">
-            <div className="story-lead">
-              <p className="stage-kicker">What I actually built</p>
-              <h2 className="stage-title">
-                This is not AI enthusiasm. It is shipped operating infrastructure.
-              </h2>
-              <p className="stage-summary">
-                I didn&apos;t stop at prompting. I put infrastructure, orchestration, BI, AI
-                tooling, and workflow into the hands of the teams using them.
-              </p>
-            </div>
+        <nav className="rail-nav" aria-label="Stage navigation">
+          {stages.map((stage, index) => (
+            <button
+              key={stage.id}
+              type="button"
+              className={`rail-nav-link ${index === activeStage ? 'is-active' : ''}`}
+              onClick={() => navigateToStage(index, { lockNavigation: true })}
+            >
+              <span>{stage.step}</span>
+              <strong>{stage.navLabel}</strong>
+            </button>
+          ))}
+        </nav>
+      </aside>
 
-            <div className="story-detail">
-              <div className="detail-stack">
-                {leverageAreas.map((area) => (
-                  <article className="detail-item" key={area.id}>
-                    <p className="detail-id">{area.id}</p>
-                    <div>
-                      <h3>{area.title}</h3>
-                      <p>{area.body}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+      <main className="viewport-shell" id="top">
+        <header className="site-header">
+          <img
+            className="mobile-header-logo"
+            src={`${process.env.PUBLIC_URL}/refined-logo.png`}
+            alt=""
+          />
+          <a className="brand-lockup" href="#top">
+            <span>Matt Chrzaszcz</span>
+            <small>Strategic Finance. Analytics. Applied AI.</small>
+          </a>
 
-    if (stageId === 'proof') {
-      return (
-        <div className="story-card">
-          <div className="story-grid">
-            <div className="story-lead">
-              <p className="stage-kicker">Selected outcomes</p>
-              <h2 className="stage-title">
-                The work matters when it changes how the business operates.
-              </h2>
-              <p className="stage-summary">
-                The pattern is consistent: find the bottleneck, design the mechanism, and improve
-                the outcome.
-              </p>
-            </div>
-
-            <div className="story-detail">
-              <div className="detail-stack">
-                {impactSignals.map((signal) => (
-                  <article className="detail-item" key={`${signal.value}-${signal.label}`}>
-                    <p className="detail-id">{signal.value}</p>
-                    <p>{signal.label}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="story-card">
-        <div className="story-grid">
-          <div className="story-lead">
-            <p className="stage-kicker">How I operate</p>
-            <h2 className="stage-title">
-              The best fit is a company that wants one person who can build and challenge.
-            </h2>
-            <p className="stage-summary">
-              I&apos;m looking for an in-house role where I can keep building systems, influence the
-              operating model, and raise the quality of decisions across the business.
+          <div className="stage-control" aria-label="Stage controls">
+            <p>
+              <span>Stage</span>
+              <strong>{active.step}</strong>
+              <small>/ 04</small>
             </p>
-            <div className="stage-actions">
-              <a className="button-primary" href={`mailto:${contactEmail}`}>
-                <Mail size={18} strokeWidth={2} />
-                Email
-              </a>
-              <a
-                className="button-secondary"
-                href={linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin size={18} strokeWidth={2} />
-                LinkedIn
-              </a>
-            </div>
-          </div>
-
-          <div className="story-detail">
-            <div className="detail-stack">
-              {operatingSteps.map((step) => (
-                <article className="detail-item" key={step.id}>
-                  <p className="detail-id">{step.id}</p>
-                  <div>
-                    <h3>{step.title}</h3>
-                    <p>{step.body}</p>
-                  </div>
-                </article>
+            <div className="stage-dots">
+              {stages.map((stage, index) => (
+                <button
+                  key={stage.id}
+                  type="button"
+                  className={`stage-dot ${index === activeStage ? 'is-active' : ''}`}
+                  onClick={() => navigateToStage(index, { lockNavigation: true })}
+                  aria-label={`Go to ${stage.navLabel}`}
+                  aria-pressed={index === activeStage}
+                />
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    );
-  };
+        </header>
 
-  return (
-    <div className="site-shell" data-stage={activeStage} data-has-navigated={hasNavigated}>
-      <header className="topbar">
-        <div className="topbar-inner">
-          <a className="topbar-brand" href="#top">
-            MATT CHRZASZCZ
-          </a>
+        <FieldGeometry />
 
-          <nav className="topbar-nav" aria-label="Stage navigation">
-            {stageMeta.map((stage, index) => (
-              <button
-                key={stage.id}
-                type="button"
-                className={`topbar-nav-link ${index === activeStage ? 'is-active' : ''}`}
-                onClick={() =>
-                  navigateToStage(index, { lockNavigation: true, markNavigated: true })
-                }
-              >
-                <span className="topbar-nav-step">{stage.step}</span>
-                <span className="topbar-nav-label">{stage.navLabel}</span>
-              </button>
-            ))}
-          </nav>
-
-          <div className="topbar-actions">
-            <a className="topbar-icon" href={`mailto:${contactEmail}`} aria-label="Email Matt">
-              <Mail size={18} strokeWidth={2} />
-            </a>
-            <a
-              className="topbar-icon"
-              href={linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit LinkedIn profile"
-            >
-              <Linkedin size={18} strokeWidth={2} />
-            </a>
+        <section className="portrait-panel" aria-label="Portrait of Matt Chrzaszcz">
+          <div className="portrait-frame">
+            <img
+              className="portrait-image"
+              src={`${process.env.PUBLIC_URL}/refined-portrait.png`}
+              alt="Portrait of Matt Chrzaszcz"
+            />
+            <div className="portrait-caption">
+              <span>Matt Chrzaszcz</span>
+              <p>Strategic Finance, Analytics and Applied AI Operator</p>
+              <div />
+            </div>
           </div>
-        </div>
-      </header>
-
-      <main className="viewport-shell" id="top">
-        <p className="stage-announcer" aria-live="polite">
-          Showing {stageMeta[activeStage].navLabel}
-        </p>
+        </section>
 
         <div className="stage-deck">
-          {stageMeta.map((stage, index) => {
+          {stages.map((stage, index) => {
             let stageState = 'is-after';
 
             if (index === activeStage) {
@@ -555,31 +427,58 @@ const Website = () => {
                 className={`stage-panel ${stageState}`}
                 aria-hidden={index !== activeStage}
               >
-                {renderStage(stage.id)}
+                <div className="stage-copy">
+                  <p className="stage-kicker">{stage.kicker}</p>
+                  {index === 0 ? (
+                    <h1 className="stage-title">{stage.title}</h1>
+                  ) : (
+                    <h2 className="stage-title">{stage.title}</h2>
+                  )}
+                  <p className="stage-summary">{stage.summary}</p>
+
+                  <div className="proof-list">
+                    {stage.points.map((point) => (
+                      <article className="proof-row" key={`${stage.id}-${point.id}`}>
+                        <p className="proof-id">{point.id}</p>
+                        <h3>{point.label}</h3>
+                        <p>{point.text}</p>
+                      </article>
+                    ))}
+                  </div>
+
+                  <div className="stage-actions">
+                    <a className="button-primary" href={`mailto:${contactEmail}`}>
+                      <span>{stage.cta}</span>
+                      <ArrowUpRight size={18} strokeWidth={1.6} />
+                    </a>
+                    <a
+                      className="button-icon"
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Visit LinkedIn profile"
+                    >
+                      <Linkedin size={18} strokeWidth={1.7} />
+                    </a>
+                    <a className="button-icon" href={`mailto:${contactEmail}`} aria-label="Email Matt">
+                      <Mail size={18} strokeWidth={1.7} />
+                    </a>
+                  </div>
+                </div>
               </section>
             );
           })}
         </div>
 
-        <div className="stage-footer">
-          {!hasNavigated && (
-            <p className="stage-instruction">Use wheel, swipe, or arrow keys to move through the site.</p>
-          )}
-          <div className="stage-dots" aria-label="Jump to a screen">
-            {stageMeta.map((stage, index) => (
-              <button
-                key={stage.id}
-                type="button"
-                className={`stage-dot ${index === activeStage ? 'is-active' : ''}`}
-                onClick={() =>
-                  navigateToStage(index, { lockNavigation: true, markNavigated: true })
-                }
-                aria-label={`Go to ${stage.navLabel}`}
-                aria-pressed={index === activeStage}
-              />
-            ))}
-          </div>
-        </div>
+        <footer className="metric-strip" aria-label="Selected career signals">
+          {metrics.map((metric) => (
+            <article className="metric-item" key={metric.label}>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+              <p>{metric.text}</p>
+            </article>
+          ))}
+        </footer>
       </main>
     </div>
   );
