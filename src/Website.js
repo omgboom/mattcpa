@@ -9,7 +9,7 @@ const stages = [
     id: 'intro',
     navLabel: 'Intro',
     step: '01',
-    kicker: 'Convergent field',
+    kicker: 'Intro',
     title: (
       <>
         Where Strategy Meets Intelligence, Meaning <em>Emerges</em>.
@@ -45,7 +45,7 @@ const stages = [
     id: 'approach',
     navLabel: 'Approach',
     step: '02',
-    kicker: 'Operating thesis',
+    kicker: 'Approach',
     title: (
       <>
         Intelligence Becomes Useful When It Changes the <em>Loop</em>.
@@ -57,17 +57,17 @@ const stages = [
     points: [
       {
         id: '01',
-        label: 'Find constraint',
+        label: 'Find constraints',
         text: 'Start where the business is actually slowed by unclear economics, fragmented data, or manual work.',
       },
       {
         id: '02',
-        label: 'Build mechanism',
+        label: 'Build mechanisms',
         text: 'Connect infrastructure, models, permissions, and workflows into something teams can rely on.',
       },
       {
         id: '03',
-        label: 'Move decision',
+        label: 'Move the decision',
         text: 'Shorten the distance between what the business can know and what it is willing to do.',
       },
       {
@@ -81,7 +81,7 @@ const stages = [
     id: 'impact',
     navLabel: 'Impact',
     step: '03',
-    kicker: 'Selected outcomes',
+    kicker: 'Impact',
     title: (
       <>
         The Signal Is Proven By Business <em>Movement</em>.
@@ -115,9 +115,9 @@ const stages = [
   },
   {
     id: 'partner',
-    navLabel: 'Partner',
+    navLabel: 'Fit',
     step: '04',
-    kicker: 'Best-fit environment',
+    kicker: 'Fit',
     title: (
       <>
         Builder, Challenger, Operator. One <em>Thread</em>.
@@ -152,10 +152,9 @@ const stages = [
 ];
 
 const metrics = [
-  { value: '20+', label: 'Years', text: 'Strategic finance and operations' },
-  { value: '$2B+', label: 'Capital impact', text: 'Informed transactions and investments' },
-  { value: '100+', label: 'Models and systems', text: 'Built for forecasting, optimization, and risk' },
-  { value: '50+', label: 'Enterprise partners', text: 'Across industrials, tech, healthcare, and services' },
+  { value: '10+', label: 'Years', text: 'Strategic finance and business intelligence' },
+  { value: '0-1', label: 'Finance functions', text: 'Built startup finance foundations, models, reporting, and controls' },
+  { value: '$100M+', label: 'Spend visibility', text: 'Built budgets, reporting, and tools that help businesses excel' },
 ];
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -360,14 +359,15 @@ const Website = () => {
             </button>
           ))}
         </nav>
-
-        <div className="rail-mark" aria-hidden="true">
-          <img src={`${process.env.PUBLIC_URL}/Convergent Field.png`} alt="" />
-        </div>
       </aside>
 
       <main className="viewport-shell" id="top">
         <header className="site-header">
+          <img
+            className="mobile-header-logo"
+            src={`${process.env.PUBLIC_URL}/refined-logo.png`}
+            alt=""
+          />
           <a className="brand-lockup" href="#top">
             <span>Matt Chrzaszcz</span>
             <small>Strategic Finance. Analytics. Applied AI.</small>
