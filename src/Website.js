@@ -241,6 +241,8 @@ const Website = () => {
 
   useEffect(() => {
     const canNavigate = () => Date.now() - navigationLockRef.current > 760;
+    const isScrollLayout = () =>
+      window.matchMedia('(max-width: 720px), (max-width: 1080px) and (max-height: 560px)').matches;
     const goToStage = (nextIndex) => {
       const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
 
@@ -291,6 +293,10 @@ const Website = () => {
     };
 
     const handleWheel = (event) => {
+      if (isScrollLayout()) {
+        return;
+      }
+
       if (Math.abs(event.deltaY) < 36) {
         return;
       }
@@ -303,10 +309,19 @@ const Website = () => {
     };
 
     const handleTouchStart = (event) => {
+      if (isScrollLayout()) {
+        return;
+      }
+
       touchStartRef.current = event.touches[0]?.clientY ?? null;
     };
 
     const handleTouchEnd = (event) => {
+      if (isScrollLayout()) {
+        touchStartRef.current = null;
+        return;
+      }
+
       if (touchStartRef.current === null) {
         return;
       }
