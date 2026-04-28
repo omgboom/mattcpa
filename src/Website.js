@@ -217,6 +217,7 @@ const Website = () => {
   const activeStageRef = useRef(0);
   const navigationLockRef = useRef(0);
   const touchStartRef = useRef(null);
+  const mobileSwipeRef = useRef(null);
   const lastStageIndex = stages.length - 1;
   const active = stages[activeStage];
 
@@ -350,6 +351,47 @@ const Website = () => {
     };
   }, [lastStageIndex]);
 
+  const handleMobileSwipeStart = (event) => {
+    if (!window.matchMedia('(max-width: 720px), (max-width: 1080px) and (max-height: 560px)').matches) {
+      return;
+    }
+
+    const touch = event.touches[0];
+
+    if (!touch) {
+      return;
+    }
+
+    mobileSwipeRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  };
+
+  const handleMobileSwipeEnd = (event) => {
+    if (!mobileSwipeRef.current) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const start = mobileSwipeRef.current;
+    mobileSwipeRef.current = null;
+
+    if (!touch) {
+      return;
+    }
+
+    const deltaX = start.x - touch.clientX;
+    const deltaY = start.y - touch.clientY;
+    const isHorizontalSwipe = Math.abs(deltaX) > 54 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25;
+
+    if (!isHorizontalSwipe) {
+      return;
+    }
+
+    navigateToStage(activeStageRef.current + (deltaX > 0 ? 1 : -1), { lockNavigation: true });
+  };
+
   return (
     <div className="site-shell" data-stage={activeStage}>
       <p className="stage-announcer" aria-live="polite">
@@ -426,7 +468,11 @@ const Website = () => {
           </div>
         </section>
 
-        <div className="stage-deck">
+        <div
+          className="stage-deck"
+          onTouchStart={handleMobileSwipeStart}
+          onTouchEnd={handleMobileSwipeEnd}
+        >
           {stages.map((stage, index) => {
             let stageState = 'is-after';
 

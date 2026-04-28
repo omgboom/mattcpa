@@ -922,6 +922,7 @@ a:focus-visible {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+    touch-action: pan-y;
   }
 
   .stage-panel {
@@ -944,21 +945,34 @@ a:focus-visible {
     width: 100%;
     max-width: 47rem;
     margin: 0 auto;
+    text-align: center;
     transform: none;
+  }
+
+  .stage-kicker {
+    text-align: center;
   }
 
   .stage-title {
     font-size: clamp(2.85rem, 12vw, 4.15rem);
     max-width: 100%;
+    text-align: center;
   }
 
   .stage-summary {
     margin-top: 1.2rem;
     font-size: 1rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .stage-title + .stage-summary::before {
+    margin-inline: auto;
   }
 
   .proof-list {
     margin-top: 1.7rem;
+    text-align: left;
   }
 
   .proof-row {
@@ -1023,7 +1037,7 @@ a:focus-visible {
   }
 
   .site-header {
-    margin-left: -3.7rem;
+    margin-left: -0.75rem;
   }
 
   .stage-copy,
@@ -1165,6 +1179,7 @@ a:focus-visible {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+    touch-action: pan-y;
   }
 
   .stage-panel {
@@ -1187,32 +1202,39 @@ a:focus-visible {
     width: min(100%, 44rem);
     max-width: 100%;
     margin: 0 auto;
+    text-align: center;
     transform: none;
   }
 
   .stage-kicker {
     margin-bottom: 0.34rem;
     font-size: 0.68rem;
+    text-align: center;
   }
 
   .stage-title {
     font-size: clamp(1.75rem, 5.1vw, 2.3rem);
+    text-align: center;
   }
 
   .stage-summary {
     max-width: 42rem;
     margin-top: 0.58rem;
+    margin-inline: auto;
     font-size: 0.86rem;
     line-height: 1.42;
+    text-align: center;
   }
 
   .stage-title + .stage-summary::before {
     width: 3.2rem;
+    margin-inline: auto;
     margin-bottom: 0.58rem;
   }
 
   .proof-list {
     margin-top: 1rem;
+    text-align: left;
   }
 
   .proof-row {
