@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowDown, ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 
 const contactEmail = 'matthew.chrzaszcz@gmail.com';
 const linkedinUrl = 'https://www.linkedin.com/in/chrzaszcz/';
+const mailtoUrl = `mailto:${contactEmail}`;
+const asset = (file) => `${process.env.PUBLIC_URL}/assets/${file}`;
 
 const stages = [
   {
     id: 'intro',
     navLabel: 'Intro',
     step: '01',
-    kicker: 'Intro',
     title: (
       <>
         Where Strategy Meets Intelligence, Meaning <em>Emerges</em>.
@@ -17,7 +18,8 @@ const stages = [
     ),
     summary:
       'I partner with leaders to align capital, data, and technology, building systems that predict, adapt, and compound value.',
-    cta: "Let's create convergence",
+    cta: { label: "Let's create convergence", href: mailtoUrl },
+    showContact: true,
     points: [
       {
         id: '01',
@@ -45,7 +47,6 @@ const stages = [
     id: 'approach',
     navLabel: 'Approach',
     step: '02',
-    kicker: 'Approach',
     title: (
       <>
         Intelligence Becomes Useful When It Changes the <em>Loop</em>.
@@ -53,7 +54,7 @@ const stages = [
     ),
     summary:
       'The work is not more tools. It is a tighter relationship between signal, judgment, workflow, and business action.',
-    cta: 'See the proof',
+    cta: { label: 'See the proof', href: '#impact' },
     points: [
       {
         id: '01',
@@ -81,7 +82,6 @@ const stages = [
     id: 'impact',
     navLabel: 'Impact',
     step: '03',
-    kicker: 'Impact',
     title: (
       <>
         The Signal Is Proven By Business <em>Movement</em>.
@@ -89,7 +89,7 @@ const stages = [
     ),
     summary:
       'My best work changes how a company sees customers, controls cost, allocates attention, and acts before the obvious moment.',
-    cta: 'Discuss fit',
+    cta: { label: 'Discuss fit', href: mailtoUrl },
     points: [
       {
         id: '01',
@@ -114,10 +114,9 @@ const stages = [
     ],
   },
   {
-    id: 'partner',
+    id: 'fit',
     navLabel: 'Fit',
     step: '04',
-    kicker: 'Fit',
     title: (
       <>
         Builder, Challenger, Operator. One <em>Thread</em>.
@@ -125,7 +124,8 @@ const stages = [
     ),
     summary:
       'I am looking for an in-house role where practical systems, direct judgment, economic clarity, and high agency can compound.',
-    cta: 'Start a conversation',
+    cta: { label: 'Start a conversation', href: mailtoUrl },
+    showContact: true,
     points: [
       {
         id: '01',
@@ -153,11 +153,11 @@ const stages = [
 
 const metrics = [
   { value: '10+', label: 'Years', text: 'Strategic finance and business intelligence' },
-  { value: '0-1', label: 'Finance functions', text: 'Built startup finance foundations, models, reporting, and controls' },
+  { value: '0–1', label: 'Finance functions', text: 'Built startup finance foundations, models, reporting, and controls' },
   { value: '$100M+', label: 'Spend visibility', text: 'Built budgets, reporting, and tools that help businesses excel' },
 ];
 
-const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const portraitSizes = '(max-width: 1080px) 88vw, 26rem';
 
 const FieldGeometry = () => (
   <svg className="field-geometry" viewBox="0 0 740 720" aria-hidden="true">
@@ -169,378 +169,287 @@ const FieldGeometry = () => (
     </defs>
     <circle className="geo-orbit" cx="250" cy="362" r="132" />
     <circle className="geo-orbit geo-orbit-wide" cx="250" cy="362" r="246" />
-    {Array.from({ length: 18 }).map((_, index) => {
-      const angle = -62 + index * 7.2;
-      const radians = (angle * Math.PI) / 180;
-      const x = 250 + Math.cos(radians) * 360;
-      const y = 362 + Math.sin(radians) * 360;
-
-      return (
-        <line
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          className="geo-ray"
-          x1="250"
-          y1="362"
-          x2={x}
-          y2={y}
-        />
-      );
-    })}
     <line className="geo-axis" x1="0" y1="362" x2="740" y2="362" />
     <line className="geo-axis" x1="250" y1="0" x2="250" y2="720" />
-    <circle className="geo-center" cx="250" cy="362" r="6" />
-    {[0, 2, 4, 7, 10, 13, 16].map((index) => {
-      const angle = -62 + index * 7.2;
-      const radians = (angle * Math.PI) / 180;
-      const x = 250 + Math.cos(radians) * 245;
-      const y = 362 + Math.sin(radians) * 245;
+    <g className="geo-fan">
+      {Array.from({ length: 18 }).map((_, index) => {
+        const angle = -62 + index * 7.2;
+        const radians = (angle * Math.PI) / 180;
+        const x = 250 + Math.cos(radians) * 360;
+        const y = 362 + Math.sin(radians) * 360;
 
-      return (
-        <circle
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          className="geo-node"
-          cx={x}
-          cy={y}
-          r={index === 10 ? 5 : 3.5}
-        />
-      );
-    })}
-    <circle className="geo-node geo-node-red" cx="270" cy="500" r="4" />
+        return (
+          <line
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            className="geo-ray"
+            x1="250"
+            y1="362"
+            x2={x}
+            y2={y}
+          />
+        );
+      })}
+      {[0, 2, 4, 7, 10, 13, 16].map((index) => {
+        const angle = -62 + index * 7.2;
+        const radians = (angle * Math.PI) / 180;
+        const x = 250 + Math.cos(radians) * 245;
+        const y = 362 + Math.sin(radians) * 245;
+
+        return (
+          <circle
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            className="geo-node"
+            cx={x}
+            cy={y}
+            r={index === 10 ? 5 : 3.5}
+          />
+        );
+      })}
+      <circle className="geo-node geo-node-red" cx="270" cy="500" r="4" />
+    </g>
+    <circle className="geo-center" cx="250" cy="362" r="6" />
     <circle className="geo-glow" cx="250" cy="362" r="58" />
   </svg>
 );
 
-const Website = () => {
-  const [activeStage, setActiveStage] = useState(0);
-  const activeStageRef = useRef(0);
-  const navigationLockRef = useRef(0);
-  const touchStartRef = useRef(null);
-  const mobileSwipeRef = useRef(null);
-  const lastStageIndex = stages.length - 1;
-  const active = stages[activeStage];
+const ContactLinks = ({ className, size = 18 }) => (
+  <>
+    <a
+      className={className}
+      href={linkedinUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn profile (opens in a new tab)"
+    >
+      <Linkedin size={size} strokeWidth={1.7} aria-hidden="true" />
+    </a>
+    <a className={className} href={mailtoUrl} aria-label={`Email ${contactEmail}`}>
+      <Mail size={size} strokeWidth={1.7} aria-hidden="true" />
+    </a>
+  </>
+);
 
-  const navigateToStage = (nextIndex, options = {}) => {
-    const { lockNavigation = false } = options;
-    const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
-
-    if (lockNavigation) {
-      navigationLockRef.current = Date.now();
-    }
-
-    activeStageRef.current = clampedIndex;
-    setActiveStage(clampedIndex);
-  };
-
-  useEffect(() => {
-    activeStageRef.current = activeStage;
-    window.requestAnimationFrame(() => {
-      document.querySelector('.stage-panel.is-active')?.scrollTo({ top: 0 });
-    });
-  }, [activeStage]);
-
-  useEffect(() => {
-    const canNavigate = () => Date.now() - navigationLockRef.current > 760;
-    const isScrollLayout = () =>
-      window.matchMedia('(max-width: 720px), (max-width: 1080px) and (max-height: 560px)').matches;
-    const goToStage = (nextIndex) => {
-      const clampedIndex = clamp(nextIndex, 0, lastStageIndex);
-
-      navigationLockRef.current = Date.now();
-      activeStageRef.current = clampedIndex;
-      setActiveStage(clampedIndex);
-    };
-
-    const isFormField = (target) => {
-      if (!(target instanceof HTMLElement)) {
-        return false;
-      }
-
-      return target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
-    };
-
-    const handleKeyDown = (event) => {
-      if (isFormField(event.target)) {
-        return;
-      }
-
-      if (event.key === 'Home') {
-        event.preventDefault();
-        goToStage(0);
-        return;
-      }
-
-      if (event.key === 'End') {
-        event.preventDefault();
-        goToStage(lastStageIndex);
-        return;
-      }
-
-      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
-        event.preventDefault();
-        if (canNavigate()) {
-          goToStage(activeStageRef.current + 1);
-        }
-        return;
-      }
-
-      if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
-        event.preventDefault();
-        if (canNavigate()) {
-          goToStage(activeStageRef.current - 1);
-        }
-      }
-    };
-
-    const handleWheel = (event) => {
-      if (isScrollLayout()) {
-        return;
-      }
-
-      if (Math.abs(event.deltaY) < 36) {
-        return;
-      }
-
-      event.preventDefault();
-
-      if (canNavigate()) {
-        goToStage(activeStageRef.current + (event.deltaY > 0 ? 1 : -1));
-      }
-    };
-
-    const handleTouchStart = (event) => {
-      if (isScrollLayout()) {
-        return;
-      }
-
-      touchStartRef.current = event.touches[0]?.clientY ?? null;
-    };
-
-    const handleTouchEnd = (event) => {
-      if (isScrollLayout()) {
-        touchStartRef.current = null;
-        return;
-      }
-
-      if (touchStartRef.current === null) {
-        return;
-      }
-
-      const touchEndY = event.changedTouches[0]?.clientY;
-      const delta = touchStartRef.current - touchEndY;
-      touchStartRef.current = null;
-
-      if (typeof touchEndY !== 'number' || Math.abs(delta) < 56 || !canNavigate()) {
-        return;
-      }
-
-      goToStage(activeStageRef.current + (delta > 0 ? 1 : -1));
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [lastStageIndex]);
-
-  const handleMobileSwipeStart = (event) => {
-    if (!window.matchMedia('(max-width: 720px), (max-width: 1080px) and (max-height: 560px)').matches) {
-      return;
-    }
-
-    const touch = event.touches[0];
-
-    if (!touch) {
-      return;
-    }
-
-    mobileSwipeRef.current = {
-      x: touch.clientX,
-      y: touch.clientY,
-    };
-  };
-
-  const handleMobileSwipeEnd = (event) => {
-    if (!mobileSwipeRef.current) {
-      return;
-    }
-
-    const touch = event.changedTouches[0];
-    const start = mobileSwipeRef.current;
-    mobileSwipeRef.current = null;
-
-    if (!touch) {
-      return;
-    }
-
-    const deltaX = start.x - touch.clientX;
-    const deltaY = start.y - touch.clientY;
-    const isHorizontalSwipe = Math.abs(deltaX) > 54 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25;
-
-    if (!isHorizontalSwipe) {
-      return;
-    }
-
-    navigateToStage(activeStageRef.current + (deltaX > 0 ? 1 : -1), { lockNavigation: true });
-  };
+const StageAction = ({ cta }) => {
+  const Icon = cta.href.startsWith('#') ? ArrowDown : ArrowUpRight;
 
   return (
-    <div className="site-shell" data-stage={activeStage}>
-      <p className="stage-announcer" aria-live="polite">
-        Showing {active.navLabel}
-      </p>
+    <a className="button-primary" href={cta.href}>
+      <span>{cta.label}</span>
+      <Icon size={18} strokeWidth={1.6} aria-hidden="true" />
+    </a>
+  );
+};
 
-      <aside className="side-rail" aria-label="Site navigation">
-        <a className="rail-logo" href="#top" aria-label="Matt Chrzaszcz home">
-          <img src={`${process.env.PUBLIC_URL}/refined-logo.png`} alt="" />
-        </a>
+const Stage = ({ stage, index, inView }) => {
+  const Heading = index === 0 ? 'h1' : 'h2';
+  const titleId = `${stage.id}-title`;
 
-        <nav className="rail-nav" aria-label="Stage navigation">
-          {stages.map((stage, index) => (
-            <button
-              key={stage.id}
-              type="button"
-              className={`rail-nav-link ${index === activeStage ? 'is-active' : ''}`}
-              onClick={() => navigateToStage(index, { lockNavigation: true })}
-            >
-              <span>{stage.step}</span>
-              <strong>{stage.navLabel}</strong>
-            </button>
+  return (
+    <section
+      id={stage.id}
+      className={`stage${inView ? ' is-inview' : ''}`}
+      data-reveal={stage.id}
+      aria-labelledby={titleId}
+    >
+      <div className="stage-inner">
+        <p className="stage-kicker reveal" style={{ '--i': 0 }} aria-hidden="true">
+          <span>{stage.step}</span>
+          {stage.navLabel}
+        </p>
+        <Heading id={titleId} className="stage-title reveal" style={{ '--i': 1 }}>
+          {stage.title}
+        </Heading>
+        <p className="stage-summary reveal" style={{ '--i': 2 }}>
+          {stage.summary}
+        </p>
+
+        <ol className="proof-list">
+          {stage.points.map((point, pointIndex) => (
+            <li className="proof-row reveal" style={{ '--i': 3 + pointIndex }} key={point.id}>
+              <span className="proof-id" aria-hidden="true">
+                {point.id}
+              </span>
+              <h3>{point.label}</h3>
+              <p>{point.text}</p>
+            </li>
           ))}
-        </nav>
-      </aside>
+        </ol>
 
-      <main className="viewport-shell" id="top">
-        <header className="site-header">
-          <img
-            className="mobile-header-logo"
-            src={`${process.env.PUBLIC_URL}/refined-logo.png`}
-            alt=""
-          />
-          <a className="brand-lockup" href="#top">
-            <span>Matt Chrzaszcz</span>
-            <small>Strategic Finance. Analytics. Applied AI.</small>
-          </a>
+        <div className="stage-actions reveal" style={{ '--i': 3 + stage.points.length }}>
+          <StageAction cta={stage.cta} />
+          {stage.showContact && <ContactLinks className="button-icon" />}
+        </div>
+      </div>
+    </section>
+  );
+};
 
-          <div className="stage-control" aria-label="Stage controls">
-            <p>
-              <span>Stage</span>
-              <strong>{active.step}</strong>
-              <small>/ 04</small>
-            </p>
-            <div className="stage-dots">
-              {stages.map((stage, index) => (
-                <button
-                  key={stage.id}
-                  type="button"
-                  className={`stage-dot ${index === activeStage ? 'is-active' : ''}`}
-                  onClick={() => navigateToStage(index, { lockNavigation: true })}
-                  aria-label={`Go to ${stage.navLabel}`}
-                  aria-pressed={index === activeStage}
-                />
-              ))}
-            </div>
-          </div>
-        </header>
-
+const Profile = ({ inView }) => (
+  <aside
+    className={`profile${inView ? ' is-inview' : ''}`}
+    data-reveal="profile"
+    aria-label="About Matt Chrzaszcz"
+  >
+    <div className="profile-sticky">
+      <figure className="portrait reveal" style={{ '--i': 1 }}>
         <FieldGeometry />
-
-        <section className="portrait-panel" aria-label="Portrait of Matt Chrzaszcz">
-          <div className="portrait-frame">
+        <div className="portrait-frame">
+          <picture>
+            <source
+              type="image/webp"
+              srcSet={`${asset('portrait-560.webp')} 560w, ${asset('portrait-960.webp')} 960w`}
+              sizes={portraitSizes}
+            />
             <img
               className="portrait-image"
-              src={`${process.env.PUBLIC_URL}/refined-portrait.png`}
+              src={asset('portrait-960.jpg')}
+              srcSet={`${asset('portrait-560.jpg')} 560w, ${asset('portrait-960.jpg')} 960w`}
+              sizes={portraitSizes}
+              width="960"
+              height="1280"
               alt="Portrait of Matt Chrzaszcz"
+              fetchPriority="high"
             />
-            <div className="portrait-caption">
-              <span>Matt Chrzaszcz</span>
-              <p>Strategic Finance, Analytics and Applied AI Operator</p>
-              <div />
-            </div>
-          </div>
-        </section>
+          </picture>
+        </div>
+        <figcaption className="portrait-caption">
+          <strong>Matt Chrzaszcz</strong>
+          <span>Strategic Finance, Analytics and Applied AI Operator</span>
+        </figcaption>
+      </figure>
 
-        <div
-          className="stage-deck"
-          onTouchStart={handleMobileSwipeStart}
-          onTouchEnd={handleMobileSwipeEnd}
-        >
+      <ul className="metrics reveal" style={{ '--i': 3 }} aria-label="Selected career signals">
+        {metrics.map((metric) => (
+          <li className="metric" key={metric.label}>
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+            <p>{metric.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </aside>
+);
+
+const Website = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [inView, setInView] = useState({});
+  const [motionOk] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  useEffect(() => {
+    // Highlight whichever stage crosses a thin band just above the middle of the viewport.
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const index = stages.findIndex((stage) => stage.id === entry.target.id);
+
+          if (index !== -1) {
+            setActiveIndex(index);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+
+    // Reveal each block once, the first time it scrolls into view.
+    const revealer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          revealer.unobserve(entry.target);
+          setInView((current) => ({ ...current, [entry.target.dataset.reveal]: true }));
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px' }
+    );
+
+    stages.forEach((stage) => {
+      const section = document.getElementById(stage.id);
+
+      if (section) {
+        spy.observe(section);
+      }
+    });
+    document.querySelectorAll('[data-reveal]').forEach((element) => revealer.observe(element));
+
+    return () => {
+      spy.disconnect();
+      revealer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className={`site-shell${motionOk ? ' motion-ok' : ''}`} style={{ '--stage': activeIndex }}>
+      <a className="skip-link" href="#content">
+        Skip to content
+      </a>
+      <div className="backdrop" aria-hidden="true" />
+
+      <aside className="side-rail" aria-label="Site navigation">
+        <a className="rail-logo" href="#intro" aria-label="Matt Chrzaszcz, back to top">
+          <img src={asset('mc-monogram.png')} alt="" width="320" height="320" />
+        </a>
+
+        <nav className="rail-nav" aria-label="Sections">
           {stages.map((stage, index) => {
-            let stageState = 'is-after';
-
-            if (index === activeStage) {
-              stageState = 'is-active';
-            } else if (index < activeStage) {
-              stageState = 'is-before';
-            }
+            const isActive = index === activeIndex;
 
             return (
-              <section
+              <a
                 key={stage.id}
-                className={`stage-panel ${stageState}`}
-                aria-hidden={index !== activeStage}
+                className={`rail-link${isActive ? ' is-active' : ''}`}
+                href={`#${stage.id}`}
+                aria-current={isActive ? 'true' : undefined}
               >
-                <div className="stage-copy">
-                  <p className="stage-kicker">{stage.kicker}</p>
-                  {index === 0 ? (
-                    <h1 className="stage-title">{stage.title}</h1>
-                  ) : (
-                    <h2 className="stage-title">{stage.title}</h2>
-                  )}
-                  <p className="stage-summary">{stage.summary}</p>
-
-                  <div className="proof-list">
-                    {stage.points.map((point) => (
-                      <article className="proof-row" key={`${stage.id}-${point.id}`}>
-                        <p className="proof-id">{point.id}</p>
-                        <h3>{point.label}</h3>
-                        <p>{point.text}</p>
-                      </article>
-                    ))}
-                  </div>
-
-                  <div className="stage-actions">
-                    <a className="button-primary" href={`mailto:${contactEmail}`}>
-                      <span>{stage.cta}</span>
-                      <ArrowUpRight size={18} strokeWidth={1.6} />
-                    </a>
-                    <a
-                      className="button-icon"
-                      href={linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Visit LinkedIn profile"
-                    >
-                      <Linkedin size={18} strokeWidth={1.7} />
-                    </a>
-                    <a className="button-icon" href={`mailto:${contactEmail}`} aria-label="Email Matt">
-                      <Mail size={18} strokeWidth={1.7} />
-                    </a>
-                  </div>
-                </div>
-              </section>
+                <span>{stage.step}</span>
+                <strong>{stage.navLabel}</strong>
+              </a>
             );
           })}
-        </div>
+        </nav>
 
-        <footer className="metric-strip" aria-label="Selected career signals">
-          {metrics.map((metric) => (
-            <article className="metric-item" key={metric.label}>
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-              <p>{metric.text}</p>
-            </article>
+        <div className="rail-contact">
+          <ContactLinks className="rail-icon" size={16} />
+        </div>
+      </aside>
+
+      <div className="page">
+        <header className="site-header">
+          <a className="brand" href="#intro">
+            <img className="brand-mark" src={asset('mc-monogram.png')} alt="" width="320" height="320" />
+            <span className="brand-name">Matt Chrzaszcz</span>
+            <span className="brand-tagline">Strategic Finance. Analytics. Applied AI.</span>
+          </a>
+        </header>
+
+        <main className="layout" id="content" tabIndex={-1}>
+          {stages.map((stage, index) => (
+            <React.Fragment key={stage.id}>
+              <Stage stage={stage} index={index} inView={inView[stage.id]} />
+              {index === 0 && <Profile inView={inView.profile} />}
+            </React.Fragment>
           ))}
+        </main>
+
+        <footer className="site-footer">
+          <p>© {new Date().getFullYear()} Matt Chrzaszcz</p>
+          <nav className="footer-links" aria-label="Contact">
+            <a href={mailtoUrl}>{contactEmail}</a>
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+          </nav>
         </footer>
-      </main>
+      </div>
     </div>
   );
 };
