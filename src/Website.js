@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 
 const contactEmail = 'matthew.chrzaszcz@gmail.com';
@@ -158,6 +158,24 @@ const metrics = [
 ];
 
 const portraitSizes = '(max-width: 1080px) 88vw, 26rem';
+const stackedQuery = '(max-width: 1080px)';
+const compactQuery = '(max-width: 720px)';
+
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const handleChange = () => setMatches(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [query]);
+
+  return matches;
+};
 
 const FieldGeometry = () => (
   <svg className="field-geometry" viewBox="0 0 740 720" aria-hidden="true">
@@ -242,9 +260,34 @@ const StageAction = ({ cta }) => {
   );
 };
 
-const Stage = ({ stage, index, inView }) => {
+const Stage = ({ stage, index, inView, isCompact }) => {
   const Heading = index === 0 ? 'h1' : 'h2';
   const titleId = `${stage.id}-title`;
+  const listRef = useRef(null);
+  const [activePoint, setActivePoint] = useState(0);
+
+  // On phones the points become a swipeable row of cards; track which card is in view.
+  const handlePointsScroll = () => {
+    const list = listRef.current;
+
+    if (!list || list.children.length < 2) {
+      return;
+    }
+
+    const step = list.children[1].offsetLeft - list.children[0].offsetLeft;
+    const atEnd = list.scrollLeft >= list.scrollWidth - list.clientWidth - 2;
+
+    setActivePoint(atEnd ? list.children.length - 1 : Math.round(list.scrollLeft / step));
+  };
+
+  const showPoint = (pointIndex) => {
+    const list = listRef.current;
+    const card = list?.children[pointIndex];
+
+    if (card) {
+      list.scrollTo({ left: card.offsetLeft - list.children[0].offsetLeft, behavior: 'smooth' });
+    }
+  };
 
   return (
     <section
@@ -265,7 +308,13 @@ const Stage = ({ stage, index, inView }) => {
           {stage.summary}
         </p>
 
-        <ol className="proof-list">
+        <ol
+          ref={listRef}
+          className="proof-list"
+          onScroll={isCompact ? handlePointsScroll : undefined}
+          tabIndex={isCompact ? 0 : undefined}
+          aria-label={isCompact ? `${stage.navLabel} points` : undefined}
+        >
           {stage.points.map((point, pointIndex) => (
             <li className="proof-row reveal" style={{ '--i': 3 + pointIndex }} key={point.id}>
               <span className="proof-id" aria-hidden="true">
@@ -276,6 +325,18 @@ const Stage = ({ stage, index, inView }) => {
             </li>
           ))}
         </ol>
+
+        <div className="proof-dots" aria-hidden="true">
+          {stage.points.map((point, pointIndex) => (
+            <button
+              key={point.id}
+              type="button"
+              tabIndex={-1}
+              className={`proof-dot${pointIndex === activePoint ? ' is-active' : ''}`}
+              onClick={() => showPoint(pointIndex)}
+            />
+          ))}
+        </div>
 
         <div className="stage-actions reveal" style={{ '--i': 3 + stage.points.length }}>
           <StageAction cta={stage.cta} />
@@ -337,6 +398,39 @@ const Website = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [inView, setInView] = useState({});
   const [motionOk] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const isCompact = useMediaQuery(compactQuery);
+
+  useEffect(() => {
+    // On tablets and phones, snap one panel per screen only when every panel fits the screen,
+    // so small phones and large text settings fall back to ordinary scrolling.
+    const root = document.documentElement;
+    const stacked = window.matchMedia(stackedQuery);
+    const panels = [...document.querySelectorAll('.stage, .profile')];
+
+    const update = () => {
+      const fits =
+        stacked.matches &&
+        panels.every((panel) => {
+          const minHeight = parseFloat(window.getComputedStyle(panel).minHeight);
+
+          return panel.offsetHeight <= Math.ceil(minHeight) + 1;
+        });
+
+      root.classList.toggle('snap-fit', fits);
+    };
+
+    const resizeObserver = new ResizeObserver(update);
+
+    panels.forEach((panel) => resizeObserver.observe(panel));
+    stacked.addEventListener('change', update);
+    update();
+
+    return () => {
+      resizeObserver.disconnect();
+      stacked.removeEventListener('change', update);
+      root.classList.remove('snap-fit');
+    };
+  }, []);
 
   useEffect(() => {
     // Highlight whichever stage crosses a thin band just above the middle of the viewport.
@@ -429,12 +523,16 @@ const Website = () => {
             <span className="brand-name">Matt Chrzaszcz</span>
             <span className="brand-tagline">Strategic Finance. Analytics. Applied AI.</span>
           </a>
+          <div className="header-contact">
+            <ContactLinks className="header-icon" size={18} />
+          </div>
+          <span className="header-progress" aria-hidden="true" />
         </header>
 
         <main className="layout" id="content" tabIndex={-1}>
           {stages.map((stage, index) => (
             <React.Fragment key={stage.id}>
-              <Stage stage={stage} index={index} inView={inView[stage.id]} />
+              <Stage stage={stage} index={index} inView={inView[stage.id]} isCompact={isCompact} />
               {index === 0 && <Profile inView={inView.profile} />}
             </React.Fragment>
           ))}

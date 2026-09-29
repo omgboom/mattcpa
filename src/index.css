@@ -66,6 +66,11 @@ a {
   text-decoration: none;
 }
 
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 :focus-visible {
   outline: 1px solid var(--champagne);
   outline-offset: 4px;
@@ -293,6 +298,38 @@ main:focus {
   letter-spacing: 0.03em;
 }
 
+/* Contact buttons and stage progress only appear in the tablet/phone top bar */
+.header-contact,
+.header-progress {
+  display: none;
+}
+
+.header-icon {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--bone-muted);
+  transition: color 200ms ease;
+}
+
+.header-icon:hover,
+.header-icon:focus-visible {
+  color: var(--bone);
+}
+
+.header-progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--oxblood-bright);
+  transform: scaleX(calc((var(--stage, 0) + 1) / 4));
+  transform-origin: left center;
+  transition: transform 600ms var(--ease-out);
+}
+
 /* ==========================================================================
    Stages
    ========================================================================== */
@@ -436,6 +473,41 @@ main:focus {
   line-height: 1.5;
 }
 
+/* Position dots for the phone card row */
+.proof-dots {
+  display: none;
+}
+
+.proof-dot {
+  position: relative;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.proof-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transform: translate(-50%, -50%);
+  transition:
+    width 300ms var(--ease-out),
+    background-color 300ms ease;
+}
+
+.proof-dot.is-active::after {
+  width: 1.1rem;
+  background: var(--oxblood-bright);
+}
+
 /* Actions */
 .stage-actions {
   display: flex;
@@ -534,6 +606,7 @@ main:focus {
 .portrait {
   position: relative;
   isolation: isolate;
+  container-type: inline-size;
   width: min(100%, 26rem, 46vh);
   margin: 0;
 }
@@ -608,6 +681,35 @@ main:focus {
   height: 1px;
   margin-top: 0.95rem;
   background: var(--oxblood-bright);
+}
+
+/* Keep the caption in proportion when the portrait is drawn small (short phones) */
+@container (max-width: 300px) {
+  .portrait-caption {
+    right: 1.1rem;
+    bottom: 1.05rem;
+    left: 1.1rem;
+  }
+
+  .portrait-caption strong {
+    font-size: 0.64rem;
+    letter-spacing: 0.26em;
+  }
+
+  .portrait-caption span {
+    margin-top: 0.45rem;
+    font-size: 0.74rem;
+  }
+
+  .portrait-caption::after {
+    margin-top: 0.7rem;
+  }
+}
+
+@container (max-width: 230px) {
+  .portrait-caption span {
+    display: none;
+  }
 }
 
 /* Converging-field motif; turns a few degrees as each stage becomes active */
@@ -859,12 +961,18 @@ main:focus {
 }
 
 /* ==========================================================================
-   Tablet and phone: one continuous column
+   Tablet and phone: a deck of full-screen panels under a fixed top bar
    ========================================================================== */
 
 @media (max-width: 1080px) {
   :root {
     --page-x: clamp(1.25rem, 5vw, 2.5rem);
+    --bar-height: 3.5rem;
+  }
+
+  /* Snap one panel per screen; the script only adds .snap-fit when every panel fits. */
+  html.snap-fit {
+    scroll-snap-type: y mandatory;
   }
 
   .side-rail,
@@ -877,36 +985,81 @@ main:focus {
     margin-left: 0;
   }
 
+  /* Top bar: brand on the left, contact on the right, stage progress along the bottom edge */
   .site-header {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 30;
     display: flex;
-    justify-content: center;
-    padding: 2.5rem var(--page-x) 0;
-    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: var(--bar-height);
+    padding: 0 calc(var(--page-x) - 0.65rem) 0 var(--page-x);
+    border-bottom: 1px solid var(--line);
+    background: rgba(14, 13, 12, 0.84);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
   }
 
   .brand {
-    justify-items: center;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
   }
 
   .brand-mark {
     display: block;
-    width: 3.9rem;
-    height: 3.9rem;
-    margin-bottom: 0.5rem;
+    flex: none;
+    width: 2.1rem;
+    height: 2.1rem;
   }
 
-  .stage {
+  .brand-name {
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    white-space: nowrap;
+  }
+
+  .brand-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .brand-tagline::before {
+    content: '';
+    width: 1px;
+    height: 0.9rem;
+    background: var(--line-strong);
+  }
+
+  .header-contact {
+    display: flex;
+    flex: none;
+  }
+
+  .header-progress {
     display: block;
-    min-height: 0;
-    margin-right: 0;
-    padding: 4rem var(--page-x);
   }
 
-  .stage:not(:first-child) {
-    background: linear-gradient(var(--line), var(--line)) top center / min(calc(100% - 2 * var(--page-x)), 40rem) 1px no-repeat;
+  /* Panels: each stage, plus the portrait, fills one screen */
+  .stage,
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin-right: 0;
+    padding: calc(var(--bar-height) + 1.75rem) var(--page-x) 1.75rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .stage-inner {
@@ -919,7 +1072,7 @@ main:focus {
   }
 
   .stage-title {
-    font-size: clamp(2.9rem, 7.4vw, 4.6rem);
+    font-size: clamp(2.6rem, min(7vw, 7.2vh), 4.4rem);
     text-align: center;
   }
 
@@ -940,21 +1093,30 @@ main:focus {
     justify-content: center;
   }
 
+  /* LinkedIn and email live in the top bar, so each panel keeps one call to action */
+  .stage-actions .button-icon {
+    display: none;
+  }
+
   .profile {
-    position: static;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
     width: auto;
-    padding: 0.5rem var(--page-x) 4rem;
   }
 
   .profile-sticky {
     position: static;
+    width: 100%;
     height: auto;
-    gap: 2.75rem;
+    gap: clamp(1.5rem, 4vh, 2.5rem);
     padding: 0;
   }
 
   .portrait {
-    width: min(calc(100% - 1rem), 24rem);
+    width: min(100% - 1rem, 24rem);
+    width: min(100% - 1rem, 24rem, (100svh - var(--bar-height) - 16rem) * 0.75);
   }
 
   .metrics {
@@ -962,14 +1124,14 @@ main:focus {
   }
 
   .metric strong {
-    font-size: clamp(2.1rem, 7vw, 2.8rem);
+    font-size: clamp(2rem, 7vw, 2.8rem);
   }
 
   .site-footer {
     flex-direction: column;
     justify-content: center;
     margin-right: 0;
-    padding: 1.75rem var(--page-x) 2.5rem;
+    padding: 1.75rem var(--page-x) 2.25rem;
     text-align: center;
   }
 
@@ -979,113 +1141,183 @@ main:focus {
 }
 
 @media (max-width: 720px) {
-  .stage {
-    padding-block: 3.25rem;
-  }
-
-  .site-header + .layout .stage:first-child {
-    padding-top: 2.5rem;
+  .stage-kicker {
+    margin-bottom: 1rem;
   }
 
   .stage-title {
-    font-size: clamp(2.45rem, 10.6vw, 3.5rem);
+    font-size: clamp(2.2rem, 9.4vw, 3.2rem);
     line-height: 1.02;
   }
 
   .stage-summary {
-    font-size: 1rem;
+    margin-top: 1.1rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .stage-summary::before {
+    margin-bottom: 1rem;
+  }
+
+  /* The four points become a row of swipeable cards that runs to the screen edges */
+  .proof-list {
+    display: flex;
+    gap: 0.75rem;
+    max-width: none;
+    margin: 1.6rem calc(-1 * var(--page-x)) 0;
+    padding: 0 var(--page-x);
+    border-left: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--page-x);
+    scrollbar-width: none;
+  }
+
+  .proof-list::-webkit-scrollbar {
+    display: none;
   }
 
   .proof-row {
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: 0.3rem 0.85rem;
-    padding: 0.95rem 0 0.95rem 1.3rem;
-  }
-
-  .proof-row h3 {
-    font-size: 1.35rem;
-  }
-
-  .proof-row p {
-    grid-column: 2;
-  }
-
-  .stage-actions {
-    flex-wrap: nowrap;
-    gap: 0.6rem;
-  }
-
-  .button-primary {
-    flex: 1 1 auto;
-    min-width: 0;
-    gap: 1rem;
-    padding-inline: 1.15rem 1rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-  }
-
-  .button-icon {
-    flex: none;
-  }
-
-  .metric {
-    padding-inline: 0.6rem;
-  }
-
-  .metric span {
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-  }
-
-  .metric p {
-    font-size: 0.72rem;
-  }
-}
-
-@media (max-width: 560px) {
-  .stage-actions {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .button-primary {
-    flex-basis: 100%;
-  }
-}
-
-@media (max-width: 420px) {
-  .metrics {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-  }
-
-  .metric {
-    grid-row: auto;
-    grid-template-rows: none;
-    grid-template-columns: 6.25rem minmax(0, 1fr);
-    align-items: center;
-    column-gap: 1rem;
-    padding: 0.95rem 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
+    display: flex;
+    flex: 0 0 min(80%, 19rem);
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1.05rem 1.15rem 1.2rem;
+    border: 1px solid var(--line-strong);
+    border-top-color: rgba(177, 58, 43, 0.85);
+    background: rgba(235, 226, 212, 0.03);
+    scroll-snap-align: start;
     text-align: left;
   }
 
-  .metric:first-child {
-    border-top: 0;
+  .proof-row::before {
+    display: none;
   }
 
-  .metric strong {
-    grid-row: span 2;
+  .proof-id {
+    font-size: 1.15rem;
+  }
+
+  .proof-row h3 {
+    font-size: 1.4rem;
+  }
+
+  .proof-row p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .proof-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.7rem;
+  }
+
+  .stage-actions {
+    margin-top: 1.1rem;
+  }
+
+  .button-primary {
+    flex: 1 1 100%;
+    gap: 1rem;
+    padding-inline: 1.2rem 1.05rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .metric {
+    padding-inline: 0.5rem;
   }
 
   .metric span {
-    margin-top: 0;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
   }
 
   .metric p {
-    max-width: none;
-    margin: 0.25rem 0 0;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+}
+
+/* Short phones (iPhone SE, compact Android): tighten the rhythm so each panel still fits one screen */
+@media (max-width: 720px) and (max-height: 700px) {
+  .stage,
+  .profile {
+    padding-top: calc(var(--bar-height) + 1rem);
+    padding-bottom: 1rem;
+  }
+
+  .stage-kicker {
+    margin-bottom: 0.7rem;
+  }
+
+  .stage-title {
+    font-size: clamp(1.95rem, min(9.4vw, 6.3vh), 3.2rem);
+  }
+
+  .stage-summary {
+    margin-top: 0.85rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .stage-summary::before {
+    margin-bottom: 0.8rem;
+  }
+
+  .proof-list {
+    margin-top: 1.1rem;
+  }
+
+  .proof-row {
+    flex-basis: min(86%, 19rem);
+    gap: 0.3rem;
+    padding: 0.8rem 1rem 0.9rem;
+  }
+
+  .proof-row h3 {
+    font-size: 1.28rem;
+  }
+
+  .proof-row p {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .proof-dots {
+    margin-top: 0.4rem;
+  }
+
+  .stage-actions {
+    margin-top: 0.7rem;
+  }
+
+  .button-primary {
+    min-height: 3rem;
+  }
+
+  /* Drop the small metric notes so the portrait can stay large */
+  .metric p {
+    display: none;
+  }
+
+  .portrait {
+    width: min(100% - 1rem, 24rem, (100svh - var(--bar-height) - 9.5rem) * 0.75);
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-tagline {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-name {
+    letter-spacing: 0.2em;
   }
 }
 
