@@ -86,7 +86,7 @@ Timeline (start year, company, role, context):
 | 2019 | Looka | Head of Finance | First finance hire |
 | 2017 | FreshBooks | FP&A Manager | Small-business accounting SaaS |
 
-The current employer is deliberately unnamed, matching LinkedIn. Titles and years follow the 2026 resume.
+The current employer is deliberately unnamed. Titles and years follow the 2026 resume.
 
 Action: `View full resume`
 
