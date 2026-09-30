@@ -4,6 +4,6 @@ import App from './App';
 test('renders the current stage-based hero headline', () => {
   render(<App />);
   expect(
-    screen.getByRole('heading', { name: /where strategy meets intelligence/i })
+    screen.getByRole('heading', { name: /clear\s+numbers\.\s+earlier\s+decisions/i })
   ).toBeInTheDocument();
 });

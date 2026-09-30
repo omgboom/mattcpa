@@ -2,246 +2,124 @@
 
 ## Purpose
 
-This document captures the current website's content, information architecture, interaction model, and creative direction so it can be reviewed without reading the codebase.
+This document captures the current website's content, information architecture, and interaction model so it can be reviewed without reading the codebase.
 
-## Core Story
+## Audience and goal
 
-The deck now follows this sequence:
+The site supports a search for:
 
-1. Identity: I see clearly and help businesses move earlier through strategy, AI systems, and operating leverage.
-2. Credibility: here is the stack of what I have actually built and changed.
-3. Outcomes: here are the business results those capabilities created.
-4. Fit: here is how I operate and where I fit best.
+- Head of FP&A or Director of FP&A roles at companies with fewer than about 500 people
+- Head of Finance roles at companies with fewer than about 100 people
 
-In shorthand:
+Primary readers are the CFOs, CEOs, founders, and recruiters hiring for those seats. Each panel answers one of their questions in order:
 
-`identity -> credibility -> outcomes -> fit`
+`who is this -> what have they delivered -> where have they done it -> are they looking for a role like mine`
 
-## Experience Model
+## Experience model
 
-This is a single-screen responsive stage deck with 4 states:
+A single page of four full-screen panels, scrolled natively.
 
-1. Thesis
-2. Stack
-3. Outcomes
-4. Fit
+- Desktop: panels snap one per screen when the window is tall enough, a side rail tracks the active panel, and the portrait and career signals stay pinned in a right-hand column.
+- Tablet and phone: a fixed top bar (monogram, name, LinkedIn, email) with a progress line; the portrait becomes its own panel after the intro, and each panel's points become a swipeable row of cards.
+- The resume PDF (`public/assets/matt-chrzaszcz-resume.pdf`) opens in a new tab from the intro and fit panels, the career panel, and the footer.
 
-The user stays on one screen while content transitions between stages.
+## Global elements
 
-Supported interactions:
+Header brand: `Matt Chrzaszcz` with the tagline `Strategic Finance. FP&A. CPA.`
 
-- mouse wheel
-- touch swipe
-- keyboard arrow keys
-- keyboard page up/page down
-- keyboard home/end
-- clicking top navigation
-- clicking bottom dots
+Portrait caption: `Matt Chrzaszcz, CPA`, `Strategic finance and FP&A leader based in Kitchener–Toronto`
 
-The helper line appears at first load, then disappears permanently for that session after the first navigation interaction:
+Career signals under the portrait:
 
-`Use wheel, swipe, or arrow keys to move through the site.`
+| Value | Label | Note |
+| --- | --- | --- |
+| 10+ | Years | FP&A, strategic finance, and startup finance |
+| CPA | Since 2019 | Chartered Professional Accountant, CPA Ontario |
+| 3 | Functions built | Startup finance set up from zero, as first hire or fractional lead |
 
-## Global Layout
+Footer: email, LinkedIn, `Resume (PDF)`
 
-Top bar:
+## Panel 1: Intro
 
-- `MATT CHRZASZCZ`
-- `01 Thesis`
-- `02 Stack`
-- `03 Outcomes`
-- `04 Fit`
-- Email icon
-- LinkedIn icon
+Headline: `Clear Numbers. Earlier Decisions.`
 
-Footer:
+Summary: `I'm a CPA with 10+ years in FP&A and startup finance, turning fragmented data into decisions CEOs and CFOs can act on.`
 
-- first-load helper instruction
-- 4 clickable stage dots
+Points:
 
-Each stage uses the same centered card shell:
+1. **FP&A leadership**: Budgets, forecasts, long-range plans, and board reporting that leaders actually use.
+2. **Profitability**: Cost control, pricing, and unit economics that show up in operating margin.
+3. **Finance from zero**: First-hire experience owning the close, cash, compliance, payroll, and investor reporting.
+4. **Data & AI**: SQL, dbt, BI, and AI-enabled tools I build myself, so finance keeps pace with the business.
 
-- left side: large editorial headline, short supporting copy, optional actions
-- right side: structured detail, point bubbles, or numbered outcomes
-- stacked layouts let the left headline area take the full width
+Actions: `Get in touch` (email), `Resume`, LinkedIn
 
-## Stage 1: Thesis
+## Panel 2: Impact
 
-### Role
+Headline: `Results That Show Up in the P&L.`
 
-Establish the category and identity: strategic operator who combines judgment, systems, and applied AI.
+Summary: `The pattern repeats: find where money leaks or stalls, prove it with data, and fix the mechanism behind it.`
 
-### Kicker
+Points:
 
-`Strategy, systems, and applied AI`
+1. **+50% operating profit**: Led Pinnacle's annual budget with a hard line on cost: operating expenses down 15% versus fiscal 2023.
+2. **$2M recovered and saved**: Partnered with Payments to recover ~$0.5M in overcharges and secure lower fees worth ~$1.5M more.
+3. **$1M a month saved**: At Vidyard, helped cut marketing spend ~$1M a month as the market shifted, without a major revenue hit.
+4. **$1M+ cash unlocked**: As Looka's first finance hire, freed funds stuck in PayPal with banks and payment partners.
 
-### Main headline
+Action: `See my career` (scrolls to the next panel)
 
-`I help businesses see clearly, move earlier, and build leverage that sticks.`
+## Panel 3: Career
 
-### Supporting summary
+Headline: `From First Finance Hire to Head of FP&A.`
 
-`I combine strategic judgment with practical AI systems, predictive BI, and automation that make better action easier.`
+Summary: `Each role widened the brief, from reporting the numbers to owning the plan to building the function around it.`
 
-### Primary actions
+Timeline (start year, company, role, context):
 
-- `Start a conversation`
-- `See the stack`
+| Year | Company | Role | Context |
+| --- | --- | --- | --- |
+| 2025 | Current role | Head of Strategic Finance | Online gaming |
+| 2023 | Pinnacle | Head of FP&A | Global online gaming |
+| 2020 | Vidyard | Senior Manager, Revenue FP&A | B2B video SaaS |
+| 2020 | Bonsai & Vital Bio | Fractional Head of Finance | Early-stage startups |
+| 2019 | Looka | Head of Finance | First finance hire |
+| 2017 | FreshBooks | FP&A Manager | Small-business accounting SaaS |
 
-### Structured rows
+The current employer is deliberately unnamed, matching LinkedIn. Titles and years follow the 2026 resume.
 
-**01 Strategy**
+Action: `View full resume`
 
-`Recommendations adopted across incentives, pricing, org design, and operating economics.`
+## Panel 4: Fit
 
-**02 AI systems**
+Headline: `The Right Seat at the Right Stage.`
 
-`Secure data-connected LLM workflows, AI-assisted operations, and an AI-in-the-loop auto data scientist.`
+Summary: `I'm open to senior finance roles at growing companies that need both a strategic partner and a hands-on builder.`
 
-**03 Predictive BI**
+Points:
 
-`Datamarts, Metabase, and production-grade predictive models that improve visibility and action.`
+1. **Head or Director of FP&A**: Growth companies of up to about 500 people building a planning function the CFO can trust.
+2. **Head of Finance**: Startups of up to about 100 people that need one leader across accounting, cash, and planning.
+3. **How I work**: Hands-on, direct, and data-first. I'd rather fix the mechanism than explain the variance.
+4. **Based in**: Kitchener–Toronto, Ontario, Canada.
 
-**04 Automation**
+Actions: `Let's talk` (email), `Resume`, LinkedIn
 
-`n8n orchestration and workflow automation shipped into real operating use.`
+## Search and sharing
 
-## Stage 2: Stack
+- Title: `Matt Chrzaszcz, CPA | Strategic Finance & FP&A Leader`
+- Description: `Matt Chrzaszcz is a CPA and strategic finance leader with 10+ years in FP&A and startup finance across SaaS and online gaming, based in Kitchener–Toronto.`
+- Structured data: a schema.org `Person` block in `public/index.html`
 
-### Role
+## Visual system
 
-Prove range of capability through concrete work shipped into the business.
+- Palette: near-black base, bone and parchment text, champagne and bronze accents, oxblood rules
+- Type: Instrument Serif for headlines, company names, and figures; Manrope for body and interface text
+- Each headline italicizes one word in champagne; the Impact figures use the same treatment
 
-### Kicker
+## Reviewer questions
 
-`What I actually built`
-
-### Main headline
-
-`This is not AI enthusiasm. It is shipped operating infrastructure.`
-
-### Supporting summary
-
-`I didn't stop at prompting. I put infrastructure, orchestration, BI, AI tooling, and workflow into the hands of the teams using them.`
-
-### Structured rows
-
-**01 Built the operating stack**
-
-`Launched my own server and stood up n8n, Metabase, Airflow, dbt, and the SQL infrastructure behind datamarts used for analysis, applications, BI, data science, and marketing.`
-
-**02 Shipped internal AI systems**
-
-`Built a secure data-connected LLM workflow and an AI-in-the-loop data science application, then connected permissions, scheduled tasks, and tool calls into CRM workflows for real operating use.`
-
-**03 Pushed business decisions that matter**
-
-`Recommended and won approval for changes across incentives, performance reviews, customer support structure, product leadership, pricing logic, and affiliate economics.`
-
-## Stage 3: Outcomes
-
-### Role
-
-Prove business impact through concise numbered outcomes.
-
-### Kicker
-
-`Selected outcomes`
-
-### Main headline
-
-`The work matters when it changes how the business operates.`
-
-### Supporting summary
-
-`The pattern is consistent: find the bottleneck, design the mechanism, and improve the outcome.`
-
-### Outcome cards
-
-**01**
-
-`Built a CRM-connected AI workflow for the VIP team, which manages roughly 40% of revenue through the top 10% of customers, reducing friction and surfacing retention opportunities.`
-
-**02**
-
-`Developed predictive models, datamarts, and production BI that improved acquisition and retention marketing by enabling earlier action on customer behavior and campaign performance.`
-
-**03**
-
-`Led budgeting and cost control with disciplined financial management, contributing to a 15% reduction in operating expenses and a 50% increase in operating profit versus fiscal 2023.`
-
-**04**
-
-`Found and corrected payment-provider overcharges, recovering $0.5M and securing another $1.5M in savings through lower ongoing fees.`
-
-## Stage 4: Fit
-
-### Role
-
-Show how Matt thinks and where he fits best.
-
-### Kicker
-
-`How I operate`
-
-### Main headline
-
-`The best fit is a company that wants one person who can build and challenge.`
-
-### Supporting summary
-
-`I'm looking for an in-house role where I can keep building systems, influence the operating model, and raise the quality of decisions across the business.`
-
-### Operating rows
-
-**01 Build where the business is actually constrained**
-
-`I focus on the operational bottleneck first, whether that lives in data infrastructure, workflow design, org shape, or commercial logic.`
-
-**02 Connect systems to decisions**
-
-`The point is not tools in isolation. It is a tighter loop between information, judgment, and action for the people running the business.`
-
-**03 Challenge the economics when needed**
-
-`If incentives, fee structures, affiliate deals, or team design are wrong, I will say it and help redesign them around real outcomes.`
-
-### Contact actions
-
-- `Email`
-- `LinkedIn`
-
-## Visual System
-
-Palette:
-
-- deep charcoal / near-black base
-- warm bone / parchment highlights
-- muted copper accent
-- restrained clay / oxblood undertones
-
-Typography:
-
-- editorial serif for primary headlines
-- modern sans-serif for navigation, supporting copy, and interface text
-
-Layout:
-
-- consistent centered card structure across all 4 stages
-- strong left-side headline composition
-- right-side evidence or details
-- responsive stacked layout where the headline gets full width
-
-Motion:
-
-- quiet stage transitions
-- subtle depth and fade between screens
-- restrained navigation feedback
-
-## Reviewer Questions
-
-- Does Slide 1 now establish category before capability?
-- Does Slide 2 prove range without feeling like a tool list?
-- Does Slide 3 now prove business impact rather than scope?
-- Does Slide 4 clearly explain how Matt thinks and where he fits?
-- Is the sequence `identity -> credibility -> outcomes -> fit` clear?
+- Can a hiring CFO tell within five seconds that this is a CPA finance leader aimed at Head or Director of FP&A roles?
+- Would a founder hiring a first Head of Finance see the first-hire and fractional experience?
+- Are the Impact numbers precise enough to defend in an interview?
+- Should the current employer be named?

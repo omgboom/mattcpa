@@ -325,7 +325,7 @@ main:focus {
   width: 100%;
   height: 1px;
   background: var(--oxblood-bright);
-  transform: scaleX(calc((var(--stage, 0) + 1) / 4));
+  transform: scaleX(calc((var(--stage, 0) + 1) / var(--stage-count, 4)));
   transform-origin: left center;
   transition: transform 600ms var(--ease-out);
 }
@@ -466,11 +466,37 @@ main:focus {
   line-height: 1.1;
 }
 
+.proof-row h3 em {
+  color: var(--champagne);
+  font-style: italic;
+}
+
 .proof-row p {
   margin: 0;
   color: var(--bone-muted);
   font-size: 0.85rem;
   line-height: 1.5;
+}
+
+/* Timeline variant: start year, company, then role and context on one line */
+.is-timeline .proof-row {
+  grid-template-columns: 3.4rem 9.75rem minmax(0, 1fr);
+  padding-block: 0.62rem;
+}
+
+.is-timeline .proof-id {
+  font-size: 1.2rem;
+}
+
+.proof-role {
+  color: var(--bone);
+  font-weight: 600;
+}
+
+.proof-role::after {
+  content: ' ·';
+  color: var(--bone-faint);
+  font-weight: 400;
 }
 
 /* Position dots for the phone card row */
@@ -518,6 +544,7 @@ main:focus {
 }
 
 .button-primary,
+.button-secondary,
 .button-icon {
   display: inline-flex;
   align-items: center;
@@ -564,12 +591,31 @@ main:focus {
   transform: translateY(3px);
 }
 
+.button-secondary {
+  gap: 0.8rem;
+  padding: 0 1.2rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.button-secondary svg {
+  flex: none;
+}
+
+.button-secondary,
 .button-icon {
-  width: 3.25rem;
   border-color: var(--line-strong);
   color: var(--bone-muted);
 }
 
+.button-icon {
+  width: 3.25rem;
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible,
 .button-icon:hover,
 .button-icon:focus-visible {
   border-color: rgba(208, 184, 154, 0.6);
@@ -926,7 +972,7 @@ main:focus {
   }
 
   .proof-row {
-    padding-block: 0.7rem;
+    padding-block: 0.62rem;
   }
 
   .metric p {
@@ -1209,6 +1255,19 @@ main:focus {
     line-height: 1.5;
   }
 
+  .is-timeline .proof-row {
+    padding-block: 1.05rem 1.2rem;
+  }
+
+  /* On a card the role gets its own line above the context */
+  .proof-role {
+    display: block;
+  }
+
+  .proof-role::after {
+    content: none;
+  }
+
   .proof-dots {
     display: flex;
     justify-content: center;
@@ -1219,10 +1278,17 @@ main:focus {
     margin-top: 1.1rem;
   }
 
+  /* The main action fills the row; the resume button sits beside it when there is room */
   .button-primary {
-    flex: 1 1 100%;
+    flex: 1 1 11rem;
     gap: 1rem;
     padding-inline: 1.2rem 1.05rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .button-secondary {
+    padding-inline: 1.05rem;
     font-size: 0.72rem;
     letter-spacing: 0.12em;
   }
@@ -1278,6 +1344,10 @@ main:focus {
     padding: 0.8rem 1rem 0.9rem;
   }
 
+  .is-timeline .proof-row {
+    padding-block: 0.8rem 0.9rem;
+  }
+
   .proof-row h3 {
     font-size: 1.28rem;
   }
@@ -1295,7 +1365,8 @@ main:focus {
     margin-top: 0.7rem;
   }
 
-  .button-primary {
+  .button-primary,
+  .button-secondary {
     min-height: 3rem;
   }
 
@@ -1318,6 +1389,24 @@ main:focus {
 @media (max-width: 380px) {
   .brand-name {
     letter-spacing: 0.2em;
+  }
+}
+
+/* Smallest phones: the resume button shrinks to its icon so both actions share one row */
+@media (max-width: 359px) {
+  .button-secondary {
+    position: relative;
+    width: 3rem;
+    padding: 0;
+  }
+
+  .button-secondary span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowDown, ArrowUpRight, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, FileText, Linkedin, Mail } from 'lucide-react';
 
 const contactEmail = 'matthew.chrzaszcz@gmail.com';
 const linkedinUrl = 'https://www.linkedin.com/in/chrzaszcz/';
 const mailtoUrl = `mailto:${contactEmail}`;
 const asset = (file) => `${process.env.PUBLIC_URL}/assets/${file}`;
+// The PDF opens in a new tab, where it can be read in the browser or saved.
+const resumeUrl = asset('matt-chrzaszcz-resume.pdf');
+const newTabProps = { target: '_blank', rel: 'noopener noreferrer' };
 
 const stages = [
   {
@@ -13,104 +16,113 @@ const stages = [
     step: '01',
     title: (
       <>
-        Where Strategy Meets Intelligence, Meaning <em>Emerges</em>.
+        Clear&nbsp;Numbers. Earlier&nbsp;<em>Decisions</em>.
       </>
     ),
     summary:
-      'I partner with leaders to align capital, data, and technology, building systems that predict, adapt, and compound value.',
-    cta: { label: "Let's create convergence", href: mailtoUrl },
-    showContact: true,
+      "I'm a CPA with 10+ years in FP&A and startup finance, turning fragmented data into decisions CEOs and CFOs can act on.",
+    cta: { label: 'Get in touch', href: mailtoUrl },
+    showResume: true,
+    showLinkedIn: true,
     points: [
       {
         id: '01',
-        label: 'Strategy',
-        text: 'Translate complexity into advantage. Align decisions with long-term value.',
+        label: 'FP&A leadership',
+        text: 'Budgets, forecasts, long-range plans, and board reporting that leaders actually use.',
       },
       {
         id: '02',
-        label: 'AI Systems',
-        text: 'Design and operationalize applied AI that augments judgment and scale.',
+        label: 'Profitability',
+        text: 'Cost control, pricing, and unit economics that show up in operating margin.',
       },
       {
         id: '03',
-        label: 'Predictive BI',
-        text: 'Turn data into foresight. Anticipate, prioritize, and perform.',
+        label: 'Finance from zero',
+        text: 'First-hire experience owning the close, cash, compliance, payroll, and investor reporting.',
       },
       {
         id: '04',
-        label: 'Automation',
-        text: 'Build intelligent workflows that remove friction and unlock capacity.',
-      },
-    ],
-  },
-  {
-    id: 'approach',
-    navLabel: 'Approach',
-    step: '02',
-    title: (
-      <>
-        Intelligence Becomes Useful When It Changes the <em>Loop</em>.
-      </>
-    ),
-    summary:
-      'The work is not more tools. It is a tighter relationship between signal, judgment, workflow, and business action.',
-    cta: { label: 'See the proof', href: '#impact' },
-    points: [
-      {
-        id: '01',
-        label: 'Find constraints',
-        text: 'Start where the business is actually slowed by unclear economics, fragmented data, or manual work.',
-      },
-      {
-        id: '02',
-        label: 'Build mechanisms',
-        text: 'Connect infrastructure, models, permissions, and workflows into something teams can rely on.',
-      },
-      {
-        id: '03',
-        label: 'Move the decision',
-        text: 'Shorten the distance between what the business can know and what it is willing to do.',
-      },
-      {
-        id: '04',
-        label: 'Compound leverage',
-        text: 'Leave behind systems that keep improving capacity, clarity, and operating speed.',
+        label: 'Data & AI',
+        text: 'SQL, dbt, BI, and AI-enabled tools I build myself, so finance keeps pace with the business.',
       },
     ],
   },
   {
     id: 'impact',
     navLabel: 'Impact',
-    step: '03',
+    step: '02',
     title: (
       <>
-        The Signal Is Proven By Business <em>Movement</em>.
+        Results That Show Up in the <em>{'P&L'}</em>.
       </>
     ),
     summary:
-      'My best work changes how a company sees customers, controls cost, allocates attention, and acts before the obvious moment.',
-    cta: { label: 'Discuss fit', href: mailtoUrl },
+      'The pattern repeats: find where money leaks or stalls, prove it with data, and fix the mechanism behind it.',
+    cta: { label: 'See my career', href: '#career' },
     points: [
       {
         id: '01',
-        label: '40% revenue focus',
-        text: 'Built a CRM-connected AI workflow for the VIP team managing the top customer cohort.',
+        label: (
+          <>
+            <em>+50%</em> operating profit
+          </>
+        ),
+        text: "Led Pinnacle's annual budget with a hard line on cost: operating expenses down 15% versus fiscal 2023.",
       },
       {
         id: '02',
-        label: 'Earlier action',
-        text: 'Developed predictive models, datamarts, and production BI for acquisition and retention marketing.',
+        label: (
+          <>
+            <em>$2M</em> recovered and saved
+          </>
+        ),
+        text: 'Partnered with Payments to recover ~$0.5M in overcharges and secure lower fees worth ~$1.5M more.',
       },
       {
         id: '03',
-        label: '50% profit lift',
-        text: 'Led budgeting and cost control that helped reduce operating expenses and improve profit.',
+        label: (
+          <>
+            <em>$1M</em> a month saved
+          </>
+        ),
+        text: 'At Vidyard, helped cut marketing spend ~$1M a month as the market shifted, without a major revenue hit.',
       },
       {
         id: '04',
-        label: '$2M economics',
-        text: 'Found provider overcharges, recovered cash, and secured lower ongoing payment fees.',
+        label: (
+          <>
+            <em>$1M+</em> cash unlocked
+          </>
+        ),
+        text: "As Looka's first finance hire, freed funds stuck in PayPal with banks and payment partners.",
       },
+    ],
+  },
+  {
+    id: 'career',
+    navLabel: 'Career',
+    step: '03',
+    variant: 'timeline',
+    title: (
+      <>
+        From First Finance Hire to Head of <em>{'FP&A'}</em>.
+      </>
+    ),
+    summary:
+      'Each role widened the brief, from reporting the numbers to owning the plan to building the function around it.',
+    cta: { label: 'View full resume', href: resumeUrl, external: true },
+    points: [
+      { id: '2025', label: 'Current role', role: 'Head of Strategic Finance', text: 'Online gaming' },
+      { id: '2023', label: 'Pinnacle', role: 'Head of FP&A', text: 'Global online gaming' },
+      { id: '2020', label: 'Vidyard', role: 'Senior Manager, Revenue FP&A', text: 'B2B video SaaS' },
+      {
+        id: '2020',
+        label: 'Bonsai & Vital Bio',
+        role: 'Fractional Head of Finance',
+        text: 'Early-stage startups',
+      },
+      { id: '2019', label: 'Looka', role: 'Head of Finance', text: 'First finance hire' },
+      { id: '2017', label: 'FreshBooks', role: 'FP&A Manager', text: 'Small-business accounting SaaS' },
     ],
   },
   {
@@ -119,42 +131,47 @@ const stages = [
     step: '04',
     title: (
       <>
-        Builder, Challenger, Operator. One <em>Thread</em>.
+        The Right Seat at the Right <em>Stage</em>.
       </>
     ),
     summary:
-      'I am looking for an in-house role where practical systems, direct judgment, economic clarity, and high agency can compound.',
-    cta: { label: 'Start a conversation', href: mailtoUrl },
-    showContact: true,
+      "I'm open to senior finance roles at growing companies that need both a strategic partner and a hands-on builder.",
+    cta: { label: "Let's talk", href: mailtoUrl },
+    showResume: true,
+    showLinkedIn: true,
     points: [
       {
         id: '01',
-        label: 'Strategic finance',
-        text: 'Fluent in the economics, incentives, and tradeoffs that determine whether work matters.',
+        label: 'Head or Director of FP&A',
+        text: 'Growth companies of up to about 500 people building a planning function the CFO can trust.',
       },
       {
         id: '02',
-        label: 'Applied AI',
-        text: 'Grounded in useful implementation: secure workflows, data-connected LLMs, and human-in-the-loop systems.',
+        label: 'Head of Finance',
+        text: 'Startups of up to about 100 people that need one leader across accounting, cash, and planning.',
       },
       {
         id: '03',
-        label: 'Decision quality',
-        text: 'Comfortable challenging assumptions and redesigning operating patterns around real outcomes.',
+        label: 'How I work',
+        text: "Hands-on, direct, and data-first. I'd rather fix the mechanism than explain the variance.",
       },
       {
         id: '04',
-        label: 'Modern operator',
-        text: 'Able to move between strategy, infrastructure, analytics, automation, and executive communication.',
+        label: 'Based in',
+        text: 'Kitchener–Toronto, Ontario, Canada.',
       },
     ],
   },
 ];
 
 const metrics = [
-  { value: '10+', label: 'Years', text: 'Strategic finance and business intelligence' },
-  { value: '0–1', label: 'Finance functions', text: 'Built startup finance foundations, models, reporting, and controls' },
-  { value: '$100M+', label: 'Spend visibility', text: 'Built budgets, reporting, and tools that help businesses excel' },
+  { value: '10+', label: 'Years', text: 'FP&A, strategic finance, and startup finance' },
+  { value: 'CPA', label: 'Since 2019', text: 'Chartered Professional Accountant, CPA Ontario' },
+  {
+    value: '3',
+    label: 'Functions built',
+    text: 'Startup finance set up from zero, as first hire or fractional lead',
+  },
 ];
 
 const portraitSizes = '(max-width: 1080px) 88vw, 26rem';
@@ -237,8 +254,7 @@ const ContactLinks = ({ className, size = 18 }) => (
     <a
       className={className}
       href={linkedinUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...newTabProps}
       aria-label="LinkedIn profile (opens in a new tab)"
     >
       <Linkedin size={size} strokeWidth={1.7} aria-hidden="true" />
@@ -253,16 +269,24 @@ const StageAction = ({ cta }) => {
   const Icon = cta.href.startsWith('#') ? ArrowDown : ArrowUpRight;
 
   return (
-    <a className="button-primary" href={cta.href}>
+    <a className="button-primary" href={cta.href} {...(cta.external ? newTabProps : {})}>
       <span>{cta.label}</span>
       <Icon size={18} strokeWidth={1.6} aria-hidden="true" />
     </a>
   );
 };
 
+const ResumeButton = () => (
+  <a className="button-secondary" href={resumeUrl} {...newTabProps}>
+    <span>Resume</span>
+    <FileText size={17} strokeWidth={1.6} aria-hidden="true" />
+  </a>
+);
+
 const Stage = ({ stage, index, inView, isCompact }) => {
   const Heading = index === 0 ? 'h1' : 'h2';
   const titleId = `${stage.id}-title`;
+  const isTimeline = stage.variant === 'timeline';
   const listRef = useRef(null);
   const [activePoint, setActivePoint] = useState(0);
 
@@ -310,18 +334,27 @@ const Stage = ({ stage, index, inView, isCompact }) => {
 
         <ol
           ref={listRef}
-          className="proof-list"
+          className={`proof-list${isTimeline ? ' is-timeline' : ''}`}
           onScroll={isCompact ? handlePointsScroll : undefined}
           tabIndex={isCompact ? 0 : undefined}
           aria-label={isCompact ? `${stage.navLabel} points` : undefined}
         >
           {stage.points.map((point, pointIndex) => (
-            <li className="proof-row reveal" style={{ '--i': 3 + pointIndex }} key={point.id}>
-              <span className="proof-id" aria-hidden="true">
+            // eslint-disable-next-line react/no-array-index-key
+            <li className="proof-row reveal" style={{ '--i': 3 + pointIndex }} key={pointIndex}>
+              {/* Step numbers are decoration; timeline years are content. */}
+              <span className="proof-id" aria-hidden={isTimeline ? undefined : 'true'}>
                 {point.id}
               </span>
               <h3>{point.label}</h3>
-              <p>{point.text}</p>
+              <p>
+                {point.role && (
+                  <>
+                    <span className="proof-role">{point.role}</span>{' '}
+                  </>
+                )}
+                {point.text}
+              </p>
             </li>
           ))}
         </ol>
@@ -329,7 +362,8 @@ const Stage = ({ stage, index, inView, isCompact }) => {
         <div className="proof-dots" aria-hidden="true">
           {stage.points.map((point, pointIndex) => (
             <button
-              key={point.id}
+              // eslint-disable-next-line react/no-array-index-key
+              key={pointIndex}
               type="button"
               tabIndex={-1}
               className={`proof-dot${pointIndex === activePoint ? ' is-active' : ''}`}
@@ -340,7 +374,17 @@ const Stage = ({ stage, index, inView, isCompact }) => {
 
         <div className="stage-actions reveal" style={{ '--i': 3 + stage.points.length }}>
           <StageAction cta={stage.cta} />
-          {stage.showContact && <ContactLinks className="button-icon" />}
+          {stage.showResume && <ResumeButton />}
+          {stage.showLinkedIn && (
+            <a
+              className="button-icon"
+              href={linkedinUrl}
+              {...newTabProps}
+              aria-label="LinkedIn profile (opens in a new tab)"
+            >
+              <Linkedin size={18} strokeWidth={1.7} aria-hidden="true" />
+            </a>
+          )}
         </div>
       </div>
     </section>
@@ -376,8 +420,8 @@ const Profile = ({ inView }) => (
           </picture>
         </div>
         <figcaption className="portrait-caption">
-          <strong>Matt Chrzaszcz</strong>
-          <span>Strategic Finance, Analytics and Applied AI Operator</span>
+          <strong>Matt Chrzaszcz, CPA</strong>
+          <span>Strategic finance and FP&amp;A leader based in Kitchener–Toronto</span>
         </figcaption>
       </figure>
 
@@ -482,7 +526,10 @@ const Website = () => {
   }, []);
 
   return (
-    <div className={`site-shell${motionOk ? ' motion-ok' : ''}`} style={{ '--stage': activeIndex }}>
+    <div
+      className={`site-shell${motionOk ? ' motion-ok' : ''}`}
+      style={{ '--stage': activeIndex, '--stage-count': stages.length }}
+    >
       <a className="skip-link" href="#content">
         Skip to content
       </a>
@@ -521,7 +568,7 @@ const Website = () => {
           <a className="brand" href="#intro">
             <img className="brand-mark" src={asset('mc-monogram.png')} alt="" width="320" height="320" />
             <span className="brand-name">Matt Chrzaszcz</span>
-            <span className="brand-tagline">Strategic Finance. Analytics. Applied AI.</span>
+            <span className="brand-tagline">Strategic Finance. FP&amp;A. CPA.</span>
           </a>
           <div className="header-contact">
             <ContactLinks className="header-icon" size={18} />
@@ -542,8 +589,11 @@ const Website = () => {
           <p>© {new Date().getFullYear()} Matt Chrzaszcz</p>
           <nav className="footer-links" aria-label="Contact">
             <a href={mailtoUrl}>{contactEmail}</a>
-            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+            <a href={linkedinUrl} {...newTabProps}>
               LinkedIn
+            </a>
+            <a href={resumeUrl} {...newTabProps}>
+              Resume (PDF)
             </a>
           </nav>
         </footer>
